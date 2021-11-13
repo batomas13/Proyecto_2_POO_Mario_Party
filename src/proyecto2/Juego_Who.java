@@ -5,7 +5,6 @@
 package proyecto2;
 
 import java.awt.FlowLayout;
-import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
@@ -27,8 +26,7 @@ public class Juego_Who extends javax.swing.JFrame {
     File[]  allFiles = Path.listFiles();
     Image[] Personaje = new Image[16];
     public static final int BUTTON_SIZE = 50;
-    public static final int BOARD_SIZE = 118;
-    private JButton buttonArray[] = new JButton[BOARD_SIZE];
+    private JButton buttonArray[][] = new JButton[10][10];
     /**
      * Creates new form Juego_Who
      * @throws java.io.IOException
@@ -358,44 +356,16 @@ public class Juego_Who extends javax.swing.JFrame {
      */
      
     public void initBoard(){
-        for (int i = 0; i < buttonArray.length; i++) {
-            buttonArray[i] = new JButton();
-            jPanel1.add(buttonArray[i]);
-            //jLabel1.add(buttonArray[i]);
-            if (i <= 9){
-                buttonArray[i].setBounds(i * BUTTON_SIZE, 0, BUTTON_SIZE, BUTTON_SIZE);
-            }
-            else if (i >= 10 && i <= 20){
-                buttonArray[i].setBounds((i - 11) * BUTTON_SIZE, 50, BUTTON_SIZE, BUTTON_SIZE);
-            }
-            else if (i >= 21 && i <= 31){
-                buttonArray[i].setBounds((i - 22) * BUTTON_SIZE, 100, BUTTON_SIZE, BUTTON_SIZE);
-            }
-            else if (i >= 32 && i <= 42){
-                buttonArray[i].setBounds((i - 33) * BUTTON_SIZE, 150, BUTTON_SIZE, BUTTON_SIZE);
-            }
-            else if (i >= 43 && i <= 54){
-                buttonArray[i].setBounds((i - 45) * BUTTON_SIZE, 200, BUTTON_SIZE, BUTTON_SIZE);
-            }
-            else if (i >= 55 && i <= 66){
-                buttonArray[i].setBounds((i - 57) * BUTTON_SIZE, 250, BUTTON_SIZE, BUTTON_SIZE);
-            }
-            else if (i >= 67 && i <= 78){
-                buttonArray[i].setBounds((i - 69) * BUTTON_SIZE, 300, BUTTON_SIZE, BUTTON_SIZE);
-            }
-            else if (i >= 79 && i <= 90){
-                buttonArray[i].setBounds((i - 81) * BUTTON_SIZE, 350, BUTTON_SIZE, BUTTON_SIZE);
-            }
-            else if (i >= 91 && i <= 102){
-                buttonArray[i].setBounds((i - 93) * BUTTON_SIZE, 400, BUTTON_SIZE, BUTTON_SIZE);
-            }
-            else if (i >= 103 && i <= 115){
-                buttonArray[i].setBounds((i - 106) * BUTTON_SIZE, 450, BUTTON_SIZE, BUTTON_SIZE);
+        for (int i = 0; i < 10; i++) {
+            for (int j = 0; j < 10; j++){
+                buttonArray[i][j] = new JButton();
+                jPanel1.add(buttonArray[i][j]);
+                buttonArray[i][j].setBounds(j * BUTTON_SIZE, i * BUTTON_SIZE, BUTTON_SIZE, BUTTON_SIZE );
             }
         }
-        int amount_of_cell = new Random().nextInt(4) + 4;
+        int amount_of_cell = new Random().nextInt(8) + 4;
         for (int i = 0; i < amount_of_cell; i++){
-            buttonArray[new Random().nextInt(118)].setVisible(false);
+            buttonArray[new Random().nextInt(10)][new Random().nextInt(10)].setVisible(false);
             System.out.println(i);
         }
     }

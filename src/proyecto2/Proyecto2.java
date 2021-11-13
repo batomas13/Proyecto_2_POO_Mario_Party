@@ -18,7 +18,8 @@ public class Proyecto2 {
     public static void main(String[] args) throws IOException {
         // TODO code application logic here
         //Tablero juego = new Tablero();
-        Juego_Who Juego = new Juego_Who();
+        //Juego_Who Juego = new Juego_Who();
+        Memory_path Juego = new Memory_path();
         Juego.setVisible(true);
     }
     
