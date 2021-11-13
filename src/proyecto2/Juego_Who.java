@@ -4,6 +4,7 @@
  */
 package proyecto2;
 
+import java.awt.FlowLayout;
 import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
@@ -63,6 +64,7 @@ public class Juego_Who extends javax.swing.JFrame {
         System.out.println(win);
         ImageIcon icon = new ImageIcon(Personaje[caracter]);
         jLabel1.setIcon(icon);
+        jLabel1.setLayout( new FlowLayout() );
         initBoard();
     }
 
@@ -97,23 +99,17 @@ public class Juego_Who extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(102, 255, 102));
 
-        jLabel1.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(195, 195, 195)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(222, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 496, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(181, 181, 181)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 92, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(226, Short.MAX_VALUE))
+            .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, 499, Short.MAX_VALUE)
         );
 
         jLabel1.getAccessibleContext().setAccessibleDescription("");
@@ -365,6 +361,7 @@ public class Juego_Who extends javax.swing.JFrame {
         for (int i = 0; i < buttonArray.length; i++) {
             buttonArray[i] = new JButton();
             jPanel1.add(buttonArray[i]);
+            //jLabel1.add(buttonArray[i]);
             if (i <= 9){
                 buttonArray[i].setBounds(i * BUTTON_SIZE, 0, BUTTON_SIZE, BUTTON_SIZE);
             }
@@ -395,6 +392,11 @@ public class Juego_Who extends javax.swing.JFrame {
             else if (i >= 103 && i <= 115){
                 buttonArray[i].setBounds((i - 106) * BUTTON_SIZE, 450, BUTTON_SIZE, BUTTON_SIZE);
             }
+        }
+        int amount_of_cell = new Random().nextInt(4) + 4;
+        for (int i = 0; i < amount_of_cell; i++){
+            buttonArray[new Random().nextInt(118)].setVisible(false);
+            System.out.println(i);
         }
     }
 
