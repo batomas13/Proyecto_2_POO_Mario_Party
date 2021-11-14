@@ -19,7 +19,8 @@ public class Proyecto2 {
         // TODO code application logic here
         //Tablero juego = new Tablero();
         //Juego_Who Juego = new Juego_Who();
-        Memory_path Juego = new Memory_path();
+        //Juego_Memory Juego = new Juego_Memory();
+        Juego_gato Juego = new Juego_gato();
         Juego.setVisible(true);
     }
     

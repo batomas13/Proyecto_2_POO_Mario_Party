@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  *
  * @author tcoto
  */
-public class Memory_path extends javax.swing.JFrame {
+public class Juego_Memory extends javax.swing.JFrame {
     private JButton buttonArray[][] = new JButton[6][3];
     private boolean camino[][] = new boolean[6][3];
     private int count = 0;
@@ -22,7 +22,7 @@ public class Memory_path extends javax.swing.JFrame {
     /**
      * Creates new form Memory_path
      */
-    public Memory_path() {
+    public Juego_Memory() {
         initComponents();
         initBoard();
         for (int i = 0; i < 6; i++){
@@ -42,8 +42,6 @@ public class Memory_path extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        jPanel1.setBackground(new java.awt.Color(153, 255, 0));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
