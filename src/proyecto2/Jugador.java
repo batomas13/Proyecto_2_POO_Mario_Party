@@ -5,6 +5,10 @@
  */
 package proyecto2;
 
+import java.io.IOException;
+import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 
 /**
@@ -16,6 +20,9 @@ public class Jugador {
     private int index;
     private JButton refButton;
     private int casillaActual = 1;
+    private boolean activoTubo = false;
+    private Socket socket;
+    private final int puerto = 2555;
 
     public Jugador(String nombre, int index, JButton refButton) {
         this.nombre = nombre;
@@ -55,10 +62,24 @@ public class Jugador {
         this.casillaActual = casillaActual;
     }
     
-    public void avanzarCasillaActual(int avance) {
-        this.casillaActual += avance;
+    public void setActivoTubo(boolean tubo) {
+        this.activoTubo = tubo;
     }
     
+    public boolean getActivoTubo() {
+        return this.activoTubo;
+    }
+    
+    public void avanzarCasillaActual(int avance) {
+        this.casillaActual += avance;
+        
+        // para devolverse si no llegó al final exacto
+        if (casillaActual > 27) {
+            casillaActual = 28 - (casillaActual - 28);
+            // esto hace que se devuelva las X casillas restantes del tiro de dado
+        }
+        
+    }
     
     
 }

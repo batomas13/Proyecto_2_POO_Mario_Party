@@ -7,19 +7,32 @@ package proyecto2;
 
 import java.awt.Color;
 import java.awt.Point;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author diemo
  */
 public class Tablero extends javax.swing.JFrame {
-    public static final int BUTTON_SIZE = 120;
-    public static final int BOARD_SIZE = 26;
+    public static final int BUTTON_SIZE = 110;
+    public static final int BOARD_SIZE = 28;
     private JButton buttonArray[] = new JButton[BOARD_SIZE];
-    
+    private String[] listaCasillas = {
+        "Carcel", "Tubo1", "Tubo2",
+        "Tubo3", "Estrella", "FlorFuego", "FlorHielo",
+        "Cola", "Gato", "Gato", "Sopa", "Sopa",
+        "Path", "Path", "Memory", "Memory", "Catch",
+        "Catch", "Bomber", "Bomber", "Guess", "Guess",
+        "Coins", "Coins", "Cards", "Cards"
+    };
+    private List<String> arrayCasillas;
     
     private int turno = 1;
     private Color colorArray[] = {Color.red, Color.yellow, Color.BLUE, Color.GREEN, Color.pink, Color.white}; 
@@ -32,6 +45,7 @@ public class Tablero extends javax.swing.JFrame {
         initComponents();
         initPlayers();
         initBoard();
+        initRandomTiles();
     }
     
     
@@ -49,24 +63,29 @@ public class Tablero extends javax.swing.JFrame {
         
     }
     
+    public void initRandomTiles() {
+        arrayCasillas = new ArrayList<String>(Arrays.asList(listaCasillas));
+        Collections.shuffle(arrayCasillas);
+        arrayCasillas.add(0, "Inicio");
+        arrayCasillas.add("Fin");
+        System.out.println("Lista randomizada: " + arrayCasillas);
+        System.out.println("Tamaño: " + arrayCasillas.size());
+    }
+    
     public void initBoard(){
         for (int i = 0; i < buttonArray.length; i++) {
             buttonArray[i] = new JButton((i+1)+"");
             jPanel1.add(buttonArray[i]);
             
-            if (i <= 7)
+            if (i <= 8)
                 buttonArray[i].setBounds(i*BUTTON_SIZE, 0, BUTTON_SIZE, BUTTON_SIZE);
-            else if (i >=8 && i <= 12)
-                buttonArray[i].setBounds(840, (i-4) * BUTTON_SIZE, BUTTON_SIZE, BUTTON_SIZE);
-            else if (i >=13 && i <= 20)
-                buttonArray[i].setBounds(840-(i-13)* BUTTON_SIZE, 720 , BUTTON_SIZE, BUTTON_SIZE);
+            else if (i >=9 && i <= 14)
+                buttonArray[i].setBounds(880, (i-8) * BUTTON_SIZE, BUTTON_SIZE, BUTTON_SIZE);
+            else if (i >=14 && i <= 21)
+                buttonArray[i].setBounds(880-(i-14)* BUTTON_SIZE, 660 , BUTTON_SIZE, BUTTON_SIZE);
             else
-                buttonArray[i].setBounds(0, 600-(i-21)* BUTTON_SIZE, BUTTON_SIZE, BUTTON_SIZE);
+                buttonArray[i].setBounds(0, 660-(i-22)* BUTTON_SIZE, BUTTON_SIZE, BUTTON_SIZE);
         }
-        
-        
-        
-        
     }
 
     /**
@@ -91,11 +110,11 @@ public class Tablero extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 1083, Short.MAX_VALUE)
+            .addGap(0, 1121, Short.MAX_VALUE)
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 945, Short.MAX_VALUE)
+            .addGap(0, 998, Short.MAX_VALUE)
         );
 
         btnDados.setText("Lanzar dados");
@@ -128,7 +147,7 @@ public class Tablero extends javax.swing.JFrame {
                                 .addComponent(txfDados, javax.swing.GroupLayout.PREFERRED_SIZE, 225, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap())))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(51, 51, 51)
+                        .addGap(13, 13, 13)
                         .addComponent(lblTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(0, 30, Short.MAX_VALUE))))
         );
@@ -137,16 +156,16 @@ public class Tablero extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
                         .addGap(91, 91, 91)
                         .addComponent(btnDados)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(txfDados, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(79, 79, 79)
-                        .addComponent(lblTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(77, Short.MAX_VALUE))
+                        .addComponent(lblTurno, javax.swing.GroupLayout.PREFERRED_SIZE, 103, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(24, Short.MAX_VALUE))
         );
 
         pack();
@@ -170,6 +189,17 @@ public class Tablero extends javax.swing.JFrame {
         Point ptoCasilla = buttonArray[jugadorActual.getCasillaActual()-1].getLocation();
 
         botonFicha.setLocation(ptoCasilla.x, ptoCasilla.y + jugadorActual.getIndex() * 20);
+        
+        //activa la casilla en que cae el jugador
+        activaCasilla(jugadorActual);
+        
+        // verifica si alguien llegó al final
+        if (jugadorActual.getCasillaActual() == 28) {
+            System.out.println("GANO");
+            JOptionPane.showMessageDialog(null, "Ganó el jugador " + turno, "Ganador", 1);
+            this.dispose();
+        }
+        
     }
     
     private void setNextTurno(){
@@ -188,6 +218,124 @@ public class Tablero extends javax.swing.JFrame {
     private void pintarTurno(){
         setNextTurno();
         lblTurno.setText("Turno " + this.turno);
+    }
+    
+    private void activaCasilla(Jugador jugadorActivador) {
+        System.out.println("Jugador: " + turno + ", casilla: " + jugadorActivador.getCasillaActual());
+        System.out.println("Casilla: " + arrayCasillas.get(jugadorActivador.getCasillaActual() - 1));
+        
+        String tipoCasilla = arrayCasillas.get(jugadorActivador.getCasillaActual() - 1);
+        
+        int nuevoAvance;
+        switch (tipoCasilla) {
+            case "Gato":
+                // aqui seleccionar un contrincante aleatorio
+                System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
+                break;
+            case "Tubo1":
+                System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
+                if(!jugadorActivador.getActivoTubo()) {
+                    System.out.println("Jugador no ha activado un tubo anteriormente");
+                    jugadorActivador.setActivoTubo(true);
+                    int posTubo2 = arrayCasillas.indexOf("Tubo2") + 1;
+                    nuevoAvance = posTubo2 - jugadorActivador.getCasillaActual();
+                    moverFicha(nuevoAvance);
+                } else {
+                    jugadorActivador.setActivoTubo(false);
+                    System.out.println("Jugador ya ha activado un tubo anteriormente");
+                }
+                break;
+            case "Tubo2":
+                System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
+                if(!jugadorActivador.getActivoTubo()) {
+                    System.out.println("Jugador no ha activado un tubo anteriormente");
+                    jugadorActivador.setActivoTubo(true);
+                    int posTubo3 = arrayCasillas.indexOf("Tubo3") + 1;
+                    nuevoAvance = posTubo3 - jugadorActivador.getCasillaActual();
+                    moverFicha(nuevoAvance);
+                } else {
+                    jugadorActivador.setActivoTubo(false);
+                    System.out.println("Jugador ya ha activado un tubo anteriormente");
+                }
+                break;
+            case "Tubo3":
+                System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
+                if(!jugadorActivador.getActivoTubo()) {
+                    System.out.println("Jugador no ha activado un tubo anteriormente");
+                    jugadorActivador.setActivoTubo(true);
+                    int posTubo1 = arrayCasillas.indexOf("Tubo1") + 1;
+                    nuevoAvance = posTubo1 - jugadorActivador.getCasillaActual();
+                    moverFicha(nuevoAvance);
+                } else {
+                    jugadorActivador.setActivoTubo(false);
+                    System.out.println("Jugador ya ha activado un tubo anteriormente");
+                }
+                break;
+            case "Estrella":
+                // volver a lanzar dados
+                System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
+                break;
+            case "FlorFuego":
+                // lanzar a un jugador a la casilla 1
+                System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
+                break;
+            case "FlorHielo":
+                // Hace que un jugador pierda 2 turnos
+                System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
+                break;
+            case "Cola":
+                // Jugador escoge en rando +-3 de casillas para moverse
+                System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
+                nuevoAvance = -3 + (int)(Math.random() * ((3 - -3) + 1));
+                System.out.println("Cola: Salto random de: " + nuevoAvance);
+                moverFicha(nuevoAvance);
+                break;
+            case "Sopa":
+                // juego de sopa de letras
+                System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
+                break;
+            case "Path":
+                // juego de memory path
+                System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
+                Juego_Memory nuevoJuegoPath = new Juego_Memory();
+                nuevoJuegoPath.setVisible(true);
+                break;
+            case "Memory":
+                // juego de card memory
+                System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
+                break;
+            case "Catch":
+                // juego de catch the cat
+                System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
+                break;
+            case "Bomber":
+                // juego de bombermario
+                System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
+                break;
+            case "Guess":
+                // juego de guess who
+                System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
+                try {
+                    Juego_Who nuevoJuegoGuess = new Juego_Who();
+                    nuevoJuegoGuess.setVisible(true);
+                } catch (IOException e) {
+                    System.out.println("Algo paso mal con el juego de guess who");
+                }
+                break;
+            case "Coins":
+                // juego de collect the coins
+                System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
+                break;
+            case "Cards":
+                // juego de mario cards, TODOS los jugadores participan
+                System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
+                break;
+            default:
+                // caso default, no debería caer aquí excepto por final que no hace nada más que ganar el juego
+                System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
+                break;
+        }
+        
     }
     
     
