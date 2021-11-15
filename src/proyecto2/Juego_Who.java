@@ -4,7 +4,9 @@
  */
 package proyecto2;
 
+import java.awt.CardLayout;
 import java.awt.FlowLayout;
+import java.awt.Graphics;
 import java.awt.Image;
 import java.io.File;
 import java.io.IOException;
@@ -13,6 +15,7 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.OverlayLayout;
 
 /**
  *
@@ -59,11 +62,14 @@ public class Juego_Who extends javax.swing.JFrame {
             
         }
         initComponents();
+        initBoard();
+        jLabel1.setVisible(false);
         System.out.println(win);
         ImageIcon icon = new ImageIcon(Personaje[caracter]);
         jLabel1.setIcon(icon);
         jLabel1.setLayout( new FlowLayout() );
-        initBoard();
+        jLabel1.setVisible(true);
+        jPanel1.setComponentZOrder(jLabel1, 100);
     }
 
     /**
@@ -197,6 +203,11 @@ public class Juego_Who extends javax.swing.JFrame {
         });
 
         jButton13.setText("Luigi");
+        jButton13.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton13ActionPerformed(evt);
+            }
+        });
 
         jButton14.setText("Bowser");
 
@@ -208,7 +219,7 @@ public class Juego_Who extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 35, Short.MAX_VALUE))
+                .addGap(0, 9, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(101, 101, 101)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -351,6 +362,12 @@ public class Juego_Who extends javax.swing.JFrame {
         ganador();
         
     }//GEN-LAST:event_jButton12ActionPerformed
+
+    private void jButton13ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton13ActionPerformed
+        // TODO add your handling code here:
+        User_desition = "Luigi";
+        ganador();
+    }//GEN-LAST:event_jButton13ActionPerformed
 
     /**
      */
