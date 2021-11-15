@@ -210,6 +210,11 @@ public class Juego_Who extends javax.swing.JFrame {
         });
 
         jButton14.setText("Bowser");
+        jButton14.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton14ActionPerformed(evt);
+            }
+        });
 
         jButton15.setText("Koopa");
 
@@ -368,6 +373,12 @@ public class Juego_Who extends javax.swing.JFrame {
         User_desition = "Luigi";
         ganador();
     }//GEN-LAST:event_jButton13ActionPerformed
+
+    private void jButton14ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton14ActionPerformed
+        // TODO add your handling code here:
+        User_desition = "Bowser";
+        ganador();
+    }//GEN-LAST:event_jButton14ActionPerformed
 
     /**
      */
