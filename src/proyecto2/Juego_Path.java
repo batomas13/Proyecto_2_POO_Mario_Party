@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  *
  * @author tcoto
  */
-public class Juego_Memory extends javax.swing.JFrame {
+public class Juego_Path extends javax.swing.JFrame {
     private JButton buttonArray[][] = new JButton[6][3];
     private boolean camino[][] = new boolean[6][3];
     private int count = 0;
@@ -22,7 +22,7 @@ public class Juego_Memory extends javax.swing.JFrame {
     /**
      * Creates new form Memory_path
      */
-    public Juego_Memory() {
+    public Juego_Path() {
         initComponents();
         initBoard();
         for (int i = 0; i < 6; i++){

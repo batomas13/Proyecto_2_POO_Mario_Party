@@ -297,7 +297,7 @@ public class Tablero extends javax.swing.JFrame {
             case "Path":
                 // juego de memory path
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
-                Juego_Memory nuevoJuegoPath = new Juego_Memory();
+                Juego_Path nuevoJuegoPath = new Juego_Path();
                 nuevoJuegoPath.setVisible(true);
                 break;
             case "Memory":
