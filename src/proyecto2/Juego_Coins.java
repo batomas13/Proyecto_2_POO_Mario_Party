@@ -9,6 +9,8 @@ import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.Timer;
 
 /**
  *
@@ -24,7 +26,9 @@ public class Juego_Coins extends javax.swing.JFrame {
     */
     public static final int BUTTON_SIZE = 32;
     private JButton buttonArray[][] = new JButton[25][25];
+    public int tiempoRestante = 10;
     public int puntaje = 0;
+    public Timer conteo;
     
     
     /**
@@ -33,6 +37,9 @@ public class Juego_Coins extends javax.swing.JFrame {
     public Juego_Coins() {
         initComponents();
         generateBoard();
+        conteo = new Timer(1000, listenerTimer);
+        conteo.setInitialDelay(1);
+        conteo.start();
     }
 
     /**
@@ -49,6 +56,8 @@ public class Juego_Coins extends javax.swing.JFrame {
         scoreField = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         changesArea = new javax.swing.JTextArea();
+        jLabel2 = new javax.swing.JLabel();
+        timeField = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,6 +88,15 @@ public class Juego_Coins extends javax.swing.JFrame {
         changesArea.setRows(5);
         jScrollPane1.setViewportView(changesArea);
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel2.setText("TIEMPO");
+
+        timeField.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        timeField.setHorizontalAlignment(javax.swing.JTextField.RIGHT);
+        timeField.setText("0");
+        timeField.setToolTipText("");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -90,7 +108,9 @@ public class Juego_Coins extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(scoreField, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel1))
+                    .addComponent(jLabel1)
+                    .addComponent(timeField, javax.swing.GroupLayout.PREFERRED_SIZE, 144, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addContainerGap(42, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -101,11 +121,15 @@ public class Juego_Coins extends javax.swing.JFrame {
                         .addContainerGap()
                         .addComponent(panelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(40, 40, 40)
+                        .addGap(41, 41, 41)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(timeField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
                         .addComponent(scoreField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addGap(30, 30, 30)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 300, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(10, Short.MAX_VALUE))
         );
@@ -160,7 +184,7 @@ public class Juego_Coins extends javax.swing.JFrame {
                 panelPrincipal.add(buttonArray[i][j]);
                 buttonArray[i][j].setBounds(j * BUTTON_SIZE, i * BUTTON_SIZE, BUTTON_SIZE, BUTTON_SIZE);
                 buttonArray[i][j].setBackground(new Color(230 + i, 220 + j, 25 + (j - i)));
-                buttonArray[i][j].addActionListener(listener);
+                buttonArray[i][j].addActionListener(listenerBoton);
                 
                 //System.out.print(tablero[i][j] + " ");
             }
@@ -181,7 +205,7 @@ public class Juego_Coins extends javax.swing.JFrame {
         }
     }
     
-    ActionListener listener = new ActionListener() {
+    ActionListener listenerBoton = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             int x, y;
@@ -196,12 +220,32 @@ public class Juego_Coins extends javax.swing.JFrame {
             }
         }
     };
+    
+    ActionListener listenerTimer = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            timeField.setText(tiempoRestante-- + "");
+            if (tiempoRestante <= 0) {
+                if (puntaje < 0) {
+                    JOptionPane.showMessageDialog(null, "Perdió el juego con " + puntaje + " puntos", "Perdedor", 0);
+                    ((Timer) e.getSource()).stop();
+                    dispose();
+                } else {
+                    JOptionPane.showMessageDialog(null, "Ganó el jeugo con " + puntaje + " puntos", "Ganador", 1);
+                    ((Timer) e.getSource()).stop();
+                    dispose();
+                }
+            }
+        }
+    };
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea changesArea;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JPanel panelPrincipal;
     private javax.swing.JTextField scoreField;
+    private javax.swing.JTextField timeField;
     // End of variables declaration//GEN-END:variables
 }
