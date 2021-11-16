@@ -4,6 +4,7 @@
  */
 package proyecto2;
 
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Random;
@@ -22,6 +23,7 @@ public class Juego_bombermario extends javax.swing.JFrame {
     private int[][] Tesoro;
     private JButton[][] ArrayButton;
     private String Boomba;
+    private String Direccion;
     /**
      * Creates new form Juego_boomberman
      */
@@ -149,7 +151,7 @@ public class Juego_bombermario extends javax.swing.JFrame {
     
     private void initTablero(){
         int punto_ganador;
-        tablero = 1;
+        
         switch (tablero){
             case 0:
                 ArrayButton = new JButton[10][10];
@@ -176,6 +178,12 @@ public class Juego_bombermario extends javax.swing.JFrame {
                     Tesoro[punto_ganador - 1][punto_ganador] = 1;
                     Tesoro[punto_ganador][punto_ganador - 1] = 1;
                     Tesoro[punto_ganador - 1][punto_ganador - 1] = 1;
+                }
+                for (int i = 0; i < 10; i++){
+                    for (int j = 0; j < 10; j++){
+                        System.out.println(Tesoro[i][j] + " " + i + " " + j);
+                    }
+                    System.out.println("--------------");
                 }
                 break;
             case 1:
@@ -204,6 +212,12 @@ public class Juego_bombermario extends javax.swing.JFrame {
                     Tesoro[punto_ganador][punto_ganador - 1] = 1;
                     Tesoro[punto_ganador - 1][punto_ganador - 1] = 1;
                 }
+                for (int i = 0; i < 10; i++){
+                    for (int j = 0; j < 10; j++){
+                        System.out.println(Tesoro[i][j]);
+                    }
+                    System.out.println("--------------");
+                }
                 break;
             case 2:
                 ArrayButton = new JButton[20][20];
@@ -231,6 +245,13 @@ public class Juego_bombermario extends javax.swing.JFrame {
                     Tesoro[punto_ganador][punto_ganador - 1] = 1;
                     Tesoro[punto_ganador - 1][punto_ganador - 1] = 1;
                 }
+                for (int i = 0; i < 10; i++){
+                    for (int j = 0; j < 10; j++){
+                        System.out.println(Tesoro[i][j]);
+                    }
+                    System.out.println("--------------");
+                }
+                break;
             default:
                 break;
         }
@@ -247,40 +268,160 @@ public class Juego_bombermario extends javax.swing.JFrame {
         System.out.println(Boomba);
         switch (Boomba){
             case "Cruz":
-                jPanel1.remove(ArrayButton[y][x+1]);
-                jPanel1.remove(ArrayButton[y][x]);
-                jPanel1.remove(ArrayButton[y][x-1]);
-                jPanel1.remove(ArrayButton[y+1][x]);
-                jPanel1.remove(ArrayButton[y-1][x]);
+                if (can_cut(x+1, y) == true){
+                    if (Tesoro[y][x+1] != 1){
+                        jPanel1.remove(ArrayButton[y][x+1]);
+                    }
+                    else{
+                        ArrayButton[y][x+1].setBackground(Color.red);
+                        Count_ganador++;
+                        if (Count_ganador == 4){
+                            JOptionPane.showMessageDialog(this,"Gano", "Gano", JOptionPane.INFORMATION_MESSAGE);
+                            super.dispose();
+                        }
+                    }
+                }
+                if (Tesoro[y][x] != 1){
+                    jPanel1.remove(ArrayButton[y][x]);
+                }
+                else{
+                    ArrayButton[y][x].setBackground(Color.red);
+                    Count_ganador++;
+                    if (Count_ganador == 4){
+                        JOptionPane.showMessageDialog(this,"Gano", "Gano", JOptionPane.INFORMATION_MESSAGE);
+                        super.dispose();
+                    }
+                }
+                if (can_cut_negative_x(x-1) == true){
+                    if (Tesoro[y][x-1] != 1){
+                        System.out.println(x-1 + " " + "ES LA X");
+                        jPanel1.remove(ArrayButton[y][x-1]);
+                    }
+                    else{
+                        ArrayButton[y][x-1].setBackground(Color.red);
+                        Count_ganador++;
+                        if (Count_ganador == 4){
+                            JOptionPane.showMessageDialog(this,"Gano", "Gano", JOptionPane.INFORMATION_MESSAGE);
+                            super.dispose();
+                        }
+                    }
+                }
+                if (can_cut(x, y+1) == true){
+                    if (Tesoro[y+1][x] != 1){
+                        jPanel1.remove(ArrayButton[y+1][x]);
+                    }
+                    else{
+                        ArrayButton[y+1][x].setBackground(Color.red);
+                        Count_ganador++;
+                        if (Count_ganador == 4){
+                            JOptionPane.showMessageDialog(this,"Gano", "Gano", JOptionPane.INFORMATION_MESSAGE);
+                            super.dispose();
+                        }
+                    }
+                }
+                if (can_cut_negative_y(y-1) == true){
+                    if (Tesoro[y-1][x] != 1){
+                        jPanel1.remove(ArrayButton[y-1][x]);
+                    }
+                    else{
+                        ArrayButton[y-1][x].setBackground(Color.red);
+                        Count_ganador++;
+                        if (Count_ganador == 4){
+                            JOptionPane.showMessageDialog(this,"Gano", "Gano", JOptionPane.INFORMATION_MESSAGE);
+                            super.dispose();
+                        }
+                    }
+                }
+                else{
+                    if (Tesoro[y][x-1] != 1){
+                        jPanel1.remove(ArrayButton[y][x-1]);
+                    }
+                    else{
+                        ArrayButton[y][x-1].setBackground(Color.red);
+                        Count_ganador++;
+                        if (Count_ganador == 4){
+                            JOptionPane.showMessageDialog(this,"Gano", "Gano", JOptionPane.INFORMATION_MESSAGE);
+                            super.dispose();
+                        }
+                    }
+                }
                 break;
             case "Simples":
-                jPanel1.remove(ArrayButton[y][x]);
+                if (Tesoro[y][x] != 1){
+                    jPanel1.remove(ArrayButton[y][x]);
+                }
+                else{
+                    ArrayButton[y][x].setBackground(Color.red);
+                    Count_ganador++;
+                    if (Count_ganador == 4){
+                        JOptionPane.showMessageDialog(this,"Gano", "Gano", JOptionPane.INFORMATION_MESSAGE);
+                        super.dispose();
+                    }
+                }
+                
                 break;
             case "Dobles":
-                jPanel1.remove(ArrayButton[y][x]);
-                if (celdas == 1){
+                if (Tesoro[y][x] != 1){
+                    jPanel1.remove(ArrayButton[y][x]);
+                }
+                else{
+                    ArrayButton[y][x].setBackground(Color.red);
+                    Count_ganador++;
+                    if (Count_ganador == 4){
+                        JOptionPane.showMessageDialog(this,"Gano", "Gano", JOptionPane.INFORMATION_MESSAGE);
+                        super.dispose();
+                    }
+                }
+                if (Tesoro[y][x+1] != 1){
                     jPanel1.remove(ArrayButton[y][x+1]);
                 }
                 else{
-                    jPanel1.remove(ArrayButton[y][x-1]);
+                    ArrayButton[y][x+1].setBackground(Color.red);
+                    Count_ganador++;
+                    if (Count_ganador == 4){
+                        JOptionPane.showMessageDialog(this,"Gano", "Gano", JOptionPane.INFORMATION_MESSAGE);
+                        super.dispose();
+                    }
                 }
                 break;
             case "Linea":
-                if (celdas == 1){
-                    for (int i = 0; i < 4; i++){
-                        jPanel1.remove(ArrayButton[y-i][x]);
+                for (int i = 0; i < 4; i++){
+                    if (Tesoro[y-i][x] != 1){
+                    jPanel1.remove(ArrayButton[y-i][x]);
+                    }
+                    else{
+                        ArrayButton[y-i][x].setBackground(Color.red);
+                        Count_ganador++;
+                        if (Count_ganador == 4){
+                            JOptionPane.showMessageDialog(this,"Gano", "Gano", JOptionPane.INFORMATION_MESSAGE);
+                            super.dispose();
+                        }
                     }
                 }
-                else{
-                    for (int i = 0; i < 4; i++){
-                        jPanel1.remove(ArrayButton[y][x+i]);
-                    }
-                }
+                
                 break;
             default:
                 break;
         }
         jPanel1.repaint();
+    }
+    private boolean can_cut(int x, int y){
+        int cut = Tesoro.length;
+        return cut > x && cut > y;
+    }
+    private boolean can_cut_negative_x(int x){
+        if (x >= 0){
+            Direccion = "Arriba";
+            return true; 
+        }
+        return false;
+    }
+    private boolean can_cut_negative_y(int y){
+        if (y >= 0){
+            Direccion = "Arriba";
+            return true; 
+        }
+        return false;
     }
     ActionListener listener = new ActionListener() {
         @Override
