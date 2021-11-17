@@ -37,6 +37,7 @@ public class Tablero extends javax.swing.JFrame {
     private int turno = 1;
     private Color colorArray[] = {Color.red, Color.yellow, Color.BLUE, Color.GREEN, Color.pink, Color.white}; 
     ArrayList<Jugador> playerArray = new ArrayList<Jugador>();
+    
 
     /**
      * Creates new form Tablero

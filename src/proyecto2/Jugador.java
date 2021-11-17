@@ -21,8 +21,9 @@ public class Jugador {
     private JButton refButton;
     private int casillaActual = 1;
     private boolean activoTubo = false;
+    
     private Socket socket;
-    private final int puerto = 2555;
+    private final int puerto = 8081;
 
     public Jugador(String nombre, int index, JButton refButton) {
         this.nombre = nombre;
