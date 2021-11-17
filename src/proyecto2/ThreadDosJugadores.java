@@ -7,8 +7,6 @@ package proyecto2;
 
 import java.io.*;
 import java.net.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -87,12 +85,17 @@ public class ThreadDosJugadores extends Thread {
                         }
                         System.out.println("3. Op3: envia 3 y numeroJugador y enemigo: "+ numeroJugador);
                         break;
+                    // case 3 se terminó el juego, cierre el serv
+                    case 3:
+                        servidor.juegoActivo = false;
+                        break;
                     default:
                         break;
                 }
                 
             } catch (IOException ex) {
                 System.out.println("Hubo un error al leer el codigo de operacion");
+                break;
             }
         }
         

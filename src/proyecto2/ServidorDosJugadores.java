@@ -11,6 +11,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 
 /**
  *
@@ -21,6 +22,7 @@ public class ServidorDosJugadores {
     Jugador jugador1, jugador2;
     Socket cliente1, cliente2;
     ThreadDosJugadores user1, user2;
+    boolean juegoActivo = true;
     
     //public ArrayList<threadServidor> hilosserver;
     
@@ -52,14 +54,24 @@ public class ServidorDosJugadores {
             user1.enemigo = user2;
             user2.enemigo = user1;
 
-            while (true)
+            while (juegoActivo)
             {
-            
+                System.out.println("Servidor activo");
+                if (!juegoActivo) {
+                    // termino el juego, cerrar los sockets
+                    cliente1.close();
+                    cliente2.close();
+                }
             }
-            
         } catch (IOException ex) {
-            System.out.println("ERROR EN EL SERVIDOR");
+            System.out.println("ERROR EN EL SERVIDOR!");
         }
     }
-
+    
+    public static void main(String[] args) {
+        Jugador j1 = new Jugador("Adrian", 0, new JButton("Adrian"));
+        Jugador j2 = new Jugador("Tomas", 1, new JButton("Tomas"));
+        ServidorDosJugadores sv = new ServidorDosJugadores(j1, j2);
+        sv.runServer();
+    }
 }

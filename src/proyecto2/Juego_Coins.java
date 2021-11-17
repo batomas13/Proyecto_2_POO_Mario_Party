@@ -16,7 +16,7 @@ import javax.swing.Timer;
  *
  * @author Adrian
  */
-public class Juego_Coins extends javax.swing.JFrame {
+public class Juego_Coins extends JuegoGenerico {
 
     private int[][] tablero = new int[25][25];
     /*
@@ -26,7 +26,7 @@ public class Juego_Coins extends javax.swing.JFrame {
     */
     public static final int BUTTON_SIZE = 32;
     private JButton buttonArray[][] = new JButton[25][25];
-    public int tiempoRestante = 10;
+    public int tiempoRestante;
     public int puntaje = 0;
     public Timer conteo;
     
@@ -35,6 +35,24 @@ public class Juego_Coins extends javax.swing.JFrame {
      * Creates new form Juego_Coins
      */
     public Juego_Coins() {
+        
+        // hace el tiempo restante de forma aleatoria
+        int randTime = 1 + (int)(Math.random() * ((3 - 1) + 1));
+        switch (randTime) {
+            case 1:
+                tiempoRestante = 30;
+                break;
+            case 2:
+                tiempoRestante = 45;
+                break;
+            case 3:
+                tiempoRestante = 60;
+                break;
+            default:
+                tiempoRestante = 45;
+                break;
+        }
+        
         initComponents();
         generateBoard();
         conteo = new Timer(1000, listenerTimer);

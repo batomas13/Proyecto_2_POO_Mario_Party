@@ -17,19 +17,23 @@ import javax.swing.JOptionPane;
  * @author Diego
  */
 public class Cliente {
-public static String IP_SERVER = "localhost"; //IP del Servidor
-   JuegoGato ventanaCliente; // Ventana del cliente
-   DataInputStream entrada = null;//leer comunicacion
-   DataOutputStream salida = null;//escribir comunicacion
-   Socket cliente = null;//para la comunicacion
+    public static String IP_SERVER = "localhost"; //IP del Servidor
+    JuegoGenerico ventanaCliente; // Ventana del cliente
+    DataInputStream entrada = null;//leer comunicacion
+    DataOutputStream salida = null;//escribir comunicacion
+    Socket cliente = null;//para la comunicacion
    
-   String nomCliente;// nombre del user
-   /** Creates a new instance of Cliente */
-   public Cliente(JuegoGato vent) throws IOException
-   {      
-      this.ventanaCliente=vent;
-   }
+    Jugador refJugador;
+    String nomCliente;// nombre del user
+    String tipoVentana;
    
+   /** Creates a new instance of Cliente
+     * @param vent 
+     * @throws IOException */
+    public Cliente(JuegoGenerico vent) throws IOException {      
+       this.ventanaCliente = vent;
+    }
+    
    public void conexion() throws IOException 
    {
       try {
