@@ -21,6 +21,7 @@ public class Jugador {
     private JButton refButton;
     private int casillaActual = 1;
     private boolean activoTubo = false;
+    private boolean esGanador = false;
     
     private Socket socket;
     private final int puerto = 8081;
@@ -70,6 +71,16 @@ public class Jugador {
     public boolean getActivoTubo() {
         return this.activoTubo;
     }
+
+    public boolean isEsGanador() {
+        return esGanador;
+    }
+
+    public void setEsGanador(boolean esGanador) {
+        this.esGanador = esGanador;
+    }
+    
+    
     
     public void avanzarCasillaActual(int avance) {
         this.casillaActual += avance;

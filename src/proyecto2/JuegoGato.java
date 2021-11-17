@@ -17,7 +17,7 @@ import javax.swing.JOptionPane;
  *
  * @author  Alejandro
  */
-public class JuegoGato extends javax.swing.JFrame {
+public class JuegoGato extends JuegoGenerico {
     
     /** Creates new form JuegoGato */
     public JuegoGato() {
@@ -29,6 +29,7 @@ public class JuegoGato extends javax.swing.JFrame {
             
             // Cra una cliente que es su coenxion al server
             cliente = new Cliente(this);
+            System.out.println("Se hizo el cliente");
             cliente.conexion();
             
             // pide el status al server, el server le enviara
@@ -54,11 +55,11 @@ public class JuegoGato extends javax.swing.JFrame {
     // tablero logico, indica el status del boton, si disparado o no
     int[][] tableroLogico = new int[DIMENSIONES][DIMENSIONES];
     // crea imagen blanco
-    ImageIcon iconoVacio = new ImageIcon(getClass().getResource("cvacio.GIF"));
+    ImageIcon iconoVacio = new ImageIcon(getClass().getResource("imagenes/cvacio.gif"));
     // crea imagen X
-    ImageIcon iconoEquiz = new ImageIcon(getClass().getResource("cequiz.GIF"));
+    ImageIcon iconoEquiz = new ImageIcon(getClass().getResource("imagenes/cequiz.gif"));
     // crea la imagen circulo
-    ImageIcon iconoCirculo = new ImageIcon(getClass().getResource("ccirculo.GIF"));
+    ImageIcon iconoCirculo = new ImageIcon(getClass().getResource("imagenes/ccirculo.gif"));
     
     int turnoJugador=1;
     
