@@ -24,9 +24,10 @@ import javax.swing.*;
 public class Juego_Memory extends JuegoGenerico {
 
     private JButton buttonArray_fotos[][] = new JButton[6][3];
-    private int pares[] = new int[18];
+    private JButton ButtonUP[] = new JButton[2];
     private int ButtonSize = 92;
     private int vueltas = 0;
+    private int puntos = 0;
     private File Path = new File ("Imagenes_Memory_Game");
     private File[]  allFiles = Path.listFiles();
     private Image[] Personaje = new Image[18];
@@ -48,9 +49,9 @@ public class Juego_Memory extends JuegoGenerico {
         initComponents();
         initTablero();
         
-        for (int i = 0; i < 18; i++){
-            System.out.println(pares[i]);
-        }
+//        for (int i = 0; i < 18; i++){
+//            System.out.println(pares[i]);
+//        }
         
     }
 
@@ -144,14 +145,7 @@ public class Juego_Memory extends JuegoGenerico {
         for (int i = 0; i < 6; i++){
             for (int j = 0; j < 3; j++){
                 buttonArray_fotos[i][j] = new JButton();
-                System.out.println(count);
                 Icon_Boton[i][j] = imagenes.get(count);
-                if (count >= 9){
-                    pares[count] = count - 9;
-                }
-                else{
-                    pares[count] = count;
-                }
                 count++;
                 buttonArray_fotos[i][j].setBounds(i * ButtonSize, j * ButtonSize, ButtonSize, ButtonSize); 
                 PanelTablero.add(buttonArray_fotos[i][j]);
@@ -162,16 +156,37 @@ public class Juego_Memory extends JuegoGenerico {
     
     private void juego(int x, int y){
         ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
-        buttonArray_fotos[x][y].setIcon(icon);
+        //System.out.println(vueltas);
+        if (vueltas != 2){
+            buttonArray_fotos[x][y].setIcon(icon);
+            ButtonUP[vueltas] = buttonArray_fotos[x][y];
+            
+        }
+        else{
+            System.out.println(puntos);
+            if (ButtonUP[0].getIcon().equals(ButtonUP[1].getIcon())){
+                puntos++;
+            }
+            else{
+                ButtonUP[0].setIcon(null);
+                ButtonUP[0] = buttonArray_fotos[x][y];
+                ButtonUP[1].setIcon(null);
+                ButtonUP[1] = null;
+                buttonArray_fotos[x][y].setIcon(icon);
+            }
+            vueltas = 0;
+            
+        }
         vueltas++;
+        
     }
     ActionListener listener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             int x, y;
-            if (e.getSource() instanceof JButton) {  
-                x = ((JButton) e.getSource()).getX() / 92;
-                y = ((JButton) e.getSource()).getY() / 92;
+            if (e.getSource() instanceof JButton jButton) {  
+                x = jButton.getX() / 92;
+                y = jButton.getY() / 92;
                 juego(x, y);
             }
         }
