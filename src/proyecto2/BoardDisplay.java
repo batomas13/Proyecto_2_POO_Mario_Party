@@ -35,7 +35,11 @@ public class BoardDisplay implements ActionListener {
 	private ArrayList<String> wordList = new ArrayList<String>();	//list of all the words in the wordsearch
 	private String word = "";	//the word the user formed so far by clicking the buttons
 	private int numOfWords;
-	
+        // para ver el temporizador
+	private int tiempoRestante = 120; // siempre son 2 minutos de tiempo
+        private JLabel labelTiempo, textoTiempo;
+        private Timer timer;
+        
 	/**
 	 * Constructor of the class
 	 * @param length = the length of the wordsearch
@@ -46,7 +50,13 @@ public class BoardDisplay implements ActionListener {
 		this.numOfWords = numOfWords;
 		frame = new JFrame("Sopa de Letras");
 		frame.setResizable(false);
+                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		labels = new JLabel[numOfWords];
+                labelTiempo = new JLabel("Tiempo:");
+                textoTiempo = new JLabel("120");
+                timer = new Timer(1000, listenerTimer);
+                timer.setInitialDelay(1);
+                timer.start();
 	}
 	
 	/**
@@ -79,7 +89,7 @@ public class BoardDisplay implements ActionListener {
 		Random r = new Random();
 		for(int i = 0; i < length; i++){
 			for(int j = 0; j < length; j++){
-				int n = Math.abs(r.nextInt())%26;
+				int n = Math.abs(r.nextInt())%27;
 				LetterButton btn;
 				if(board[i][j] == null)
 					btn = new LetterButton(randLetters[n], i, j );
@@ -93,18 +103,28 @@ public class BoardDisplay implements ActionListener {
 		
 		//Create the bottom panel which displays the label of each word
 		JPanel bottomPanel = new JPanel();
-		bottomPanel.setLayout(new GridLayout(5,2, 30, 10));
+		//bottomPanel.setLayout(new GridLayout(4, 1, 10, 10));
 		for(int i = 0; i < numOfWords; i++){
 			labels[i] = new JLabel(wordList.get(i));
 			bottomPanel.add(labels[i]);
 		}
 		
-		bottomPanel.setBorder(new EmptyBorder(10, 20, 20, 20));
+                // Agregar label del tiempo restante
+                JPanel panelTimer = new JPanel();
+                //panelTimer.setLayout(new GridLayout(4, 1, 10, 10));
+                labelTiempo.setText("Tiempo:");
+                panelTimer.add(labelTiempo);
+                textoTiempo.setText(tiempoRestante + "");
+                panelTimer.add(textoTiempo);
+                
+                panelTimer.setBorder(new EmptyBorder(10, 10, 10, 10));
+		bottomPanel.setBorder(new EmptyBorder(10, 10, 10, 10));
 		content.setBorder(new EmptyBorder(10, 10, 10, 10));
 
 		Container f = frame.getContentPane();
 		f.setLayout(new BoxLayout(f, BoxLayout.Y_AXIS ));
 	
+                f.add(panelTimer);
 		f.add(content);
 		f.add(bottomPanel);
 	    frame.pack();
@@ -137,15 +157,8 @@ public class BoardDisplay implements ActionListener {
 		if(wordsToFind.size() == 0){
 			
 			//Give the player an option to play again or quit the program
-			Object[] options = {"Play Again", "Quit"};
-			int n = JOptionPane.showOptionDialog(frame, "You Win!", "Congratulations", JOptionPane.YES_NO_OPTION,
-					JOptionPane.QUESTION_MESSAGE, null, options, options[1]);
-			if(n == 0){
-				frame.getContentPane().removeAll();
-				buildGrid();
-			}else{
-				frame.dispose();
-			}
+                        JOptionPane.showMessageDialog(null, "¡Ganó el minijuego!", "Ganador", 1);
+                        frame.dispose();
 		}
 	}
 	
@@ -225,7 +238,19 @@ public class BoardDisplay implements ActionListener {
 		}//end if statement for checking if the source is a LetterButton
 	}
 	
-	
+	ActionListener listenerTimer = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            textoTiempo.setText(tiempoRestante-- + "");
+            if (tiempoRestante <= 0) {
+                    JOptionPane.showMessageDialog(null, "Se acabó el tiempo", "Perdedor", 0);
+                    ((Timer) e.getSource()).stop();
+                    frame.dispose();
+            }
+        }
+    };
+        
+        
 	
 	/**
 	 * Reset the selected buttons so that they are unselected
