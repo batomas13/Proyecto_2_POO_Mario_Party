@@ -54,14 +54,19 @@ public class JuegoGato extends JuegoGenerico {
     JButton[][] tableroLabels = new JButton[DIMENSIONES][DIMENSIONES];
     // tablero logico, indica el status del boton, si disparado o no
     int[][] tableroLogico = new int[DIMENSIONES][DIMENSIONES];
-    // crea imagen blanco
-    ImageIcon iconoVacio = new ImageIcon(getClass().getResource("imagenes/cvacio.gif"));
-    // crea imagen X
-    ImageIcon iconoEquiz = new ImageIcon(getClass().getResource("imagenes/cequiz.gif"));
-    // crea la imagen circulo
-    ImageIcon iconoCirculo = new ImageIcon(getClass().getResource("imagenes/ccirculo.gif"));
     
-    int turnoJugador=1;
+    ImageIcon iconoVacio = new ImageIcon("cvacio.gif");
+    ImageIcon iconoEquiz = new ImageIcon("cvacio.gif");
+    ImageIcon iconoCirculo = new ImageIcon("cvacio.gif");
+    
+    // crea imagen blanco
+    //ImageIcon iconoVacio = new ImageIcon(getClass().getResource("imagenes/cvacio.gif"));
+    // crea imagen X
+    //ImageIcon iconoEquiz = new ImageIcon(getClass().getResource("imagenes/cequiz.gif"));
+    // crea la imagen circulo
+    //ImageIcon iconoCirculo = new ImageIcon(getClass().getResource("imagenes/ccirculo.gif"));
+    
+    int turnoJugador = 1;
     
     //numero de jugador 1 o 2
     int numeroJugador = 0;
