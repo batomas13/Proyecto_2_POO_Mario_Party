@@ -94,12 +94,9 @@ public class ThreadDosJugadores extends Thread {
                 }
                 
             } catch (IOException ex) {
-<<<<<<< HEAD
-                System.out.println("Hubo un error al leer el codigo de operacion");break;
-=======
+
                 System.out.println("Hubo un error al leer el codigo de operacion");
                 break;
->>>>>>> ca73f0c9fb075ac009406af711d9fccf539fe69c
             }
         }
         

@@ -5,21 +5,45 @@
  */
 package proyecto2;
 
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import java.util.Random;
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 /**
  *
  * @author Adrian
  */
-public class Juego_Memory extends javax.swing.JFrame {
+public class Juego_Memory extends JuegoGenerico {
 
-    private JButton[] botonesTablero;
+    private JButton buttonArray_fotos[][] = new JButton[6][3];
+    private int pares[] = new int[17];
+    private int ButtonSize = 92;
+    private int vueltas = 0;
+    private File Path = new File ("Imagenes_Memory_Game");
+    private File[]  allFiles = Path.listFiles();
+    private Image[] Personaje = new Image[17];
+    private Image[][] Icon_Boton = new Image[6][3];
+    
     
     /**
      * Creates new form Juego_Memory
+     * @throws java.io.IOException
      */
-    public Juego_Memory() {
+    public Juego_Memory() throws IOException {
+        for (int i = 0; i < 17; i++){
+            Personaje[i] = ImageIO.read(allFiles[i]);
+        }
         initComponents();
+        initTablero();
+        for (int i = 0; i < 17; i++){
+            System.out.println(pares[i]);
+        }
+        
     }
 
     /**
@@ -39,6 +63,8 @@ public class Juego_Memory extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        PanelTablero.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
         javax.swing.GroupLayout PanelTableroLayout = new javax.swing.GroupLayout(PanelTablero);
         PanelTablero.setLayout(PanelTableroLayout);
         PanelTableroLayout.setHorizontalGroup(
@@ -47,7 +73,7 @@ public class Juego_Memory extends javax.swing.JFrame {
         );
         PanelTableroLayout.setVerticalGroup(
             PanelTableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 550, Short.MAX_VALUE)
+            .addGap(0, 277, Short.MAX_VALUE)
         );
 
         labelNombre.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
@@ -71,25 +97,25 @@ public class Juego_Memory extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(21, 21, 21)
+                .addGap(25, 25, 25)
                 .addComponent(PanelTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 49, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(labelPuntos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(labelNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(22, 22, 22))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(21, 21, 21))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(26, 26, 26)
+                        .addContainerGap()
                         .addComponent(PanelTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(90, 90, 90)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(50, 50, 50)
                         .addComponent(jLabel4)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(labelNombre)
@@ -97,7 +123,7 @@ public class Juego_Memory extends javax.swing.JFrame {
                         .addComponent(jLabel2)
                         .addGap(18, 18, 18)
                         .addComponent(labelPuntos)))
-                .addContainerGap(44, Short.MAX_VALUE))
+                .addGap(40, 40, 40))
         );
 
         pack();
@@ -106,37 +132,204 @@ public class Juego_Memory extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
+    private void initTablero(){
+        for (int i = 0; i < 6; i++){
+            for (int j = 0; j < 3; j++){
+                buttonArray_fotos[i][j] = new JButton();
+                prepara_boton(i, j);
+                buttonArray_fotos[i][j].setBounds(i * ButtonSize, j * ButtonSize, ButtonSize, ButtonSize); 
+                PanelTablero.add(buttonArray_fotos[i][j]);
+                buttonArray_fotos[i][j].addActionListener(listener);
             }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Juego_Memory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Juego_Memory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Juego_Memory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Juego_Memory.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Juego_Memory().setVisible(true);
-            }
-        });
     }
+    
+    
+    private void prepara_boton(int x, int y){
+        int Carta = new Random().nextInt(17);
+        switch (Carta){
+            case 0:
+                if (Personaje[Carta] != null){
+                    Icon_Boton[x][y] = Personaje[Carta];
+                    Personaje[Carta] = null;
+                    pares[Carta] = 0;
+                    
+                }
+                break;
+            case 1:
+                if (Personaje[Carta] != null){
+                    Icon_Boton[x][y] = Personaje[Carta];
+                    Personaje[Carta] = null;
+                    pares[Carta] = 1;
+                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
+                    //buttonArray_fotos[x][y].setIcon(icon);
+                }
+                break;
+            case 2:
+                if (Personaje[Carta] != null){
+                    Icon_Boton[x][y] = Personaje[Carta];
+                    Personaje[Carta] = null;
+                    pares[Carta] = 2;
+                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
+                    //buttonArray_fotos[x][y].setIcon(icon);
+                }
+                break;
+            case 3:
+                if (Personaje[Carta] != null){
+                    Icon_Boton[x][y] = Personaje[Carta];
+                    Personaje[Carta] = null;
+                    pares[Carta] = 3;
+                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
+                    //buttonArray_fotos[x][y].setIcon(icon);
+                }
+                break;
+            case 4:
+                if (Personaje[Carta] != null){
+                    Icon_Boton[x][y] = Personaje[Carta];
+                    Personaje[Carta] = null;
+                    pares[Carta] = 4;
+                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
+                    //buttonArray_fotos[x][y].setIcon(icon);
+                }
+                break;
+            case 5:
+                if (Personaje[Carta] != null){
+                    Icon_Boton[x][y] = Personaje[Carta];
+                    Personaje[Carta] = null;
+                    pares[Carta] = 5;
+                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
+                    //buttonArray_fotos[x][y].setIcon(icon);
+                }
+                break;
+            case 6: 
+                if (Personaje[Carta] != null){
+                    Icon_Boton[x][y] = Personaje[Carta];
+                    Personaje[Carta] = null;
+                    pares[Carta] = 6;
+                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
+                    //buttonArray_fotos[x][y].setIcon(icon);
+                }
+                break;
+            case 7:
+                if (Personaje[Carta] != null){
+                    Icon_Boton[x][y] = Personaje[Carta];
+                    Personaje[Carta] = null;
+                    pares[Carta] = 2;
+                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
+                    //buttonArray_fotos[x][y].setIcon(icon);
+                }
+                break;
+            case 8:
+                if (Personaje[Carta] != null){
+                    Icon_Boton[x][y] = Personaje[Carta];
+                    Personaje[Carta] = null;
+                    pares[Carta] = 8;
+                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
+                    //buttonArray_fotos[x][y].setIcon(icon);
+                }
+                break;
+            case 9:
+                if (Personaje[Carta] != null){
+                    Icon_Boton[x][y] = Personaje[Carta];
+                    Personaje[Carta] = null;
+                    pares[Carta] = 0;
+                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
+                    //buttonArray_fotos[x][y].setIcon(icon);
+                }
+                break;
+            case 10:
+                if (Personaje[Carta] != null){
+                    Icon_Boton[x][y] = Personaje[Carta];
+                    Personaje[Carta] = null;
+                    pares[Carta] = 1;
+                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
+                    //buttonArray_fotos[x][y].setIcon(icon);
+                }
+                break;
+            case 11:
+                if (Personaje[Carta] != null){
+                    Icon_Boton[x][y] = Personaje[Carta];
+                    Personaje[Carta] = null;
+                    pares[Carta] = 2;
+                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
+                    //buttonArray_fotos[x][y].setIcon(icon);
+                }
+                break;
+            case 12:
+                if (Personaje[Carta] != null){
+                    Icon_Boton[x][y] = Personaje[Carta];
+                    Personaje[Carta] = null;
+                    pares[Carta] = 3;
+                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
+                    //buttonArray_fotos[x][y].setIcon(icon);
+                }
+                break;
+            case 13:
+                if (Personaje[Carta] != null){
+                    Icon_Boton[x][y] = Personaje[Carta];
+                    Personaje[Carta] = null;
+                    pares[Carta] = 4;
+                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
+                    //buttonArray_fotos[x][y].setIcon(icon);
+                }
+                break;
+            case 14:
+                if (Personaje[Carta] != null){
+                    Icon_Boton[x][y] = Personaje[Carta];
+                    Personaje[Carta] = null;
+                    pares[Carta] = 5;
+                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
+                    //buttonArray_fotos[x][y].setIcon(icon);
+                }
+                break;
+            case 15:
+                if (Personaje[Carta] != null){
+                    Icon_Boton[x][y] = Personaje[Carta];
+                    Personaje[Carta] = null;
+                    pares[Carta] = 6;
+                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
+                    //buttonArray_fotos[x][y].setIcon(icon);
+                }
+                break;
+            case 16:
+                if (Personaje[Carta] != null){
+                    Icon_Boton[x][y] = Personaje[Carta];
+                    Personaje[Carta] = null;
+                    pares[Carta] = 7;
+                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
+                    //buttonArray_fotos[x][y].setIcon(icon);
+                }
+                break;
+            case 17:
+                if (Personaje[Carta] != null){
+                    Icon_Boton[x][y] = Personaje[Carta];
+                    Personaje[Carta] = null;
+                    pares[Carta] = 8;
+                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
+                    //buttonArray_fotos[x][y].setIcon(icon);
+                }
+                break;
+        }
+        
+    }
+
+    
+    private void juego(int x, int y){
+        ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
+        buttonArray_fotos[x][y].setIcon(icon);
+        vueltas++;
+    }
+    ActionListener listener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int x, y;
+            if (e.getSource() instanceof JButton) {  
+                x = ((JButton) e.getSource()).getX() / 92;
+                y = ((JButton) e.getSource()).getY() / 92;
+                juego(x, y);
+            }
+        }
+    };
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelTablero;

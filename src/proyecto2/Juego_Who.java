@@ -19,12 +19,12 @@ import javax.swing.JOptionPane;
  * @author tcoto
  */
 public class Juego_Who extends javax.swing.JFrame {
-    String win;
-    String User_desition;
-    int Count_celdas = 4;
-    File Path = new File("Imagenes_Guess_Who");
-    File[]  allFiles = Path.listFiles();
-    Image[] Personaje = new Image[16];
+    private String win;
+    private String User_desition;
+    private int Count_celdas = 4;
+    private File Path = new File("Imagenes_Guess_Who");
+    private File[]  allFiles = Path.listFiles();
+    private Image[] Personaje = new Image[16];
     public static final int BUTTON_SIZE = 50;
     private JButton buttonArray[][] = new JButton[10][10];
     /**
