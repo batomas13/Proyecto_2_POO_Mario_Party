@@ -64,6 +64,7 @@ public class ThreadDosJugadores extends Thread {
                         // LEYO OPCION 1
                         // LEE LAS COORDENADAS QUE ENVIO ESTE CLIENTE
                         // Luego las pasa al enemigo para que marque su tablero
+                        // sirve para gato y bros memory
                         int columna = entrada.readInt();//Lee coordenada
                         int fila = entrada.readInt();//Lee coordenada fila
                         System.out.println("Recibido " + columna + "," + fila);
