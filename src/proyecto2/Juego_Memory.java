@@ -24,14 +24,15 @@ import javax.swing.*;
 public class Juego_Memory extends JuegoGenerico {
 
     private JButton buttonArray_fotos[][] = new JButton[6][3];
-    private int pares[] = new int[17];
+    private int pares[] = new int[18];
     private int ButtonSize = 92;
     private int vueltas = 0;
     private File Path = new File ("Imagenes_Memory_Game");
     private File[]  allFiles = Path.listFiles();
-    private Image[] Personaje = new Image[17];
+    private Image[] Personaje = new Image[18];
     private List<Image> imagenes;
     private Image[][] Icon_Boton = new Image[6][3];
+    private int count = 0;
     
     
     /**
@@ -39,7 +40,7 @@ public class Juego_Memory extends JuegoGenerico {
      * @throws java.io.IOException
      */
     public Juego_Memory() throws IOException {
-        for (int i = 0; i < 17; i++){
+        for (int i = 0; i < 18; i++){
             Personaje[i] = ImageIO.read(allFiles[i]);
         }
         imagenes = new ArrayList<> (Arrays.asList(Personaje));
@@ -47,7 +48,7 @@ public class Juego_Memory extends JuegoGenerico {
         initComponents();
         initTablero();
         
-        for (int i = 0; i < 17; i++){
+        for (int i = 0; i < 18; i++){
             System.out.println(pares[i]);
         }
         
@@ -143,13 +144,15 @@ public class Juego_Memory extends JuegoGenerico {
         for (int i = 0; i < 6; i++){
             for (int j = 0; j < 3; j++){
                 buttonArray_fotos[i][j] = new JButton();
-                Icon_Boton[i][j] = imagenes.get(i+j);
-                if (i+j > 9){
-                    pares[i+j] = i+j - 9;
+                System.out.println(count);
+                Icon_Boton[i][j] = imagenes.get(count);
+                if (count >= 9){
+                    pares[count] = count - 9;
                 }
                 else{
-                    pares[i+j] = i+j;
+                    pares[count] = count;
                 }
+                count++;
                 buttonArray_fotos[i][j].setBounds(i * ButtonSize, j * ButtonSize, ButtonSize, ButtonSize); 
                 PanelTablero.add(buttonArray_fotos[i][j]);
                 buttonArray_fotos[i][j].addActionListener(listener);
