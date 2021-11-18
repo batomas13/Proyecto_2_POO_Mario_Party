@@ -10,7 +10,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
-import java.util.Random;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 
@@ -27,6 +30,7 @@ public class Juego_Memory extends JuegoGenerico {
     private File Path = new File ("Imagenes_Memory_Game");
     private File[]  allFiles = Path.listFiles();
     private Image[] Personaje = new Image[17];
+    private List<Image> imagenes;
     private Image[][] Icon_Boton = new Image[6][3];
     
     
@@ -38,8 +42,11 @@ public class Juego_Memory extends JuegoGenerico {
         for (int i = 0; i < 17; i++){
             Personaje[i] = ImageIO.read(allFiles[i]);
         }
+        imagenes = new ArrayList<> (Arrays.asList(Personaje));
+        Collections.shuffle(imagenes);
         initComponents();
         initTablero();
+        
         for (int i = 0; i < 17; i++){
             System.out.println(pares[i]);
         }
@@ -136,183 +143,19 @@ public class Juego_Memory extends JuegoGenerico {
         for (int i = 0; i < 6; i++){
             for (int j = 0; j < 3; j++){
                 buttonArray_fotos[i][j] = new JButton();
-                prepara_boton(i, j);
+                Icon_Boton[i][j] = imagenes.get(i+j);
+                if (i+j > 9){
+                    pares[i+j] = i+j - 9;
+                }
+                else{
+                    pares[i+j] = i+j;
+                }
                 buttonArray_fotos[i][j].setBounds(i * ButtonSize, j * ButtonSize, ButtonSize, ButtonSize); 
                 PanelTablero.add(buttonArray_fotos[i][j]);
                 buttonArray_fotos[i][j].addActionListener(listener);
             }
         }
     }
-    
-    
-    private void prepara_boton(int x, int y){
-        int Carta = new Random().nextInt(17);
-        switch (Carta){
-            case 0:
-                if (Personaje[Carta] != null){
-                    Icon_Boton[x][y] = Personaje[Carta];
-                    Personaje[Carta] = null;
-                    pares[Carta] = 0;
-                    
-                }
-                break;
-            case 1:
-                if (Personaje[Carta] != null){
-                    Icon_Boton[x][y] = Personaje[Carta];
-                    Personaje[Carta] = null;
-                    pares[Carta] = 1;
-                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
-                    //buttonArray_fotos[x][y].setIcon(icon);
-                }
-                break;
-            case 2:
-                if (Personaje[Carta] != null){
-                    Icon_Boton[x][y] = Personaje[Carta];
-                    Personaje[Carta] = null;
-                    pares[Carta] = 2;
-                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
-                    //buttonArray_fotos[x][y].setIcon(icon);
-                }
-                break;
-            case 3:
-                if (Personaje[Carta] != null){
-                    Icon_Boton[x][y] = Personaje[Carta];
-                    Personaje[Carta] = null;
-                    pares[Carta] = 3;
-                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
-                    //buttonArray_fotos[x][y].setIcon(icon);
-                }
-                break;
-            case 4:
-                if (Personaje[Carta] != null){
-                    Icon_Boton[x][y] = Personaje[Carta];
-                    Personaje[Carta] = null;
-                    pares[Carta] = 4;
-                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
-                    //buttonArray_fotos[x][y].setIcon(icon);
-                }
-                break;
-            case 5:
-                if (Personaje[Carta] != null){
-                    Icon_Boton[x][y] = Personaje[Carta];
-                    Personaje[Carta] = null;
-                    pares[Carta] = 5;
-                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
-                    //buttonArray_fotos[x][y].setIcon(icon);
-                }
-                break;
-            case 6: 
-                if (Personaje[Carta] != null){
-                    Icon_Boton[x][y] = Personaje[Carta];
-                    Personaje[Carta] = null;
-                    pares[Carta] = 6;
-                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
-                    //buttonArray_fotos[x][y].setIcon(icon);
-                }
-                break;
-            case 7:
-                if (Personaje[Carta] != null){
-                    Icon_Boton[x][y] = Personaje[Carta];
-                    Personaje[Carta] = null;
-                    pares[Carta] = 2;
-                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
-                    //buttonArray_fotos[x][y].setIcon(icon);
-                }
-                break;
-            case 8:
-                if (Personaje[Carta] != null){
-                    Icon_Boton[x][y] = Personaje[Carta];
-                    Personaje[Carta] = null;
-                    pares[Carta] = 8;
-                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
-                    //buttonArray_fotos[x][y].setIcon(icon);
-                }
-                break;
-            case 9:
-                if (Personaje[Carta] != null){
-                    Icon_Boton[x][y] = Personaje[Carta];
-                    Personaje[Carta] = null;
-                    pares[Carta] = 0;
-                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
-                    //buttonArray_fotos[x][y].setIcon(icon);
-                }
-                break;
-            case 10:
-                if (Personaje[Carta] != null){
-                    Icon_Boton[x][y] = Personaje[Carta];
-                    Personaje[Carta] = null;
-                    pares[Carta] = 1;
-                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
-                    //buttonArray_fotos[x][y].setIcon(icon);
-                }
-                break;
-            case 11:
-                if (Personaje[Carta] != null){
-                    Icon_Boton[x][y] = Personaje[Carta];
-                    Personaje[Carta] = null;
-                    pares[Carta] = 2;
-                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
-                    //buttonArray_fotos[x][y].setIcon(icon);
-                }
-                break;
-            case 12:
-                if (Personaje[Carta] != null){
-                    Icon_Boton[x][y] = Personaje[Carta];
-                    Personaje[Carta] = null;
-                    pares[Carta] = 3;
-                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
-                    //buttonArray_fotos[x][y].setIcon(icon);
-                }
-                break;
-            case 13:
-                if (Personaje[Carta] != null){
-                    Icon_Boton[x][y] = Personaje[Carta];
-                    Personaje[Carta] = null;
-                    pares[Carta] = 4;
-                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
-                    //buttonArray_fotos[x][y].setIcon(icon);
-                }
-                break;
-            case 14:
-                if (Personaje[Carta] != null){
-                    Icon_Boton[x][y] = Personaje[Carta];
-                    Personaje[Carta] = null;
-                    pares[Carta] = 5;
-                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
-                    //buttonArray_fotos[x][y].setIcon(icon);
-                }
-                break;
-            case 15:
-                if (Personaje[Carta] != null){
-                    Icon_Boton[x][y] = Personaje[Carta];
-                    Personaje[Carta] = null;
-                    pares[Carta] = 6;
-                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
-                    //buttonArray_fotos[x][y].setIcon(icon);
-                }
-                break;
-            case 16:
-                if (Personaje[Carta] != null){
-                    Icon_Boton[x][y] = Personaje[Carta];
-                    Personaje[Carta] = null;
-                    pares[Carta] = 7;
-                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
-                    //buttonArray_fotos[x][y].setIcon(icon);
-                }
-                break;
-            case 17:
-                if (Personaje[Carta] != null){
-                    Icon_Boton[x][y] = Personaje[Carta];
-                    Personaje[Carta] = null;
-                    pares[Carta] = 8;
-                    ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
-                    //buttonArray_fotos[x][y].setIcon(icon);
-                }
-                break;
-        }
-        
-    }
-
     
     private void juego(int x, int y){
         ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);

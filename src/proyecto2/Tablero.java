@@ -36,7 +36,7 @@ public class Tablero extends javax.swing.JFrame {
     
     private int turno = 1;
     private Color colorArray[] = {Color.red, Color.yellow, Color.BLUE, Color.GREEN, Color.pink, Color.white}; 
-    ArrayList<Jugador> playerArray = new ArrayList<Jugador>();
+    private ArrayList<Jugador> playerArray = new ArrayList<Jugador>();
     
 
     /**
@@ -65,7 +65,7 @@ public class Tablero extends javax.swing.JFrame {
     }
     
     public void initRandomTiles() {
-        arrayCasillas = new ArrayList<String>(Arrays.asList(listaCasillas));
+        arrayCasillas = new ArrayList<>(Arrays.asList(listaCasillas));
         Collections.shuffle(arrayCasillas);
         arrayCasillas.add(0, "Inicio");
         arrayCasillas.add("Fin");
