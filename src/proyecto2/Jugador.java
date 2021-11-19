@@ -20,10 +20,10 @@ public class Jugador {
     private boolean activoTubo = false;
     private boolean esGanador = false;
     private boolean Carcel = false;
-    private int primerTurno = 0;
-    private Socket socket;
-    private final int puerto = 8081;
-
+    private boolean CanMove = true;
+    private int Timeinjail = 0;
+    private int dado;
+    
     public Jugador(String nombre, int index, JButton refButton) {
         this.nombre = nombre;
         this.index = index;
@@ -84,6 +84,35 @@ public class Jugador {
     public void setCarcel(boolean Carcel) {
         this.Carcel = Carcel;
     }
+
+    public boolean isCanMove() {
+        return CanMove;
+    }
+
+    public void setCanMove(boolean CanMove) {
+        this.CanMove = CanMove;
+    }
+
+    public int getTimeinjail() {
+        return Timeinjail;
+    }
+
+    public void setTimeinjail(int Timeinjail) {
+        this.Timeinjail = Timeinjail;
+    }
+    
+    public void setTimeinjail(){
+        this.Timeinjail++;
+    }
+
+    public int getDado() {
+        return dado;
+    }
+
+    public void setDado(int dado) {
+        this.dado = dado;
+    }
+    
     
     public void avanzarCasillaActual(int avance) {
         this.casillaActual += avance;

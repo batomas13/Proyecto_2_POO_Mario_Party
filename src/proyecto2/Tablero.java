@@ -37,7 +37,7 @@ public class Tablero extends javax.swing.JFrame {
     private int turno = 1;
     private Color colorArray[] = {Color.red, Color.yellow, Color.blue, Color.green, Color.pink, Color.white};
     private ArrayList<Jugador> playerArray = new ArrayList<Jugador>();
-    private Jugador jugadorTablero;
+    private int jugadorTablero;
     
     /**
      * Creates new form Tablero
@@ -51,27 +51,7 @@ public class Tablero extends javax.swing.JFrame {
         }
         initBoard();
         initRandomTiles();
-    }
-    
-    public void initPlayer() {
-        jPanel1.add(jugadorTablero.getRefButton());
-        jugadorTablero.refButton.setBounds(0, playerArray.size() * 20, 40, 20);
-        playerArray.add(jugadorTablero);
-    }
-    
-    public void initPlayers(){
-        
-        int playersQty = (new Random()).nextInt(5)+2;
-        
-        for (int i = 0; i < playersQty; i++) {
-            JButton newButton = new JButton("" + (i+1));
-            newButton.setBackground(colorArray[i]);
-            jPanel1.add(newButton);
-            newButton.setBounds(0, i*20, 40, 20);
-            playerArray.add(new Jugador("Jugador " + (i+1), i, newButton));            
-        }
-        
-    }
+    } 
     
     public void initRandomTiles() {
         arrayCasillas = new ArrayList<>(Arrays.asList(listaCasillas));
@@ -182,18 +162,37 @@ public class Tablero extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDadosActionPerformed
+        Jugador jugadorActual = playerArray.get(turno-1);
+        if (jugadorActual.isCarcel() == false){
+            jugadorActual.setTimeinjail();
+            if (jugadorActual.getTimeinjail() == 2){
+                jugadorActual.setTimeinjail(0);
+                jugadorActual.setCarcel(false);
+            }
+            else{
+                return;
+            }
+        }
+        if (jugadorActual.isCanMove() == false){
+            jugadorActual.setCanMove(true);
+            return;
+        }
         int valorDados = this.lanzarDados();
-        
+        jugadorActual.setDado(valorDados);
         switch (valorDados) {
             case -1 -> {
+                jugadorActual.setCanMove(false);
             }
             case -2 -> {
+                jugadorActual.setCarcel(true);
+                jugadorActual.setTimeinjail(0);
             }
             default -> {
                 // continue con la vida normal
-                
-                moverFicha(valorDados);
-                pintarTurno();
+                if(jugadorActual.isCanMove() == true && jugadorActual.isCarcel() == false){
+                    moverFicha(valorDados);
+                    pintarTurno();
+                }
             }
         }
         // castigo de 1 turno
@@ -234,7 +233,6 @@ public class Tablero extends javax.swing.JFrame {
     private int lanzarDados(){
         int dado1 = (new Random()).nextInt(6) + 1;
         int dado2 = (new Random()).nextInt(6) + 1;
-        
         if (dado1 == 6 || dado2 == 6) {
             if (dado1 == 6 && dado2 == 6) {
                 // castigo de dos turnos
@@ -375,39 +373,6 @@ public class Tablero extends javax.swing.JFrame {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Tablero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Tablero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Tablero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Tablero.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Tablero().setVisible(true);
-            }
-        });
-    }
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnDados;
     private javax.swing.JPanel jPanel1;
