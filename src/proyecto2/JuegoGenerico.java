@@ -11,6 +11,7 @@ import javax.swing.JFrame;
  *
  * @author Adrian
  */
-public class JuegoGenerico extends JFrame{
-    
+public abstract class JuegoGenerico extends JFrame{
+    public int numeroJugador;
+    public abstract void setEnemigo(String nombreEnemigo);
 }

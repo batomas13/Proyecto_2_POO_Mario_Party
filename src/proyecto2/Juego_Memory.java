@@ -212,4 +212,10 @@ public class Juego_Memory extends JuegoGenerico {
     private javax.swing.JLabel labelNombre;
     private javax.swing.JLabel labelPuntos;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void setEnemigo(String nombreEnemigo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

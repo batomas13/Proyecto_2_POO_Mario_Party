@@ -5,15 +5,18 @@
  */
 package proyecto2;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
  * @author Adrian
  */
-public class Juego_Cards extends javax.swing.JFrame {
+public class Juego_Cards extends JuegoGenerico {
 
     
     public ArrayList<String> mazo = new ArrayList<String>();
@@ -21,6 +24,7 @@ public class Juego_Cards extends javax.swing.JFrame {
     public int[] valorCarta = new int[2];
     public ArrayList<Jugador> jugadores;
     public int turnoActual, numeroJugador;
+    private Cliente cliente;
     
     /**
      * Creates new form Juego_Cards
@@ -31,7 +35,17 @@ public class Juego_Cards extends javax.swing.JFrame {
         sacaMano(6);
         //separaValoresCarta(mano.get(0));
         turnoActual = 1;
-        numeroJugador = 1;
+        numeroJugador = 0;
+        
+        try {
+            cliente = new Cliente(this);
+            System.out.println("Se hizo el cliente");
+            cliente.conexion();
+            // recibe el status del server
+            cliente.salida.writeInt(2);
+        } catch (IOException ex) {
+            System.out.println("Hubo una excepcion con el cliente");
+        }
     }
 
     /**
@@ -161,8 +175,6 @@ public class Juego_Cards extends javax.swing.JFrame {
         if (numeroJugador == turnoActual) {
             LabelCartaSeleccionada.setText("CARTA SELECCIONADA: " + mano.get(4));
         }
-        
-        
     }//GEN-LAST:event_BotonCarta5ActionPerformed
 
     private void BotonCarta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCarta1ActionPerformed
@@ -329,6 +341,31 @@ public class Juego_Cards extends javax.swing.JFrame {
         System.out.println("Valor nominal: " + valorCarta[1]);
         */
     }
+    
+    // recibe la carta del thread y deshabilita para todos los clientes
+    public void recibeCarta(int cartaIndex) {
+        System.out.println("Entró en recibeCarta");
+        switch(cartaIndex) {
+            case 1:
+                BotonCarta1.setEnabled(false);
+                break;
+            case 2:
+                BotonCarta2.setEnabled(false);
+                break;
+            case 3:
+                BotonCarta3.setEnabled(false);
+                break;
+            case 4:
+                BotonCarta4.setEnabled(false);
+                break;
+            case 5:
+                BotonCarta5.setEnabled(false);
+                break;
+            case 6:
+                BotonCarta6.setEnabled(false);
+                break;
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonCarta1;
@@ -340,4 +377,10 @@ public class Juego_Cards extends javax.swing.JFrame {
     private javax.swing.JLabel LabelCartaSeleccionada;
     private javax.swing.JLabel LabelTurno;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void setEnemigo(String nombreEnemigo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
 }

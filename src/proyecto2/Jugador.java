@@ -18,7 +18,7 @@ import javax.swing.JButton;
 public class Jugador {
     private String nombre;
     private int index;
-    private JButton refButton;
+    public JButton refButton;
     private int casillaActual = 1;
     private boolean activoTubo = false;
     private boolean esGanador = false;
@@ -81,7 +81,6 @@ public class Jugador {
     }
     
     
-    
     public void avanzarCasillaActual(int avance) {
         this.casillaActual += avance;
         
@@ -92,6 +91,4 @@ public class Jugador {
         }
         
     }
-    
-    
 }

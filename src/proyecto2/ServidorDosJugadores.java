@@ -5,6 +5,7 @@
  */
 package proyecto2;
 
+import java.awt.Color;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
@@ -19,13 +20,22 @@ import javax.swing.JButton;
  */
 public class ServidorDosJugadores {
     
+    int puerto;
     Jugador jugador1, jugador2;
+    ArrayList<Jugador> listaJugadores = new ArrayList<Jugador>();
     Socket cliente1, cliente2;
+    ArrayList<Socket> listaSockets = new ArrayList<Socket>();
     ThreadDosJugadores user1, user2;
     boolean juegoActivo = true;
+    Color colorArray[] = {Color.red, Color.yellow, Color.blue, Color.green, Color.pink, Color.white};
     
     //public ArrayList<threadServidor> hilosserver;
     
+    public ServidorDosJugadores(int puerto) {
+        this.puerto = puerto;
+    }
+    
+    // este es de pruebas
     public ServidorDosJugadores(Jugador j1, Jugador j2) {
         this.jugador1 = j1;
         this.jugador2 = j2;
@@ -54,14 +64,8 @@ public class ServidorDosJugadores {
             user1.enemigo = user2;
             user2.enemigo = user1;
 
-            while (juegoActivo)
-            {
-                System.out.println("Servidor activo");
-                if (!juegoActivo) {
-                    // termino el juego, cerrar los sockets
-                    cliente1.close();
-                    cliente2.close();
-                }
+            while (juegoActivo) {
+                
             }
         } catch (IOException ex) {
             System.out.println("ERROR EN EL SERVIDOR!");
@@ -69,8 +73,8 @@ public class ServidorDosJugadores {
     }
     
     public static void main(String[] args) {
-        Jugador j1 = new Jugador("Adrian", 0, new JButton("Adrian"));
-        Jugador j2 = new Jugador("Tomas", 1, new JButton("Tomas"));
+        Jugador j1 = new Jugador("Adrian", 1, new JButton("Adrian"));
+        Jugador j2 = new Jugador("Tomas", 2, new JButton("Tomas"));
         ServidorDosJugadores sv = new ServidorDosJugadores(j1, j2);
         sv.runServer();
     }

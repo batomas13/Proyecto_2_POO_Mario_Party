@@ -19,35 +19,35 @@ public class Cliente {
     DataInputStream entrada = null;//leer comunicacion
     DataOutputStream salida = null;//escribir comunicacion
     Socket cliente = null;//para la comunicacion
-   
-    Jugador refJugador;
-    String nomCliente;// nombre del user
+    
+    Jugador jugadorCliente;
     String tipoVentana;
    
    /** Creates a new instance of Cliente
      * @param vent 
      * @throws IOException */
-    public Cliente(JuegoGenerico vent) throws IOException {      
+    public Cliente(JuegoGenerico vent, Jugador jugador) throws IOException {
        this.ventanaCliente = vent;
+       this.jugadorCliente = jugador;
     }
     
-   public void conexion() throws IOException 
-   {
-      try {
-          // se conecta con dos sockets al server, uno comunicacion otro msjes
-         cliente = new Socket(Cliente.IP_SERVER, 8081);
-         // inicializa las entradas-lectura y salidas-escritura
-         entrada = new DataInputStream(cliente.getInputStream());
-         salida = new DataOutputStream(cliente.getOutputStream());
-         // solicita el nombre del user
-         nomCliente = JOptionPane.showInputDialog("Introducir Nick :");
-         //Lo coloca en la ventana
-         ventanaCliente.setTitle(nomCliente);
-         // es lo primero que envia al server
-         // el thread servidor esta pendiente de leer el nombre antes de entrar
-         // al while para leer opciones
-         salida.writeUTF(nomCliente);
-         System.out.println("1. Envia el nombre del cliente: "+nomCliente);
+    public void conexion() throws IOException 
+    {
+        try {
+            // se conecta con dos sockets al server, uno comunicacion otro msjes
+            cliente = new Socket(Cliente.IP_SERVER, 8081);
+            // inicializa las entradas-lectura y salidas-escritura
+            entrada = new DataInputStream(cliente.getInputStream());
+            salida = new DataOutputStream(cliente.getOutputStream());
+            // solicita el nombre del user
+            //nomCliente = JOptionPane.showInputDialog("Introducir Nick :");
+            //Lo coloca en la ventana
+            ventanaCliente.setTitle(jugadorCliente.getNombre());
+            // es lo primero que envia al server
+            // el thread servidor esta pendiente de leer el nombre antes de entrar
+            // al while para leer opciones
+            //salida.writeUTF(nomCliente);
+            System.out.println("1. Envia el nombre del cliente: " + jugadorCliente.getNombre());
       } catch (IOException e) {
          System.out.println("\tEl servidor no esta levantado");
          System.out.println("\t=============================");
@@ -63,6 +63,12 @@ public class Cliente {
    //GETTET AND SETTER
    public String getNombre()
    {
-      return nomCliente;
+      return jugadorCliente.getNombre();
    }
+
+    public void setVentanaCliente(JuegoGenerico ventanaCliente) {
+        this.ventanaCliente = ventanaCliente;
+    }
+   
+   
 }

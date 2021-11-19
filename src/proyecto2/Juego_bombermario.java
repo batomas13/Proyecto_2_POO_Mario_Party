@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
  *
  * @author tcoto
  */
-public class Juego_bombermario extends javax.swing.JFrame {
+public class Juego_bombermario extends JuegoGenerico {
     private int tablero = (new Random()).nextInt(2);
     private int Count_ganador = 0;
     public  static int ButtonSize;
@@ -443,4 +443,9 @@ public class Juego_bombermario extends javax.swing.JFrame {
     private javax.swing.JButton jButton4;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void setEnemigo(String nombreEnemigo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
