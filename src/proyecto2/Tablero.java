@@ -193,17 +193,20 @@ public class Tablero extends javax.swing.JFrame {
     private void btnDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDadosActionPerformed
         int valorDados = this.lanzarDados();
         
-        if (valorDados == -1) {
-            // castigo de 1 turno
-            
-        } else if (valorDados == -2) {
-            // castigo de 2 turnos
-            
-        } else {
-            // continue con la vida normal
-            moverFicha(valorDados);
-            pintarTurno();
+        switch (valorDados) {
+            case -1 -> {
+            }
+            case -2 -> {
+            }
+            default -> {
+                // continue con la vida normal
+                
+                moverFicha(valorDados);
+                pintarTurno();
+            }
         }
+        // castigo de 1 turno
+        // castigo de 2 turnos
         this.txfDados.setText(valorDados + "");
     }//GEN-LAST:event_btnDadosActionPerformed
 
@@ -267,12 +270,11 @@ public class Tablero extends javax.swing.JFrame {
         
         int nuevoAvance;
         switch (tipoCasilla) {
-            case "Gato":
-                // aqui seleccionar un contrincante aleatorio
+            case "Gato" -> // aqui seleccionar un contrincante aleatorio
+                
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
-                // peticion de sv
-                break;
-            case "Tubo1":
+            // peticion de sv
+            case "Tubo1" -> {
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
                 if(!jugadorActivador.getActivoTubo()) {
                     System.out.println("Jugador no ha activado un tubo anteriormente");
@@ -284,8 +286,8 @@ public class Tablero extends javax.swing.JFrame {
                     jugadorActivador.setActivoTubo(false);
                     System.out.println("Jugador ya ha activado un tubo anteriormente");
                 }
-                break;
-            case "Tubo2":
+            }
+            case "Tubo2" -> {
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
                 if(!jugadorActivador.getActivoTubo()) {
                     System.out.println("Jugador no ha activado un tubo anteriormente");
@@ -297,8 +299,8 @@ public class Tablero extends javax.swing.JFrame {
                     jugadorActivador.setActivoTubo(false);
                     System.out.println("Jugador ya ha activado un tubo anteriormente");
                 }
-                break;
-            case "Tubo3":
+            }
+            case "Tubo3" -> {
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
                 if(!jugadorActivador.getActivoTubo()) {
                     System.out.println("Jugador no ha activado un tubo anteriormente");
@@ -310,55 +312,49 @@ public class Tablero extends javax.swing.JFrame {
                     jugadorActivador.setActivoTubo(false);
                     System.out.println("Jugador ya ha activado un tubo anteriormente");
                 }
-                break;
-            case "Estrella":
+            }
+            case "Estrella" -> {
                 // volver a lanzar dados
                 lanzarDados();
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
-                break;
-            case "FlorFuego":
-                // lanzar a un jugador a la casilla 1
+            }
+            case "FlorFuego" -> // lanzar a un jugador a la casilla 1
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
-                break;
-            case "FlorHielo":
-                // Hace que un jugador pierda 2 turnos
+            case "FlorHielo" -> // Hace que un jugador pierda 2 turnos
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
-                break;
-            case "Cola":
+            case "Cola" -> {
                 // Jugador escoge en rando +-3 de casillas para moverse
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
                 nuevoAvance = -3 + (int)(Math.random() * ((3 - -3) + 1));
                 System.out.println("Cola: Salto random de: " + nuevoAvance);
                 moverFicha(nuevoAvance);
-                break;
-            case "Sopa":
+            }
+            case "Sopa" -> {
                 // juego de sopa de letras
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
                 nuevaVentanaJuego = new Juego_Sopa();
-                break;
-            case "Path":
+            }
+            case "Path" -> {
                 // juego de memory path
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
                 nuevaVentanaJuego = new Juego_Path();
                 nuevaVentanaJuego.setVisible(true);
-                break;
-            case "Memory":
-                // juego de card memory
+            }
+            case "Memory" -> // juego de card memory
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
-                break;
-            case "Catch":
+            case "Catch" -> {
                 // juego de catch the cat
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
                 nuevaVentanaJuego = new Juego_Catch();
                 nuevaVentanaJuego.setVisible(true);
-                break;
-            case "Bomber":
+            }
+            case "Bomber" -> {
                 // juego de bombermario
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
                 nuevaVentanaJuego = new Juego_bombermario();
                 nuevaVentanaJuego.setVisible(true);
-                break;
-            case "Guess":
+            }
+            case "Guess" -> {
                 // juego de guess who
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
                 try {
@@ -367,23 +363,19 @@ public class Tablero extends javax.swing.JFrame {
                 } catch (IOException e) {
                     System.out.println("Algo paso mal con el juego de guess who");
                 }
-                break;
-            case "Coins":
+            }
+            case "Coins" -> {
                 // juego de collect the coins
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
                 nuevaVentanaJuego = new Juego_Coins();
                 nuevaVentanaJuego.setVisible(true);
-                break;
-            case "Cards":
-                // juego de mario cards, TODOS los jugadores participan
+            }
+            case "Cards" -> // juego de mario cards, TODOS los jugadores participan
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
-                // pedirle al sv que abra un Juego_Cards a todos
-                break;
-            default:
-                // caso default, no debería caer aquí excepto por final que no hace nada más que ganar el juego
+            // pedirle al sv que abra un Juego_Cards a todos
+            default -> // caso default, no debería caer aquí excepto por final que no hace nada más que ganar el juego
                 // o la casilla del inicio si se regresa
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
-                break;
         }
         
     }
