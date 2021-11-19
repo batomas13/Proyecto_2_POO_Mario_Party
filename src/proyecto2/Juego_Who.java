@@ -18,7 +18,7 @@ import javax.swing.JOptionPane;
  *
  * @author tcoto
  */
-public class Juego_Who extends javax.swing.JFrame {
+public class Juego_Who extends JuegoGenerico {
     private String win;
     private String User_desition;
     private int Count_celdas = 4;
@@ -428,5 +428,10 @@ public class Juego_Who extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void setEnemigo(String nombreEnemigo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
 

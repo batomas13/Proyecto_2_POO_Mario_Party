@@ -7,8 +7,12 @@
 package proyecto2;
 
 import java.awt.event.MouseAdapter;
+import java.io.File;
 import java.io.IOException;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -19,8 +23,11 @@ import javax.swing.JOptionPane;
  */
 public class JuegoGato extends JuegoGenerico {
     
+    private File path = new File("Imagenes_Gato");
+    private File[] allFiles = path.listFiles();
+    
     /** Creates new form JuegoGato */
-    public JuegoGato() {
+    public JuegoGato() throws IOException{
         try {
             // esto es parte del gato
             initComponents();
@@ -35,7 +42,7 @@ public class JuegoGato extends JuegoGenerico {
             // pide el status al server, el server le enviara
             // al cliente el numero jugador que es y el nombre
             // enemigo
-            cliente.salida.writeInt(3);
+            cliente.salida.writeInt(2);
             
         } catch (IOException ex) {
            
@@ -55,9 +62,9 @@ public class JuegoGato extends JuegoGenerico {
     // tablero logico, indica el status del boton, si disparado o no
     int[][] tableroLogico = new int[DIMENSIONES][DIMENSIONES];
     
-    ImageIcon iconoVacio = new ImageIcon("cvacio.gif");
-    ImageIcon iconoEquiz = new ImageIcon("cvacio.gif");
-    ImageIcon iconoCirculo = new ImageIcon("cvacio.gif");
+    ImageIcon iconoVacio = new ImageIcon(ImageIO.read(allFiles[2]));
+    ImageIcon iconoEquiz = new ImageIcon(ImageIO.read(allFiles[1]));
+    ImageIcon iconoCirculo = new ImageIcon(ImageIO.read(allFiles[0]));
     
     // crea imagen blanco
     //ImageIcon iconoVacio = new ImageIcon(getClass().getResource("imagenes/cvacio.gif"));
@@ -245,6 +252,7 @@ public class JuegoGato extends JuegoGenerico {
     }
     
     // set el nombre del enemigo
+    @Override
     public void setEnemigo(String enem)
     {
         lblEnemigo.setText("vs. "+enem);
@@ -388,7 +396,11 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new JuegoGato().setVisible(true);
+                try {
+                    new JuegoGato().setVisible(true);
+                } catch (IOException ex) {
+                    //
+                }
             }
         });
     }
@@ -420,5 +432,5 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
     private javax.swing.JTextField txfFila;
     private javax.swing.JTextField txfMensaje;
     // End of variables declaration//GEN-END:variables
-    
+   
 }

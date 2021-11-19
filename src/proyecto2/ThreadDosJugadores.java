@@ -86,9 +86,20 @@ public class ThreadDosJugadores extends Thread {
                         }
                         System.out.println("3. Op3: envia 3 y numeroJugador y enemigo: "+ numeroJugador);
                         break;
-                    // case 3 se terminó el juego, cierre el serv
                     case 3:
+                        // case 3 se terminó el juego, cierre el serv
                         servidor.juegoActivo = false;
+                        break;
+                    case 4:
+                        // case 4 envie la carta del juego cards a los usuarios
+                        salida.writeInt(4);
+                        String cartaLeida = entrada.readUTF();
+                        salida.writeUTF(cartaLeida);
+                        break;
+                    case 10:
+                        System.out.println("Entro en el caso 10 exclusivo de cards");
+                        salida.writeInt(10);
+                        salida.writeUTF("mensaje de prueba");
                         break;
                     default:
                         break;

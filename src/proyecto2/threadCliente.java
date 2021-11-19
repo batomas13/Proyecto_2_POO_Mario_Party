@@ -19,9 +19,9 @@ class threadCliente extends Thread{
       while(true)
       {         
          try{
-             // esta leyendo siempre la instruccion, un int
-             opcion=entrada.readInt();
-            
+            // esta leyendo siempre la instruccion, un int
+            opcion=entrada.readInt();
+            System.out.println("Thread cliente recibe opcion: " + opcion);
             switch(opcion)
             {
                case 1://mensaje enviado
@@ -29,41 +29,48 @@ class threadCliente extends Thread{
                   int fila = entrada.readInt();//lee fila
                   // llama a marcar, que es lo que hace el cliente cuando
                   // el enemigo marco la sailla
-                  ((JuegoGato) vcli).marcar(col,fila);
+                  //((JuegoGato) vcli).marcar(col,fila);
                   System.out.println("Op1: lee col y fila: "+col+" , "+fila);
                   break;
                case 2://se lee el nombre del user  
                   menser=entrada.readUTF();
                   // coloca el nombre del enemigo
-                  ((JuegoGato) vcli).setEnemigo(menser);
+                  vcli.setEnemigo(menser);
                   System.out.println("Op2: lee nombre enemigo: "+menser);
                   break;
-               case 3://lee el numero del jugador
-                  ((JuegoGato) vcli).numeroJugador = entrada.readInt();
-                  // lee el nomnre del enemigo vuando pide el status y lo coloca
-                  // en la pantalla cliente
-                  ((JuegoGato) vcli).setEnemigo(entrada.readUTF());
-                  System.out.println("OP3, lee numero de jugador "+((JuegoGato) vcli).numeroJugador);
+                case 3:
+                    //lee el numero del jugador
+                    System.out.println("Entré a caso 3 para recibir el numero de jugador");
+                    vcli.numeroJugador = entrada.readInt();
+                    // lee el nomnre del enemigo vuando pide el status y lo coloca
+                    // en la pantalla cliente
+                    vcli.setEnemigo(entrada.readUTF());
+                    System.out.println("OP3, lee numero de jugador "+vcli.numeroJugador);
                   break;
                 case 4:
-                    // lee el mensaje
+                  // lee el mensaje de la carta para el juego de cartas
                   menser = entrada.readUTF();
                   // muestra el mensjae en pantalla.
-                  System.out.println("OP4, lee mensaje "+menser);
-                  ((JuegoGato) vcli).mostrar(menser);
-                break;
-                 
+                  System.out.println("OP4, lee mensaje de carta: " + menser);
+                  // envia la carta al cliente
+                  ((Juego_Cards) vcli).recibeCarta(Integer.parseInt(menser));
+                    break;
                 case 6: 
                     int valorDados = entrada.readInt();
-                    ((JuegoGato) vcli).mostrar("Enemigo sacó un " + valorDados);
-                    ((JuegoGato) vcli).cambiarEtiqueta(valorDados);
-                    
-                 break;
-                    
+                    //((JuegoGato) vcli).mostrar("Enemigo sacó un " + valorDados);
+                    //((JuegoGato) vcli).cambiarEtiqueta(valorDados);
+                    break;
+                case 10:
+                    String msg = entrada.readUTF();
+                    System.out.println(msg);
+                    System.out.println("Recibido caso 10 de cards");
+                    break;
             }
+         } catch (ClassCastException e) {
+             System.out.println("Aqui se supone hago handling del casteo");
          }
          catch (IOException e){
-            System.out.println("Error en la comunicaci�n "+"Informaci�n para el usuario");
+            System.out.println("Error en la comunicacion");
             break;
          }
       }

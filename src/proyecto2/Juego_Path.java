@@ -14,7 +14,7 @@ import javax.swing.JOptionPane;
  *
  * @author tcoto
  */
-public class Juego_Path extends javax.swing.JFrame {
+public class Juego_Path extends JuegoGenerico {
     private JButton buttonArray[][] = new JButton[6][3];
     private boolean camino[][] = new boolean[6][3];
     private int count = 0;
@@ -117,4 +117,9 @@ public class Juego_Path extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void setEnemigo(String nombreEnemigo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

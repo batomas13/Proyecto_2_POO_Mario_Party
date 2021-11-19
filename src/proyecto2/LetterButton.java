@@ -34,7 +34,7 @@ public class LetterButton extends JButton{
 		this.letter = letter;
 		xPos = xP;
 		yPos = yP;
-		setPreferredSize(new Dimension(30, 30));
+		setPreferredSize(new Dimension(45, 45));
 		setMargin(new Insets(0, 0, 0, 0));
 		setSelected(false);
 		

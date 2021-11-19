@@ -13,10 +13,14 @@ import javax.swing.*;
  *
  * @author Adrian
  */
-public class Juego_Catch extends JFrame {
+public class Juego_Catch extends JuegoGenerico {
 
     public static final int BUTTON_SIZE = 65;
     private JButton[][] ButtonArray = new JButton[11][11];
+    
+    private JButton gato = new JButton("G");
+    private int[] distancias = new int[]{0,0,0,0,0,0,0,0,0};
+    private int filaGato = 6, columnaGato = 6;
     
     /**
      * Creates new form Juego_Catch
@@ -25,6 +29,7 @@ public class Juego_Catch extends JFrame {
         this.setName("Catch the cat");
         initComponents();
         generateBoard();
+        gato.setBounds(ButtonArray[6][6].getX()/BUTTON_SIZE, ButtonArray[6][6].getY()/BUTTON_SIZE, 30, 30);
     }
 
     /**
@@ -122,6 +127,231 @@ public class Juego_Catch extends JFrame {
         }
     }
     
+    public boolean intentaDerecha(int fila, int columna) {
+        try {
+            return ButtonArray[fila][columna + 1].isEnabled();
+        } catch(IndexOutOfBoundsException ex) {
+            return true;
+        }
+    }
+    
+    public boolean intentaIzquierda(int fila, int columna) {
+        try {
+            return ButtonArray[fila][columna - 1].isEnabled();
+        } catch(IndexOutOfBoundsException ex) {
+            return true;
+        }
+    }
+    
+    public boolean intentaArriba(int fila, int columna) {
+        try {
+            return ButtonArray[fila - 1][columna].isEnabled();
+        } catch(IndexOutOfBoundsException ex) {
+            return true;
+        }
+    }
+    
+    public boolean intentaAbajo(int fila, int columna) {
+        try {
+            return ButtonArray[fila + 1][columna].isEnabled();
+        } catch(IndexOutOfBoundsException ex) {
+            return true;
+        }
+    }
+    
+    public boolean intentaAbajoDerecha(int fila, int columna) {
+        try {
+            return ButtonArray[fila + 1][columna + 1].isEnabled();
+        } catch(IndexOutOfBoundsException ex) {
+            return true;
+        }
+    }
+    
+    public boolean intentaAbajoIzquierda(int fila, int columna) {
+        try {
+            return ButtonArray[fila + 1][columna - 1].isEnabled();
+        } catch(IndexOutOfBoundsException ex) {
+            return true;
+        }
+    }
+    
+    public boolean intentaArribaDerecha(int fila, int columna) {
+        try {
+            return ButtonArray[fila - 1][columna + 1].isEnabled();
+        } catch(IndexOutOfBoundsException ex) {
+            return true;
+        }
+    }
+    
+    public boolean intentaArribaIzquierda(int fila, int columna) {
+        try {
+            return ButtonArray[fila - 1][columna - 1].isEnabled();
+        } catch(IndexOutOfBoundsException ex) {
+            return true;
+        }
+    }
+    
+    public boolean hayCamino(int fila, int col) {
+        if (intentaDerecha(fila, col)) {
+            if (intentaIzquierda(fila, col)) {
+                if (intentaArriba(fila, col)) {
+                    if (intentaAbajo(fila, col)) {
+                        if (intentaArribaDerecha(fila, col)) {
+                            if (intentaArribaIzquierda(fila, col)) {
+                                if (intentaAbajoDerecha(fila, col)) {
+                                    if (intentaAbajoIzquierda(fila, col)) {
+                                        return true;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false;
+    }
+    
+    public int distanciaDerecha(int fila, int columna) {
+        return 10 - columna;
+    }
+    
+    public int distanciaIzquierda(int fila, int columna) {
+        return columna;
+    }
+    
+    public int distanciaAbajo(int fila, int columna) {
+        return 10 - fila;
+    }
+    
+    public int distanciaArriba(int fila, int columna) {
+        return fila;
+    }
+    
+    public int distanciaAbajoDerecha(int fila, int columna) {
+        int count = 0;
+        for (int i = fila; fila < 11; i++) {
+            for (int j = columna; columna < 11; j++) {
+                count++;
+            }
+        }
+        return count;
+    }
+    
+    public int distanciaAbajoIzquierda(int fila, int columna) {
+        int count = 0;
+        for (int i = fila; fila < 11; i++) {
+            for (int j = columna; columna >= 0; j--) {
+                count++;
+            }
+        }
+        return count;
+    }
+    
+    public int distanciaArribaDerecha(int fila, int columna) {
+        int count = 0;
+        for (int i = fila; fila >= 0; i--) {
+            for (int j = columna; columna < 11; j++) {
+                count++;
+            }
+        }
+        return count;
+    }
+    
+    public int distanciaArribaIzquierda(int fila, int columna) {
+        int count = 0;
+        for (int i = fila; fila >= 0; i--) {
+            for (int j = columna; columna >= 0; j--) {
+                count++;
+            }
+        }
+        return count;
+    }
+    
+    public void actualizaDistancias() {
+        // ojo como se ordenan
+        distancias[0] = distanciaDerecha(filaGato, columnaGato);
+        distancias[1] = distanciaIzquierda(filaGato, columnaGato);
+        distancias[2] = distanciaAbajo(filaGato, columnaGato);
+        distancias[3] = distanciaArriba(filaGato, columnaGato);
+        distancias[4] = distanciaAbajoDerecha(filaGato, columnaGato);
+        distancias[5] = distanciaAbajoIzquierda(filaGato, columnaGato);
+        distancias[6] = distanciaArribaDerecha(filaGato, columnaGato);
+        distancias[7] = distanciaArribaIzquierda(filaGato, columnaGato);
+    }
+    
+    public void mueveGato() {
+        int min_index = 0;
+        int min_val = distancias[min_index];
+        for (int i = 0; i < distancias.length; i++) {
+            if (distancias[i] < min_val) {
+                min_index = i;
+                min_val = distancias[i];
+            }
+        }
+        
+        switch (min_index) {
+            // derecha
+            case 0 -> {
+                if (intentaDerecha(filaGato, columnaGato)) {
+                    columnaGato++;
+                }
+            }
+            // izquierda
+            case 1 -> {
+                if (intentaIzquierda(filaGato, columnaGato)) {
+                    columnaGato--;
+                }
+            }
+            // abajo
+            case 2 -> {
+                if (intentaAbajo(filaGato, columnaGato)) {
+                    filaGato++;
+                }
+            }
+            // arriba
+            case 3 -> {
+                if (intentaArriba(filaGato, columnaGato)) {
+                    filaGato--;
+                }
+            }
+            // abajo-derecha
+            case 4 -> {
+                if (intentaAbajoDerecha(filaGato, columnaGato)) {
+                    filaGato++;
+                    columnaGato++;
+                }
+            }
+            // abajo-izquierda
+            case 5 -> {
+                if (intentaAbajoIzquierda(filaGato, columnaGato)) {
+                    filaGato++;
+                    columnaGato--;
+                }
+            }
+            // arriba-derecha
+            case 6 -> {
+                if (intentaArribaDerecha(filaGato, columnaGato)) {
+                    filaGato--;
+                    columnaGato++;
+                }
+            }
+            // arriba-izquierda
+            case 7 -> {
+                if (intentaArribaIzquierda(filaGato, columnaGato)) {
+                    filaGato--;
+                    columnaGato--;
+                }
+            }
+        }
+        
+        actualizaDistancias();
+    }
+    
+    public void pintaGato() {
+        //gato.se
+    }
+    
     ActionListener listenerBoton = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
@@ -130,6 +360,9 @@ public class Juego_Catch extends JFrame {
                 x = ((JButton) e.getSource()).getX() / BUTTON_SIZE;
                 y = ((JButton) e.getSource()).getY() / BUTTON_SIZE;              
                 ((JButton) e.getSource()).setEnabled(false);
+                if (hayCamino(filaGato, columnaGato)) {
+                    
+                }
             }
         }
     };
@@ -137,4 +370,9 @@ public class Juego_Catch extends JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelPrincipal;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void setEnemigo(String nombreEnemigo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }

@@ -266,4 +266,9 @@ public class Juego_Coins extends JuegoGenerico {
     private javax.swing.JTextField scoreField;
     private javax.swing.JTextField timeField;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void setEnemigo(String nombreEnemigo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 }
