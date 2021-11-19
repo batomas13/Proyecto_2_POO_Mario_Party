@@ -11,6 +11,7 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JButton;
 
 /**
  *
@@ -29,7 +30,7 @@ public class Juego_Cards extends JuegoGenerico {
     /**
      * Creates new form Juego_Cards
      */
-    public Juego_Cards() {
+    public Juego_Cards(Jugador refJugador) {
         initComponents();
         generaMazo();
         sacaMano(6);
@@ -38,7 +39,7 @@ public class Juego_Cards extends JuegoGenerico {
         numeroJugador = 0;
         
         try {
-            cliente = new Cliente(this);
+            cliente = new Cliente(this, refJugador);
             System.out.println("Se hizo el cliente");
             cliente.conexion();
             // recibe el status del server
@@ -247,7 +248,7 @@ public class Juego_Cards extends JuegoGenerico {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Juego_Cards().setVisible(true);
+                new Juego_Cards(new Jugador("TOM", 0 , new JButton("TOM"))).setVisible(true);
             }
         });
     }

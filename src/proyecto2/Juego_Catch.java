@@ -19,17 +19,21 @@ public class Juego_Catch extends JuegoGenerico {
     private JButton[][] ButtonArray = new JButton[11][11];
     
     private JButton gato = new JButton("G");
-    private int[] distancias = new int[]{0,0,0,0,0,0,0,0,0};
-    private int filaGato = 6, columnaGato = 6;
+    private int[] distancias = new int[]{0,0,0,0,0,0,0,0};
+    private int filaGato = 5, columnaGato = 5;
     
     /**
      * Creates new form Juego_Catch
      */
     public Juego_Catch() {
-        this.setName("Catch the cat");
         initComponents();
+        this.setName("CATCH THE CAT!");
         generateBoard();
-        gato.setBounds(ButtonArray[6][6].getX()/BUTTON_SIZE, ButtonArray[6][6].getY()/BUTTON_SIZE, 30, 30);
+        //PanelPrincipal.add(gato);
+        //gato.setBounds(ButtonArray[6][6].getX()/BUTTON_SIZE, ButtonArray[6][6].getY()/BUTTON_SIZE, 30, 30);
+        actualizaDistancias();
+        //pintaGato();
+        paintBoard();
     }
 
     /**
@@ -129,7 +133,7 @@ public class Juego_Catch extends JuegoGenerico {
     
     public boolean intentaDerecha(int fila, int columna) {
         try {
-            return ButtonArray[fila][columna + 1].isEnabled();
+            return ButtonArray[fila][columna].isEnabled() && ButtonArray[fila][columna + 1].isEnabled();
         } catch(IndexOutOfBoundsException ex) {
             return true;
         }
@@ -137,7 +141,7 @@ public class Juego_Catch extends JuegoGenerico {
     
     public boolean intentaIzquierda(int fila, int columna) {
         try {
-            return ButtonArray[fila][columna - 1].isEnabled();
+            return ButtonArray[fila][columna].isEnabled() && ButtonArray[fila][columna - 1].isEnabled();
         } catch(IndexOutOfBoundsException ex) {
             return true;
         }
@@ -145,7 +149,7 @@ public class Juego_Catch extends JuegoGenerico {
     
     public boolean intentaArriba(int fila, int columna) {
         try {
-            return ButtonArray[fila - 1][columna].isEnabled();
+            return ButtonArray[fila][columna].isEnabled() && ButtonArray[fila - 1][columna].isEnabled();
         } catch(IndexOutOfBoundsException ex) {
             return true;
         }
@@ -153,7 +157,7 @@ public class Juego_Catch extends JuegoGenerico {
     
     public boolean intentaAbajo(int fila, int columna) {
         try {
-            return ButtonArray[fila + 1][columna].isEnabled();
+            return ButtonArray[fila][columna].isEnabled() && ButtonArray[fila + 1][columna].isEnabled();
         } catch(IndexOutOfBoundsException ex) {
             return true;
         }
@@ -161,7 +165,7 @@ public class Juego_Catch extends JuegoGenerico {
     
     public boolean intentaAbajoDerecha(int fila, int columna) {
         try {
-            return ButtonArray[fila + 1][columna + 1].isEnabled();
+            return ButtonArray[fila][columna].isEnabled() && ButtonArray[fila + 1][columna + 1].isEnabled();
         } catch(IndexOutOfBoundsException ex) {
             return true;
         }
@@ -169,7 +173,7 @@ public class Juego_Catch extends JuegoGenerico {
     
     public boolean intentaAbajoIzquierda(int fila, int columna) {
         try {
-            return ButtonArray[fila + 1][columna - 1].isEnabled();
+            return ButtonArray[fila][columna].isEnabled() && ButtonArray[fila + 1][columna - 1].isEnabled();
         } catch(IndexOutOfBoundsException ex) {
             return true;
         }
@@ -177,7 +181,7 @@ public class Juego_Catch extends JuegoGenerico {
     
     public boolean intentaArribaDerecha(int fila, int columna) {
         try {
-            return ButtonArray[fila - 1][columna + 1].isEnabled();
+            return ButtonArray[fila][columna].isEnabled() && ButtonArray[fila - 1][columna + 1].isEnabled();
         } catch(IndexOutOfBoundsException ex) {
             return true;
         }
@@ -185,7 +189,7 @@ public class Juego_Catch extends JuegoGenerico {
     
     public boolean intentaArribaIzquierda(int fila, int columna) {
         try {
-            return ButtonArray[fila - 1][columna - 1].isEnabled();
+            return ButtonArray[fila][columna].isEnabled() && ButtonArray[fila - 1][columna - 1].isEnabled();
         } catch(IndexOutOfBoundsException ex) {
             return true;
         }
@@ -212,6 +216,16 @@ public class Juego_Catch extends JuegoGenerico {
         return false;
     }
     
+    public boolean hayCaminoDos(int fila, int col) {
+        if (intentaDerecha(fila, col) || intentaIzquierda(fila, col)
+            || intentaArriba(fila, col) || intentaAbajo(fila, col)
+            || intentaArribaDerecha(fila, col) || intentaArribaIzquierda(fila, col)
+            || intentaAbajoDerecha(fila, col) || intentaAbajoIzquierda(fila, col)) {
+            return true;
+        }
+        return false;
+    }
+    
     public int distanciaDerecha(int fila, int columna) {
         return 10 - columna;
     }
@@ -230,8 +244,8 @@ public class Juego_Catch extends JuegoGenerico {
     
     public int distanciaAbajoDerecha(int fila, int columna) {
         int count = 0;
-        for (int i = fila; fila < 11; i++) {
-            for (int j = columna; columna < 11; j++) {
+        for (int i = fila; i < 11; i++) {
+            for (int j = columna; j < 11; j++) {
                 count++;
             }
         }
@@ -240,8 +254,8 @@ public class Juego_Catch extends JuegoGenerico {
     
     public int distanciaAbajoIzquierda(int fila, int columna) {
         int count = 0;
-        for (int i = fila; fila < 11; i++) {
-            for (int j = columna; columna >= 0; j--) {
+        for (int i = fila; i < 11; i++) {
+            for (int j = columna; j >= 0; j--) {
                 count++;
             }
         }
@@ -250,8 +264,8 @@ public class Juego_Catch extends JuegoGenerico {
     
     public int distanciaArribaDerecha(int fila, int columna) {
         int count = 0;
-        for (int i = fila; fila >= 0; i--) {
-            for (int j = columna; columna < 11; j++) {
+        for (int i = fila; i >= 0; i--) {
+            for (int j = columna; j < 11; j++) {
                 count++;
             }
         }
@@ -260,8 +274,8 @@ public class Juego_Catch extends JuegoGenerico {
     
     public int distanciaArribaIzquierda(int fila, int columna) {
         int count = 0;
-        for (int i = fila; fila >= 0; i--) {
-            for (int j = columna; columna >= 0; j--) {
+        for (int i = fila; i >= 0; i--) {
+            for (int j = columna; j >= 0; j--) {
                 count++;
             }
         }
@@ -270,14 +284,67 @@ public class Juego_Catch extends JuegoGenerico {
     
     public void actualizaDistancias() {
         // ojo como se ordenan
-        distancias[0] = distanciaDerecha(filaGato, columnaGato);
-        distancias[1] = distanciaIzquierda(filaGato, columnaGato);
-        distancias[2] = distanciaAbajo(filaGato, columnaGato);
-        distancias[3] = distanciaArriba(filaGato, columnaGato);
-        distancias[4] = distanciaAbajoDerecha(filaGato, columnaGato);
-        distancias[5] = distanciaAbajoIzquierda(filaGato, columnaGato);
-        distancias[6] = distanciaArribaDerecha(filaGato, columnaGato);
-        distancias[7] = distanciaArribaIzquierda(filaGato, columnaGato);
+        if(intentaDerecha(filaGato, columnaGato)) {
+            distancias[0] = distanciaDerecha(filaGato, columnaGato);
+        } else {
+            distancias[0] = 999;
+        }
+        
+        if (intentaIzquierda(filaGato, columnaGato)) {
+            distancias[1] = distanciaIzquierda(filaGato, columnaGato);
+        } else {
+            distancias[1] = 999;
+        }
+        
+        if (intentaAbajo(filaGato, columnaGato)) {
+            distancias[2] = distanciaAbajo(filaGato, columnaGato);
+        } else {
+            distancias[2] = 999;
+        }
+        
+        if (intentaArriba(filaGato, columnaGato)) {
+            distancias[3] = distanciaArriba(filaGato, columnaGato);
+        } else {
+            distancias[3] = 999;
+        }
+        
+        if (intentaAbajoDerecha(filaGato, columnaGato)) {
+            distancias[4] = distanciaAbajoDerecha(filaGato, columnaGato);
+        } else {
+            distancias[4] = 999;
+        }
+        
+        if (intentaAbajoIzquierda(filaGato, columnaGato)) {
+            distancias[5] = distanciaAbajoIzquierda(filaGato, columnaGato);
+        } else {
+            distancias[5] = 999;
+        }
+        
+        if (intentaArribaDerecha(filaGato, columnaGato)) {
+            distancias[6] = distanciaArribaDerecha(filaGato, columnaGato);
+        } else {
+            distancias[6] = 999;
+        }
+        
+        if (intentaArribaIzquierda(filaGato, columnaGato)) {
+            distancias[7] = distanciaArribaIzquierda(filaGato, columnaGato);
+        } else {
+            distancias[7] = 999;
+        }
+    }
+    
+    public boolean saleTablero() {
+        int val = 999;
+        for (int i = 0; i < distancias.length; i++) {
+            if (distancias[i] < val) {
+                val = distancias[i];
+            }
+        }
+        
+        if (val <= 0) {
+            return true;
+        }
+        return false;
     }
     
     public void mueveGato() {
@@ -296,24 +363,28 @@ public class Juego_Catch extends JuegoGenerico {
                 if (intentaDerecha(filaGato, columnaGato)) {
                     columnaGato++;
                 }
+                break;
             }
             // izquierda
             case 1 -> {
                 if (intentaIzquierda(filaGato, columnaGato)) {
                     columnaGato--;
                 }
+                break;
             }
             // abajo
             case 2 -> {
                 if (intentaAbajo(filaGato, columnaGato)) {
                     filaGato++;
                 }
+                break;
             }
             // arriba
             case 3 -> {
                 if (intentaArriba(filaGato, columnaGato)) {
                     filaGato--;
                 }
+                break;
             }
             // abajo-derecha
             case 4 -> {
@@ -321,6 +392,7 @@ public class Juego_Catch extends JuegoGenerico {
                     filaGato++;
                     columnaGato++;
                 }
+                break;
             }
             // abajo-izquierda
             case 5 -> {
@@ -328,6 +400,7 @@ public class Juego_Catch extends JuegoGenerico {
                     filaGato++;
                     columnaGato--;
                 }
+                break;
             }
             // arriba-derecha
             case 6 -> {
@@ -335,6 +408,7 @@ public class Juego_Catch extends JuegoGenerico {
                     filaGato--;
                     columnaGato++;
                 }
+                break;
             }
             // arriba-izquierda
             case 7 -> {
@@ -342,27 +416,53 @@ public class Juego_Catch extends JuegoGenerico {
                     filaGato--;
                     columnaGato--;
                 }
+                break;
             }
         }
-        
+        System.out.println("El gato se movió a la posición: " + filaGato + ", " +columnaGato);
         actualizaDistancias();
     }
     
-    public void pintaGato() {
-        //gato.se
+    public void paintBoard() {
+        for (int i = 0; i < 11; i++) {
+            for (int j = 0; j < 11; j++) {
+                if (i == filaGato && j == columnaGato) {
+                    ButtonArray[i][j].setBackground(Color.red);
+                } else {
+                    ButtonArray[i][j].setBackground(Color.green);
+                }
+            }
+        }
+    }
+    
+    public void saleJuego(boolean gano) {
+        if (gano) {
+            JOptionPane.showMessageDialog(null, "Aquí hay gato encerrado, ¡ganó!", "Ganador", 1);
+        } else {
+            JOptionPane.showMessageDialog(null, "El gato salió ¡Perdió el juego!", "Perdedor", 0);
+        }
+        dispose();
     }
     
     ActionListener listenerBoton = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            int x, y;
-            if (e.getSource() instanceof JButton) {  
-                x = ((JButton) e.getSource()).getX() / BUTTON_SIZE;
-                y = ((JButton) e.getSource()).getY() / BUTTON_SIZE;              
+            if (e.getSource() instanceof JButton) {
+                // primeri deshabilite el boton y luego verifique
                 ((JButton) e.getSource()).setEnabled(false);
-                if (hayCamino(filaGato, columnaGato)) {
-                    
+                
+                
+                if (hayCaminoDos(filaGato, columnaGato)) {
+                    mueveGato();
+                    //pintaGato();
+                } else {
+                    saleJuego(true);
                 }
+                
+                if (saleTablero()) {
+                    saleJuego(false);
+                }
+                paintBoard();
             }
         }
     };
