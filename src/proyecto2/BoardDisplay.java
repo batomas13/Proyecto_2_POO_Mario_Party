@@ -39,24 +39,27 @@ public class BoardDisplay implements ActionListener {
 	private int tiempoRestante = 120; // siempre son 2 minutos de tiempo
         private JLabel labelTiempo, textoTiempo;
         private Timer timer;
+        private Jugador jugador;
         
 	/**
 	 * Constructor of the class
 	 * @param length = the length of the wordsearch
 	 * @param numOfWords - the number of words to be found in the wordsearch
+     * @param jugador
 	 */
-	public BoardDisplay(int length, int numOfWords){
-		this.length = length;
-		this.numOfWords = numOfWords;
-		frame = new JFrame("Sopa de Letras");
-		frame.setResizable(false);
-                frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		labels = new JLabel[numOfWords];
-                labelTiempo = new JLabel("Tiempo:");
-                textoTiempo = new JLabel("120");
-                timer = new Timer(1000, listenerTimer);
-                timer.setInitialDelay(1);
-                timer.start();
+	public BoardDisplay(int length, int numOfWords, Jugador jugador){
+            this.jugador = jugador;
+            this.length = length;
+            this.numOfWords = numOfWords;
+            frame = new JFrame("Sopa de Letras");
+            frame.setResizable(false);
+            frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            labels = new JLabel[numOfWords];
+            labelTiempo = new JLabel("Tiempo:");
+            textoTiempo = new JLabel("120");
+            timer = new Timer(1000, listenerTimer);
+            timer.setInitialDelay(1);
+            timer.start();
 	}
 	
 	/**
@@ -158,6 +161,7 @@ public class BoardDisplay implements ActionListener {
 			
 			//Give the player an option to play again or quit the program
                         JOptionPane.showMessageDialog(null, "¡Ganó el minijuego!", "Ganador", 1);
+                        timer.stop();
                         frame.dispose();
 		}
 	}
@@ -244,7 +248,9 @@ public class BoardDisplay implements ActionListener {
             textoTiempo.setText(tiempoRestante-- + "");
             if (tiempoRestante <= 0) {
                     JOptionPane.showMessageDialog(null, "Se acabó el tiempo", "Perdedor", 0);
+                    jugador.setEsGanador(true); // Lo pone en falso
                     ((Timer) e.getSource()).stop();
+                    
                     frame.dispose();
             }
         }

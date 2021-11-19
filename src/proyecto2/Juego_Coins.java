@@ -205,9 +205,9 @@ public class Juego_Coins extends JuegoGenerico {
                 if (puntaje < 0) {
                     JOptionPane.showMessageDialog(null, "Perdió el juego con " + puntaje + " puntos", "Perdedor", 0);
                     ((Timer) e.getSource()).stop();
+                    Jugador.setEsGanador(true); // esPerdedor
                     dispose();
                 } else {
-                    Jugador.setEsGanador(true);
                     JOptionPane.showMessageDialog(null, "Ganó el jeugo con " + puntaje + " puntos", "Ganador", 1);
                     ((Timer) e.getSource()).stop();
                     dispose();

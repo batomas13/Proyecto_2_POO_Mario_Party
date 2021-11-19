@@ -162,8 +162,8 @@ public class Tablero extends javax.swing.JFrame {
     private void btnDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDadosActionPerformed
         Jugador jugadorActual = playerArray.get(turno-1);
         // Verifica si esta en la carcel y cuanto le falta
-        if (jugadorActual.isCarcel() == false){
-            jugadorActual.setTimeinjail();
+        if (jugadorActual.isCarcel() == true){
+            jugadorActual.setTimeinjail();   // Le suma uno
             if (jugadorActual.getTimeinjail() == 2){
                 jugadorActual.setTimeinjail(0);
                 jugadorActual.setCarcel(false);
@@ -179,6 +179,7 @@ public class Tablero extends javax.swing.JFrame {
             } catch (IOException ex) {
                 Logger.getLogger(Tablero.class.getName()).log(Level.SEVERE, null, ex);
             }
+            pintarTurno();
             return;
         }
         // Verifica el castigo de los dados
@@ -191,10 +192,14 @@ public class Tablero extends javax.swing.JFrame {
         switch (valorDados) {
             case -1 -> {
                 jugadorActual.setCanMove(false);
+                 pintarTurno();
+                break;
             }
             case -2 -> {
                 jugadorActual.setCarcel(true);
                 jugadorActual.setTimeinjail(0);
+                 pintarTurno();
+                break;
             }
             default -> {
                 // continue con la vida normal
@@ -206,6 +211,7 @@ public class Tablero extends javax.swing.JFrame {
                     }
                     pintarTurno();
                 }
+                break;
             }
         }
         this.txfDados.setText(valorDados + "");
@@ -350,7 +356,7 @@ public class Tablero extends javax.swing.JFrame {
             case "Sopa" -> {
                 // juego de sopa de letras
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
-                nuevaVentanaJuego = new Juego_Sopa();
+                nuevaVentanaJuego = new Juego_Sopa(jugadorActivador);
             }
             case "Path" -> {
                 // juego de memory path
