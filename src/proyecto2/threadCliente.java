@@ -13,7 +13,7 @@ class threadCliente extends Thread{
    public void run() {
        //VARIABLES
       String menser="",amigo="";
-      int opcion=0;
+      int opcion;
       
       // solamente lee lo que el servidor threadServidor le envia
       while(true)
@@ -28,7 +28,7 @@ class threadCliente extends Thread{
                   int col = entrada.readInt();//lee columna
                   int fila = entrada.readInt();//lee fila
                   // llama a marcar, que es lo que hace el cliente cuando
-                  // el enemigo marco la sailla
+                  // el enemigo marco la caasilla
                   //((JuegoGato) vcli).marcar(col,fila);
                   System.out.println("Op1: lee col y fila: "+col+" , "+fila);
                   break;
@@ -55,6 +55,15 @@ class threadCliente extends Thread{
                   // envia la carta al cliente
                   ((Juego_Cards) vcli).recibeCarta(Integer.parseInt(menser));
                     break;
+                case 5:
+                    //lee el numero del jugador
+                    System.out.println("Entré a caso 5 para recibir el numero de jugador");
+                    vcli.numeroJugador = entrada.readInt();
+                    // lee el nomnre del enemigo vuando pide el status y lo coloca
+                    // en la pantalla cliente
+                    vcli.setEnemigo(entrada.readUTF());
+                    System.out.println("OP5, lee numero de jugador "+vcli.numeroJugador);
+                    break;
                 case 6: 
                     int valorDados = entrada.readInt();
                     //((JuegoGato) vcli).mostrar("Enemigo sacó un " + valorDados);
@@ -65,9 +74,13 @@ class threadCliente extends Thread{
                     System.out.println(msg);
                     System.out.println("Recibido caso 10 de cards");
                     break;
+                default:
+                    System.out.println("No sé en qué caso llegué :(");
+                    break;
             }
          } catch (ClassCastException e) {
              System.out.println("Aqui se supone hago handling del casteo");
+             break;
          }
          catch (IOException e){
             System.out.println("Error en la comunicacion");

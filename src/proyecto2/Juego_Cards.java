@@ -24,7 +24,7 @@ public class Juego_Cards extends JuegoGenerico {
     public ArrayList<String> mano = new ArrayList<String>();
     public int[] valorCarta = new int[2];
     public ArrayList<Jugador> jugadores;
-    public int turnoActual, numeroJugador;
+    public int turnoActual = 1, numeroJugador = 0;
     private Cliente cliente;
     
     /**
@@ -36,14 +36,14 @@ public class Juego_Cards extends JuegoGenerico {
         sacaMano(6);
         //separaValoresCarta(mano.get(0));
         turnoActual = 1;
-        numeroJugador = 0;
+        numeroJugador = 1;
         
         try {
             cliente = new Cliente(this, refJugador);
             System.out.println("Se hizo el cliente");
             cliente.conexion();
             // recibe el status del server
-            cliente.salida.writeInt(2);
+            cliente.salida.writeInt(5);
         } catch (IOException ex) {
             System.out.println("Hubo una excepcion con el cliente");
         }
@@ -173,48 +173,91 @@ public class Juego_Cards extends JuegoGenerico {
     private void BotonCarta5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCarta5ActionPerformed
         // TODO add your handling code here:
         System.out.println("Carta: " + mano.get(4));
+        System.out.println("Numero de jugador: " + numeroJugador + ", Turno: " + turnoActual);
         if (numeroJugador == turnoActual) {
             LabelCartaSeleccionada.setText("CARTA SELECCIONADA: " + mano.get(4));
+            try {
+                cliente.salida.writeInt(4);
+                cliente.salida.writeUTF("5");
+            } catch (IOException ex) {
+                // algo
+            }
+            
         }
     }//GEN-LAST:event_BotonCarta5ActionPerformed
 
     private void BotonCarta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCarta1ActionPerformed
         // TODO add your handling code here:
         System.out.println("Carta: " + mano.get(0));
+        System.out.println("Numero de jugador: " + numeroJugador + ", Turno: " + turnoActual);
         if (numeroJugador == turnoActual) {
             LabelCartaSeleccionada.setText("CARTA SELECCIONADA: " + mano.get(0));
+            try {
+                cliente.salida.writeInt(4);
+                cliente.salida.writeUTF("1");
+            } catch (IOException ex) {
+                // algo
+            }
         }
     }//GEN-LAST:event_BotonCarta1ActionPerformed
 
     private void BotonCarta2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCarta2ActionPerformed
         // TODO add your handling code here:
         System.out.println("Carta: " + mano.get(1));
+        System.out.println("Numero de jugador: " + numeroJugador + ", Turno: " + turnoActual);
         if (numeroJugador == turnoActual) {
             LabelCartaSeleccionada.setText("CARTA SELECCIONADA: " + mano.get(1));
+            try {
+                cliente.salida.writeInt(4);
+                cliente.salida.writeUTF("2");
+            } catch (IOException ex) {
+                // algo
+            }
         }
     }//GEN-LAST:event_BotonCarta2ActionPerformed
 
     private void BotonCarta3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCarta3ActionPerformed
         // TODO add your handling code here:
         System.out.println("Carta: " + mano.get(2));
+        System.out.println("Numero de jugador: " + numeroJugador + ", Turno: " + turnoActual);
         if (numeroJugador == turnoActual) {
             LabelCartaSeleccionada.setText("CARTA SELECCIONADA: " + mano.get(2));
+            try {
+                cliente.salida.writeInt(4);
+                cliente.salida.writeUTF("3");
+            } catch (IOException ex) {
+                // algo
+            }
         }
     }//GEN-LAST:event_BotonCarta3ActionPerformed
 
     private void BotonCarta4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCarta4ActionPerformed
         // TODO add your handling code here:
         System.out.println("Carta: " + mano.get(3));
+        System.out.println("Numero de jugador: " + numeroJugador + ", Turno: " + turnoActual);
         if (numeroJugador == turnoActual) {
             LabelCartaSeleccionada.setText("CARTA SELECCIONADA: " + mano.get(3));
+            try {
+                cliente.salida.writeInt(4);
+                cliente.salida.writeUTF("4");
+            } catch (IOException ex) {
+                // algo
+            }
         }
     }//GEN-LAST:event_BotonCarta4ActionPerformed
 
     private void BotonCarta6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCarta6ActionPerformed
         // TODO add your handling code here:
         System.out.println("Carta: " + mano.get(5));
+        System.out.println("Numero de jugador: " + numeroJugador + ", Turno: " + turnoActual);
         if (numeroJugador == turnoActual) {
             LabelCartaSeleccionada.setText("CARTA SELECCIONADA: " + mano.get(5));
+            try {
+                cliente.salida.writeInt(4);
+                cliente.salida.writeUTF("6");
+            } catch (IOException ex) {
+                // algo
+            }
         }
     }//GEN-LAST:event_BotonCarta6ActionPerformed
 
@@ -248,7 +291,7 @@ public class Juego_Cards extends JuegoGenerico {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Juego_Cards(new Jugador("TOM", 0 , new JButton("TOM"))).setVisible(true);
+                new Juego_Cards(new Jugador("TOM", 2 , new JButton("TOM"))).setVisible(true);
             }
         });
     }
@@ -381,7 +424,8 @@ public class Juego_Cards extends JuegoGenerico {
 
     @Override
     public void setEnemigo(String nombreEnemigo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Llegué a set enemigo con mensaje: " + nombreEnemigo);
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
 }

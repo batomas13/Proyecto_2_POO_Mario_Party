@@ -23,8 +23,8 @@ public class Proyecto2 {
         //Juego_Memory Juego = new Juego_Memory();
         //Juego_gato Juego = new Juego_gato();
         //Juego_bombermario Juego = new Juego_bombermario();
-        Juego_Memory Juego = new Juego_Memory();
-        Juego.setVisible(true);
+        //Juego_Memory Juego = new Juego_Memory();
+        //Juego.setVisible(true);
     }
     
 }

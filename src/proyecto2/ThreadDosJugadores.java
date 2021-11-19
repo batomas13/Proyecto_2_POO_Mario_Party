@@ -76,7 +76,8 @@ public class ThreadDosJugadores extends Thread {
                         break;
                     case 2:
                         //le envia el status, que es el numero de jugador y el nombre enemigo
-                        salida.writeInt(3);
+                        System.out.println("Llega al dos para status");
+                        salida.writeInt(5);
                         salida.writeInt(numeroJugador);
                         if (enemigo != null) {
                             salida.writeUTF(enemigo.nameUser);
@@ -84,7 +85,7 @@ public class ThreadDosJugadores extends Thread {
                         else {
                             salida.writeUTF("");
                         }
-                        System.out.println("3. Op3: envia 3 y numeroJugador y enemigo: "+ numeroJugador);
+                        System.out.println("2. Op2: envia 3 y numeroJugador y enemigo: "+ numeroJugador);
                         break;
                     case 3:
                         // case 3 se terminó el juego, cierre el serv
@@ -92,13 +93,14 @@ public class ThreadDosJugadores extends Thread {
                         break;
                     case 4:
                         // case 4 envie la carta del juego cards a los usuarios
-                        salida.writeInt(4);
                         String cartaLeida = entrada.readUTF();
+                        salida.writeInt(4);
                         salida.writeUTF(cartaLeida);
                         break;
-                    case 10:
-                        System.out.println("Entro en el caso 10 exclusivo de cards");
-                        salida.writeInt(10);
+                    case 5:
+                        System.out.println("Entro en el caso 5 exclusivo de cards");
+                        salida.writeInt(5);
+                        salida.writeInt(1);
                         salida.writeUTF("mensaje de prueba");
                         break;
                     default:

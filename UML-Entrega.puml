@@ -1,0 +1,92 @@
+@startuml
+abstract class proyecto2.JuegoGenerico
+annotation java.lang.Override
+annotation java.lang.SuppressWarnings
+class java.awt.Color
+class java.awt.Dimension
+class java.awt.FlowLayout
+class java.awt.Image
+class java.awt.Insets
+class java.awt.Point
+class java.awt.event.ActionEvent
+class java.awt.event.MouseAdapter
+class java.io.BufferedReader
+class java.io.DataInputStream
+class java.io.File
+class java.io.FileInputStream
+class java.io.IOException
+class java.io.InputStreamReader
+class java.lang.Thread
+class java.net.ServerSocket
+class java.net.Socket
+class java.util.ArrayList
+class java.util.Arrays
+class java.util.Collections
+class java.util.List
+class java.util.Random
+class java.util.logging.Level
+class java.util.logging.Logger
+class javax.imageio.ImageIO
+class javax.swing.ImageIcon
+class javax.swing.JButton
+class javax.swing.JFrame
+class javax.swing.JOptionPane
+class javax.swing.Timer
+class javax.swing.border.EmptyBorder
+class proyecto2.BoardDisplay
+class proyecto2.Cliente
+class proyecto2.JuegoGato
+class proyecto2.Juego_Cards
+class proyecto2.Juego_Catch
+class proyecto2.Juego_Coins
+class proyecto2.Juego_Memory
+class proyecto2.Juego_Path
+class proyecto2.Juego_Sopa
+class proyecto2.Juego_Who
+class proyecto2.Juego_bombermario
+class proyecto2.Jugador
+class proyecto2.LetterButton
+class proyecto2.Proyecto2
+class proyecto2.ServidorDosJugadores
+class proyecto2.ServidorTodosJugadores
+class proyecto2.Tablero
+class proyecto2.ThreadDosJugadores
+class proyecto2.WordGenerator
+class proyecto2.WordsearchGenerator
+class proyecto2.threadCliente
+interface java.awt.event.ActionListener
+proyecto2.JuegoGenerico --|> javax.swing.JFrame
+proyecto2.BoardDisplay ..> java.lang.Override
+proyecto2.BoardDisplay --|> java.awt.event.ActionListener
+proyecto2.JuegoGato --|> proyecto2.JuegoGenerico
+proyecto2.JuegoGato ..> java.lang.Override
+proyecto2.Juego_Cards --|> proyecto2.JuegoGenerico
+proyecto2.Juego_Cards ..> java.lang.Override
+proyecto2.Juego_Cards ..> java.lang.SuppressWarnings
+proyecto2.Juego_Catch --|> proyecto2.JuegoGenerico
+proyecto2.Juego_Catch ..> java.lang.Override
+proyecto2.Juego_Catch ..> java.lang.SuppressWarnings
+proyecto2.Juego_Coins --|> proyecto2.JuegoGenerico
+proyecto2.Juego_Coins ..> java.lang.Override
+proyecto2.Juego_Coins ..> java.lang.SuppressWarnings
+proyecto2.Juego_Memory --|> proyecto2.JuegoGenerico
+proyecto2.Juego_Memory ..> java.lang.Override
+proyecto2.Juego_Memory ..> java.lang.SuppressWarnings
+proyecto2.Juego_Path --|> proyecto2.JuegoGenerico
+proyecto2.Juego_Path ..> java.lang.Override
+proyecto2.Juego_Path ..> java.lang.SuppressWarnings
+proyecto2.Juego_Sopa --|> proyecto2.JuegoGenerico
+proyecto2.Juego_Sopa ..> java.lang.Override
+proyecto2.Juego_Who --|> proyecto2.JuegoGenerico
+proyecto2.Juego_Who ..> java.lang.Override
+proyecto2.Juego_Who ..> java.lang.SuppressWarnings
+proyecto2.Juego_bombermario --|> proyecto2.JuegoGenerico
+proyecto2.Juego_bombermario ..> java.lang.Override
+proyecto2.Juego_bombermario ..> java.lang.SuppressWarnings
+proyecto2.LetterButton --|> javax.swing.JButton
+proyecto2.Tablero ..> java.lang.SuppressWarnings
+proyecto2.Tablero --|> javax.swing.JFrame
+proyecto2.ThreadDosJugadores ..> java.lang.Override
+proyecto2.ThreadDosJugadores --|> java.lang.Thread
+proyecto2.threadCliente --|> java.lang.Thread
+@enduml
