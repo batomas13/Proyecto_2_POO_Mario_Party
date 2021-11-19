@@ -1,0 +1,195 @@
+@startuml
+abstract class proyecto2.JuegoGenerico
+annotation java.lang.Override
+annotation java.lang.SuppressWarnings
+class java.awt.Color
+class java.awt.Dimension
+class java.awt.FlowLayout
+class java.awt.Image
+class java.awt.Insets
+class java.awt.Point
+class java.awt.event.ActionEvent
+class java.io.BufferedReader
+class java.io.DataInputStream
+class java.io.File
+class java.io.FileInputStream
+class java.io.IOException
+class java.io.InputStreamReader
+class java.lang.Thread
+class java.net.ServerSocket
+class java.net.Socket
+class java.util.ArrayList
+class java.util.Arrays
+class java.util.Collections
+class java.util.List
+class java.util.Random
+class java.util.logging.Level
+class java.util.logging.Logger
+class javax.imageio.ImageIO
+class javax.swing.ImageIcon
+class javax.swing.JButton
+class javax.swing.JFrame
+class javax.swing.JOptionPane
+class javax.swing.Timer
+class javax.swing.border.EmptyBorder
+class proyecto2.BoardDisplay
+class proyecto2.Cliente
+class proyecto2.Juego_Cards
+class proyecto2.Juego_Catch
+class proyecto2.Juego_Coins
+class proyecto2.Juego_Memory
+class proyecto2.Juego_Path
+class proyecto2.Juego_Sopa
+class proyecto2.Juego_Who
+class proyecto2.Juego_bombermario
+class proyecto2.Juego_gato
+class proyecto2.Jugador
+class proyecto2.LetterButton
+class proyecto2.Proyecto2
+class proyecto2.ServidorDosJugadores
+class proyecto2.ServidorTodosJugadores
+class proyecto2.Tablero
+class proyecto2.ThreadDosJugadores
+class proyecto2.WordGenerator
+class proyecto2.WordsearchGenerator
+class proyecto2.configuracion
+class proyecto2.threadCliente
+interface java.awt.event.ActionListener
+proyecto2.JuegoGenerico --|> javax.swing.JFrame
+proyecto2.BoardDisplay ..> java.lang.Override
+proyecto2.BoardDisplay ..> java.awt.event.ActionEvent
+proyecto2.BoardDisplay ..> java.util.ArrayList
+proyecto2.BoardDisplay ..> java.util.Random
+proyecto2.BoardDisplay ..> javax.swing.border.EmptyBorder
+proyecto2.BoardDisplay --|> java.awt.event.ActionListener
+proyecto2.Juego_Cards --|> proyecto2.JuegoGenerico
+proyecto2.Juego_Cards ..> java.lang.Override
+proyecto2.Juego_Cards ..> java.lang.SuppressWarnings
+proyecto2.Juego_Cards ..> java.util.ArrayList
+proyecto2.Juego_Cards ..> java.util.Arrays
+proyecto2.Juego_Cards ..> java.util.Collections
+proyecto2.Juego_Cards ..> javax.swing.JOptionPane
+proyecto2.Juego_Catch --|> proyecto2.JuegoGenerico
+proyecto2.Juego_Catch ..> java.lang.Override
+proyecto2.Juego_Catch ..> java.lang.SuppressWarnings
+proyecto2.Juego_Catch ..> java.awt.Color
+proyecto2.Juego_Catch ..> java.awt.event.ActionEvent
+proyecto2.Juego_Catch ..> java.awt.event.ActionListener
+proyecto2.Juego_Coins --|> proyecto2.JuegoGenerico
+proyecto2.Juego_Coins ..> java.lang.Override
+proyecto2.Juego_Coins ..> java.lang.SuppressWarnings
+proyecto2.Juego_Coins ..> java.awt.Color
+proyecto2.Juego_Coins ..> java.awt.event.ActionEvent
+proyecto2.Juego_Coins ..> javax.swing.JButton
+proyecto2.Juego_Coins ..> javax.swing.JOptionPane
+proyecto2.Juego_Coins ..> javax.swing.Timer
+proyecto2.Juego_Coins ..> java.awt.event.ActionListener
+proyecto2.Juego_Memory --|> proyecto2.JuegoGenerico
+proyecto2.Juego_Memory ..> java.lang.Override
+proyecto2.Juego_Memory ..> java.lang.SuppressWarnings
+proyecto2.Juego_Memory ..> java.awt.Image
+proyecto2.Juego_Memory ..> java.awt.event.ActionEvent
+proyecto2.Juego_Memory ..> java.io.File
+proyecto2.Juego_Memory ..> java.io.IOException
+proyecto2.Juego_Memory ..> java.util.ArrayList
+proyecto2.Juego_Memory ..> java.util.Arrays
+proyecto2.Juego_Memory ..> java.util.Collections
+proyecto2.Juego_Memory ..> java.util.List
+proyecto2.Juego_Memory ..> javax.imageio.ImageIO
+proyecto2.Juego_Memory ..> java.awt.event.ActionListener
+proyecto2.Juego_Path --|> proyecto2.JuegoGenerico
+proyecto2.Juego_Path ..> java.lang.Override
+proyecto2.Juego_Path ..> java.lang.SuppressWarnings
+proyecto2.Juego_Path ..> java.awt.event.ActionEvent
+proyecto2.Juego_Path ..> java.util.Random
+proyecto2.Juego_Path ..> javax.swing.JButton
+proyecto2.Juego_Path ..> javax.swing.JOptionPane
+proyecto2.Juego_Path ..> java.awt.event.ActionListener
+proyecto2.Juego_Sopa --|> proyecto2.JuegoGenerico
+proyecto2.Juego_Sopa ..> java.lang.Override
+proyecto2.Juego_Who --|> proyecto2.JuegoGenerico
+proyecto2.Juego_Who ..> java.lang.Override
+proyecto2.Juego_Who ..> java.lang.SuppressWarnings
+proyecto2.Juego_Who ..> java.awt.FlowLayout
+proyecto2.Juego_Who ..> java.awt.Image
+proyecto2.Juego_Who ..> java.io.File
+proyecto2.Juego_Who ..> java.io.IOException
+proyecto2.Juego_Who ..> java.util.Random
+proyecto2.Juego_Who ..> javax.imageio.ImageIO
+proyecto2.Juego_Who ..> javax.swing.ImageIcon
+proyecto2.Juego_Who ..> javax.swing.JButton
+proyecto2.Juego_Who ..> javax.swing.JOptionPane
+proyecto2.Juego_bombermario --|> proyecto2.JuegoGenerico
+proyecto2.Juego_bombermario ..> java.lang.Override
+proyecto2.Juego_bombermario ..> java.lang.SuppressWarnings
+proyecto2.Juego_bombermario ..> java.awt.Color
+proyecto2.Juego_bombermario ..> java.awt.event.ActionEvent
+proyecto2.Juego_bombermario ..> java.util.Random
+proyecto2.Juego_bombermario ..> javax.swing.JButton
+proyecto2.Juego_bombermario ..> javax.swing.JOptionPane
+proyecto2.Juego_bombermario ..> java.awt.event.ActionListener
+proyecto2.Juego_gato --|> proyecto2.JuegoGenerico
+proyecto2.Juego_gato ..> java.lang.Override
+proyecto2.Juego_gato ..> java.lang.SuppressWarnings
+proyecto2.Juego_gato ..> java.awt.Image
+proyecto2.Juego_gato ..> java.awt.event.ActionEvent
+proyecto2.Juego_gato ..> java.io.File
+proyecto2.Juego_gato ..> java.io.IOException
+proyecto2.Juego_gato ..> javax.imageio.ImageIO
+proyecto2.Juego_gato ..> javax.swing.ImageIcon
+proyecto2.Juego_gato ..> javax.swing.JButton
+proyecto2.Juego_gato ..> javax.swing.JFrame
+proyecto2.Juego_gato ..> javax.swing.JOptionPane
+proyecto2.Juego_gato ..> java.awt.event.ActionListener
+proyecto2.Jugador ..> javax.swing.JButton
+proyecto2.LetterButton ..> java.awt.Color
+proyecto2.LetterButton ..> java.awt.Dimension
+proyecto2.LetterButton ..> java.awt.Insets
+proyecto2.LetterButton ..> java.awt.event.ActionEvent
+proyecto2.LetterButton --|> javax.swing.JButton
+proyecto2.LetterButton ..> java.awt.event.ActionListener
+proyecto2.Proyecto2 ..> java.io.IOException
+proyecto2.Proyecto2 ..> java.util.ArrayList
+proyecto2.ServidorDosJugadores ..> java.awt.Color
+proyecto2.ServidorDosJugadores ..> java.io.IOException
+proyecto2.ServidorDosJugadores ..> java.net.ServerSocket
+proyecto2.ServidorDosJugadores ..> java.net.Socket
+proyecto2.ServidorDosJugadores ..> java.util.ArrayList
+proyecto2.ServidorDosJugadores ..> java.util.logging.Level
+proyecto2.ServidorDosJugadores ..> java.util.logging.Logger
+proyecto2.ServidorDosJugadores ..> javax.swing.JButton
+proyecto2.ServidorTodosJugadores ..> java.util.ArrayList
+proyecto2.Tablero ..> java.lang.SuppressWarnings
+proyecto2.Tablero ..> java.awt.Point
+proyecto2.Tablero ..> java.io.IOException
+proyecto2.Tablero ..> java.util.ArrayList
+proyecto2.Tablero ..> java.util.Arrays
+proyecto2.Tablero ..> java.util.Collections
+proyecto2.Tablero ..> java.util.List
+proyecto2.Tablero ..> java.util.Random
+proyecto2.Tablero ..> java.util.logging.Level
+proyecto2.Tablero ..> java.util.logging.Logger
+proyecto2.Tablero ..> javax.swing.JButton
+proyecto2.Tablero --|> javax.swing.JFrame
+proyecto2.Tablero ..> javax.swing.JOptionPane
+proyecto2.ThreadDosJugadores ..> java.lang.Override
+proyecto2.ThreadDosJugadores --|> java.lang.Thread
+proyecto2.WordGenerator ..> java.io.BufferedReader
+proyecto2.WordGenerator ..> java.io.DataInputStream
+proyecto2.WordGenerator ..> java.io.FileInputStream
+proyecto2.WordGenerator ..> java.io.InputStreamReader
+proyecto2.WordGenerator ..> java.util.ArrayList
+proyecto2.WordGenerator ..> java.util.Random
+proyecto2.WordsearchGenerator ..> java.util.ArrayList
+proyecto2.WordsearchGenerator ..> java.util.Collections
+proyecto2.WordsearchGenerator ..> java.util.Random
+proyecto2.configuracion ..> java.lang.Override
+proyecto2.configuracion ..> java.lang.SuppressWarnings
+proyecto2.configuracion ..> java.awt.Color
+proyecto2.configuracion ..> java.awt.event.ActionEvent
+proyecto2.configuracion ..> java.util.ArrayList
+proyecto2.configuracion ..> javax.swing.JButton
+proyecto2.configuracion --|> javax.swing.JFrame
+proyecto2.configuracion ..> java.awt.event.ActionListener
+proyecto2.threadCliente --|> java.lang.Thread
+@enduml
