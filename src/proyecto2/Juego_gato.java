@@ -1,0 +1,227 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
+ */
+
+package proyecto2;
+
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
+/**
+ *
+ * @author tcoto
+ */
+public class Juego_gato extends JFrame {
+    private File path = new File("Imagenes_Gato");
+    private File[] allFiles = path.listFiles();
+    public static int DIMENSIONES = 3;
+    private Image fotos[] = new Image[3];
+    private ImageIcon vacio;
+    private ImageIcon equis;
+    private ImageIcon circulo;
+    private String nombre1;
+    private String nombre2;
+    private Jugador Jugador1;
+    private Jugador Jugador2;
+    private int numeroJugador = 1;
+    JButton[][] tableroLabels = new JButton[DIMENSIONES][DIMENSIONES];
+    int[][] tableroLogico = new int[DIMENSIONES][DIMENSIONES];
+    
+
+    /** Creates new form Gato
+     * @param Jugador1
+     * @param Jugador2
+     * @throws java.io.IOException */
+    
+    public Juego_gato(Jugador Jugador1, Jugador Jugador2) throws IOException {
+        initComponents();
+        for (int i = 0; i < 3; i++){
+            fotos[i] = ImageIO.read(allFiles[i]);
+        }
+        this.nombre1 = Jugador1.getNombre();
+        this.nombre2 = Jugador2.getNombre();
+        this.Jugador1 = Jugador1;
+        this.Jugador2 = Jugador2;
+        vacio = new ImageIcon(fotos[2]);
+        equis = new ImageIcon(fotos[1]);
+        circulo = new ImageIcon(fotos[0]);
+        generarTablero();
+    }
+    
+    private void generarTablero(){
+        for (int i = 0; i < DIMENSIONES; i++){
+            for (int j = 0; j < DIMENSIONES; j++){
+                 tableroLabels[i][j] = new JButton(vacio);
+                 jPanel1.add(tableroLabels[i][j]);
+                 tableroLabels[i][j].addActionListener(listener);
+                 tableroLabels[i][j].setBounds(50*i, 50*j, 50, 50);
+            }
+        }
+    }
+    
+    public void reiniciarJuego(){
+        for(int i = 0; i < DIMENSIONES; i++){
+            for(int j = 0; j < DIMENSIONES; j++){
+                tableroLabels[i][j].setIcon(vacio);
+                tableroLogico[i][j]=0;
+            }
+        }
+    }
+    
+    boolean haGanado(){
+        //Ganó en las filas
+        for(int i = 0; i < 3; i++){
+        if ((tableroLogico[i][0] == tableroLogico[i][1])
+                &&(tableroLogico[i][1] == tableroLogico[i][2])
+                && !(tableroLogico[i][0] == 0)) {
+            return true;
+        }
+        }
+        //Gano en las columnas
+        for(int i = 0; i < 3; i++){
+        if ((tableroLogico[0][i] == tableroLogico[1][i])
+                &&(tableroLogico[1][i] == tableroLogico[2][i])
+                && !(tableroLogico[0][i] == 0))
+        {
+            return true;
+        }
+        }
+        //Verificar diagonal 1
+        if ((tableroLogico[0][0] == tableroLogico[1][1])
+                &&(tableroLogico[1][1] == tableroLogico[2][2])
+                && !(tableroLogico[0][0] == 0))
+            return true;
+        
+        //Verificar diagonal 2
+        if ((tableroLogico[2][0] == tableroLogico[1][1])
+                &&(tableroLogico[1][1] == tableroLogico[0][2])
+                && !(tableroLogico[2][0] == 0))
+            return true;
+        
+        return false;
+    }
+    
+    public void click(int x, int y){
+        if (tableroLogico[x][y] != 0){
+            return;
+        }
+        System.out.println(numeroJugador);
+        if (numeroJugador == 1){
+            tableroLabels[x][y].setIcon(equis);
+            numeroJugador=0;
+            tableroLogico[x][y] = 1;
+            jLabel1.setText("Turno del Jugador "+nombre1);
+        }
+        else{
+            // si era jugador 3, marca circulo y turno jugador 1
+            tableroLabels[x][y].setIcon(circulo);
+            tableroLogico[x][y] = 2;
+            numeroJugador++;
+            jLabel1.setText("Turno del Jugador "+nombre2);
+        }
+        
+        
+        if(haGanado())
+        {
+            switch(numeroJugador){
+                case 0 -> {
+                    JOptionPane.showMessageDialog(null, "Ha ganado el jugador " + nombre2);
+                    Jugador2.setEsGanador(true);
+                }
+                case 1 -> {
+                    JOptionPane.showMessageDialog(null, "Ha ganado el jugador " + nombre1);
+                    Jugador1.setEsGanador(true);
+                }
+            }
+            super.dispose();
+        } 
+    }
+    
+    /** This method is called from within the constructor to
+     * initialize the form.
+     * WARNING: Do NOT modify this code. The content of this method is
+     * always regenerated by the Form Editor.
+     */
+    @SuppressWarnings("unchecked")
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
+    private void initComponents() {
+
+        jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jLabel1.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
+        jLabel1.setText("Turno del Jugador: Jugador 1");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 241, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(50, 50, 50)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(113, 113, 113))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(41, Short.MAX_VALUE))
+        );
+
+        pack();
+    }// </editor-fold>//GEN-END:initComponents
+
+    /**
+     * @param args the command line arguments
+     */
+   ActionListener listener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            int x, y;
+            if (e.getSource() instanceof JButton jButton) {  
+                x = jButton.getX() / 50;
+                y = jButton.getY() / 50;   
+                click(x, y);
+            }
+        }
+    };
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
+    // End of variables declaration//GEN-END:variables
+
+    
+
+//    public void setEnemigo(String nombreEnemigo) {
+//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+//    }
+
+}

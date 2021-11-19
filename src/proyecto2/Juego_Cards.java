@@ -7,10 +7,7 @@ package proyecto2;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 
 /**
@@ -37,16 +34,6 @@ public class Juego_Cards extends JuegoGenerico {
         //separaValoresCarta(mano.get(0));
         turnoActual = 1;
         numeroJugador = 1;
-        
-        try {
-            cliente = new Cliente(this, refJugador);
-            System.out.println("Se hizo el cliente");
-            cliente.conexion();
-            // recibe el status del server
-            cliente.salida.writeInt(5);
-        } catch (IOException ex) {
-            System.out.println("Hubo una excepcion con el cliente");
-        }
     }
 
     /**
@@ -173,15 +160,8 @@ public class Juego_Cards extends JuegoGenerico {
     private void BotonCarta5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCarta5ActionPerformed
         // TODO add your handling code here:
         System.out.println("Carta: " + mano.get(4));
-        System.out.println("Numero de jugador: " + numeroJugador + ", Turno: " + turnoActual);
         if (numeroJugador == turnoActual) {
             LabelCartaSeleccionada.setText("CARTA SELECCIONADA: " + mano.get(4));
-            try {
-                cliente.salida.writeInt(4);
-                cliente.salida.writeUTF("5");
-            } catch (IOException ex) {
-                // algo
-            }
             
         }
     }//GEN-LAST:event_BotonCarta5ActionPerformed
@@ -192,12 +172,6 @@ public class Juego_Cards extends JuegoGenerico {
         System.out.println("Numero de jugador: " + numeroJugador + ", Turno: " + turnoActual);
         if (numeroJugador == turnoActual) {
             LabelCartaSeleccionada.setText("CARTA SELECCIONADA: " + mano.get(0));
-            try {
-                cliente.salida.writeInt(4);
-                cliente.salida.writeUTF("1");
-            } catch (IOException ex) {
-                // algo
-            }
         }
     }//GEN-LAST:event_BotonCarta1ActionPerformed
 
@@ -207,12 +181,6 @@ public class Juego_Cards extends JuegoGenerico {
         System.out.println("Numero de jugador: " + numeroJugador + ", Turno: " + turnoActual);
         if (numeroJugador == turnoActual) {
             LabelCartaSeleccionada.setText("CARTA SELECCIONADA: " + mano.get(1));
-            try {
-                cliente.salida.writeInt(4);
-                cliente.salida.writeUTF("2");
-            } catch (IOException ex) {
-                // algo
-            }
         }
     }//GEN-LAST:event_BotonCarta2ActionPerformed
 
@@ -222,12 +190,6 @@ public class Juego_Cards extends JuegoGenerico {
         System.out.println("Numero de jugador: " + numeroJugador + ", Turno: " + turnoActual);
         if (numeroJugador == turnoActual) {
             LabelCartaSeleccionada.setText("CARTA SELECCIONADA: " + mano.get(2));
-            try {
-                cliente.salida.writeInt(4);
-                cliente.salida.writeUTF("3");
-            } catch (IOException ex) {
-                // algo
-            }
         }
     }//GEN-LAST:event_BotonCarta3ActionPerformed
 
@@ -237,12 +199,6 @@ public class Juego_Cards extends JuegoGenerico {
         System.out.println("Numero de jugador: " + numeroJugador + ", Turno: " + turnoActual);
         if (numeroJugador == turnoActual) {
             LabelCartaSeleccionada.setText("CARTA SELECCIONADA: " + mano.get(3));
-            try {
-                cliente.salida.writeInt(4);
-                cliente.salida.writeUTF("4");
-            } catch (IOException ex) {
-                // algo
-            }
         }
     }//GEN-LAST:event_BotonCarta4ActionPerformed
 
@@ -252,12 +208,6 @@ public class Juego_Cards extends JuegoGenerico {
         System.out.println("Numero de jugador: " + numeroJugador + ", Turno: " + turnoActual);
         if (numeroJugador == turnoActual) {
             LabelCartaSeleccionada.setText("CARTA SELECCIONADA: " + mano.get(5));
-            try {
-                cliente.salida.writeInt(4);
-                cliente.salida.writeUTF("6");
-            } catch (IOException ex) {
-                // algo
-            }
         }
     }//GEN-LAST:event_BotonCarta6ActionPerformed
 

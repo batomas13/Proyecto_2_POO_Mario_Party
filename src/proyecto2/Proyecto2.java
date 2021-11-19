@@ -20,11 +20,15 @@ public class Proyecto2 {
         // TODO code application logic here
         //Tablero juego = new Tablero();
         //Juego_Who Juego = new Juego_Who();
-        //Juego_Memory Juego = new Juego_Memory();
+        
         //Juego_gato Juego = new Juego_gato();
         //Juego_bombermario Juego = new Juego_bombermario();
         //Juego_Memory Juego = new Juego_Memory();
-        //Juego.setVisible(true);
+        Jugador Jugador1 = new Jugador("HOLA", 0, null);
+        Jugador Jugador2 = new Jugador("ADIOS", 0, null);
+        Juego_Memory Juego = new Juego_Memory(Jugador1, Jugador2);
+        //Juego_gato Juego = new Juego_gato (Jugador1, Jugador2);
+        Juego.setVisible(true);
     }
     
 }

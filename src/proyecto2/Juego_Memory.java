@@ -26,9 +26,14 @@ public class Juego_Memory extends JuegoGenerico {
     private JButton buttonArray_fotos[][] = new JButton[6][3];
     private JButton ButtonListo[] = new JButton[18];
     private JButton ButtonUP[] = new JButton[2];
+    private Jugador jugador1;
+    private Jugador jugador2;
     private int ButtonSize = 92;
     private int vueltas = 0;
     private int puntos = 0;
+    private int punto2 = 0;
+    private int turno = 0;
+    private int cantidad_turnos = 0;
     private File Path = new File ("Imagenes_Memory_Game");
     private File[]  allFiles = Path.listFiles();
     private Image[] Personaje = new Image[18];
@@ -41,7 +46,9 @@ public class Juego_Memory extends JuegoGenerico {
      * Creates new form Juego_Memory
      * @throws java.io.IOException
      */
-    public Juego_Memory() throws IOException {
+    public Juego_Memory(Jugador Jugador1, Jugador Jugador2) throws IOException {
+        this.jugador1 = Jugador1;
+        this.jugador2 = Jugador2;
         for (int i = 0; i < 18; i++){
             Personaje[i] = ImageIO.read(allFiles[i]);
         }
@@ -49,18 +56,8 @@ public class Juego_Memory extends JuegoGenerico {
         initTablero();
         imagenes = new ArrayList<> (Arrays.asList(ButtonListo));
         Collections.shuffle(imagenes);
-        for (int i = 0; i < 18; i++){
-            //System.out.println(imagenes.get(i).getName() + " " + imagenes.get(i).getX() + " " + imagenes.get(i).getY());
-        }
         System.out.println("   ");
-        poner_Botones();
-        
-        
-        
-//        for (int i = 0; i < 18; i++){
-//            System.out.println(pares[i]);
-//        }
-        
+        poner_Botones();        
     }
 
     /**
@@ -77,6 +74,8 @@ public class Juego_Memory extends JuegoGenerico {
         jLabel2 = new javax.swing.JLabel();
         labelPuntos = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        labelPuntos1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -95,11 +94,11 @@ public class Juego_Memory extends JuegoGenerico {
 
         labelNombre.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         labelNombre.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
-        labelNombre.setText("nombre");
+        labelNombre.setText("Jugador 0 ");
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel2.setText("Puntos:");
+        jLabel2.setText("Puntos Jugador 1:");
 
         labelPuntos.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
         labelPuntos.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -109,6 +108,14 @@ public class Juego_Memory extends JuegoGenerico {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("Turno:");
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel3.setText("Puntos Jugador 2:");
+
+        labelPuntos1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        labelPuntos1.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+        labelPuntos1.setText("0");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -116,30 +123,40 @@ public class Juego_Memory extends JuegoGenerico {
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addComponent(PanelTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 54, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(labelPuntos, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(labelNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(21, 21, 21))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelNombre, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(labelPuntos1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(9, 9, 9)))
+                        .addGap(21, 21, 21))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(labelPuntos, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(PanelTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
-                        .addGap(50, 50, 50)
-                        .addComponent(jLabel4)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(labelNombre)
-                        .addGap(47, 47, 47)
-                        .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(labelPuntos)))
+                .addComponent(jLabel4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelNombre)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelPuntos)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(labelPuntos1)
+                .addContainerGap())
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(PanelTablero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(40, 40, 40))
         );
 
@@ -165,7 +182,7 @@ public class Juego_Memory extends JuegoGenerico {
                     case 5 -> Name = "Wario";
                     case 6 -> Name = "Goomba";
                     case 7 -> Name = "Toad car";
-                    case 8 -> Name = "Toad car";
+                    case 8 -> Name = "Yoshi car";
                     case 9 -> Name = "Luigi";
                     case 10 -> Name = "Peach";
                     case 11 -> Name = "Mario Const";
@@ -193,14 +210,27 @@ public class Juego_Memory extends JuegoGenerico {
             ButtonUP[vueltas].setName(buttonArray_fotos[x][y].getName());
         }
         else{
-            
             if (ButtonUP[0].getName().equals(ButtonUP[1].getName())){
                 PanelTablero.remove(ButtonUP[0]);
                 PanelTablero.remove(ButtonUP[1]);
-                puntos++;
-                labelPuntos.setText(puntos + " ");
+                if (turno == 1){
+                    puntos++;
+                    labelPuntos.setText(puntos + " ");
+                }
+                else{
+                    punto2++;
+                    labelPuntos1.setText(punto2 + " ");
+                }
+                System.out.println(cantidad_turnos);
+                if (cantidad_turnos == 8){
+                    ganar();
+                    JOptionPane.showMessageDialog(null, "Ha ganado el jugador " + turno);
+                    super.dispose();
+                }
+                cantidad_turnos++;
                 ButtonUP[0] = buttonArray_fotos[x][y];
                 buttonArray_fotos[x][y].setIcon(icon);
+                
             }
             else{
                 ButtonUP[0].setIcon(null);
@@ -208,11 +238,17 @@ public class Juego_Memory extends JuegoGenerico {
                 ButtonUP[1].setIcon(null);
                 ButtonUP[1] = null;
                 buttonArray_fotos[x][y].setIcon(icon);
+                if (turno == 1){
+                    turno = 0;
+                }
+                else{
+                    turno++;
+                }
+                labelNombre.setText("Jugador " + turno);
             }
             vueltas = 0;
             
         }
-        System.out.println(ButtonUP[vueltas].getName());
         vueltas++;
         
     }
@@ -221,7 +257,6 @@ public class Juego_Memory extends JuegoGenerico {
         int count = 0;
         for (int i = 0; i < 6; i++){
             for (int j = 0; j < 3; j++){
-                System.out.println(imagenes.get(count).getName());
                 buttonArray_fotos[i][j] = imagenes.get(count);
                 Icon_Boton[i][j] = buttonArray_fotos[i][j].getIcon();
                 buttonArray_fotos[i][j].setIcon(null);
@@ -245,12 +280,22 @@ public class Juego_Memory extends JuegoGenerico {
         }
     };
 
+    private void ganar (){
+        if (punto2 > puntos){
+            jugador2.setEsGanador(true);
+        }
+        else{
+            jugador1.setEsGanador(true);
+        }
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelTablero;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel labelNombre;
     private javax.swing.JLabel labelPuntos;
+    private javax.swing.JLabel labelPuntos1;
     // End of variables declaration//GEN-END:variables
 
     @Override
