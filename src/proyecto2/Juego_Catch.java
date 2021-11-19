@@ -407,8 +407,8 @@ public class Juego_Catch extends JuegoGenerico {
             
         } else {
             JOptionPane.showMessageDialog(null, "El gato salió ¡Perdió el juego!", "Perdedor", 0);
+            jugador.setEsGanador(false);  // EsPededor
         }
-        jugador.setEsGanador(gano);
         dispose();
     }
     
