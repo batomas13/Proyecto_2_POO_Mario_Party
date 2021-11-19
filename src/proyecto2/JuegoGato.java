@@ -27,7 +27,7 @@ public class JuegoGato extends JuegoGenerico {
     private File[] allFiles = path.listFiles();
     
     /** Creates new form JuegoGato */
-    public JuegoGato() throws IOException{
+    public JuegoGato(Jugador refJugador) throws IOException{
         try {
             // esto es parte del gato
             initComponents();
@@ -35,7 +35,7 @@ public class JuegoGato extends JuegoGenerico {
             generarTablero();
             
             // Cra una cliente que es su coenxion al server
-            cliente = new Cliente(this);
+            cliente = new Cliente(this, refJugador);
             System.out.println("Se hizo el cliente");
             cliente.conexion();
             
@@ -397,7 +397,7 @@ private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRS
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new JuegoGato().setVisible(true);
+                    new JuegoGato(new Jugador("ADR", 0, new JButton("ADR"))).setVisible(true);
                 } catch (IOException ex) {
                     //
                 }
