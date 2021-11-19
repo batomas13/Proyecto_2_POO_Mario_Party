@@ -39,35 +39,15 @@ public class Tablero extends javax.swing.JFrame {
     private ArrayList<Jugador> playerArray = new ArrayList<Jugador>();
     private Jugador jugadorTablero;
     
-
     /**
      * Creates new form Tablero
      */
-    public Tablero() {
-        initComponents();
-        initPlayers();
-        initBoard();
-        initRandomTiles();
-    }
-    
-    /**
-     * Creates new form Tablero
-     */
-    public Tablero(Jugador jugadorTablero) {
-        this.jugadorTablero = jugadorTablero;
-        initComponents();
-        initPlayer();
-        initBoard();
-        initRandomTiles();
-    }
-    
-    
     public Tablero(ArrayList<Jugador> Jugadores){
         initComponents();
         playerArray = Jugadores;
         for (int i = 0; i < playerArray.size(); i++){
             jPanel1.add(playerArray.get(i).getRefButton());
-            playerArray.get(i).refButton.setBounds(0, playerArray.size() * 20, 40, 20);
+            playerArray.get(i).refButton.setBounds(0, i * 20, 40, 20);
         }
         initBoard();
         initRandomTiles();
