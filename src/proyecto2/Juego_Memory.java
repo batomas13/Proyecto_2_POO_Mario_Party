@@ -27,6 +27,7 @@ public class Juego_Memory extends JuegoGenerico {
     private JButton ButtonUP[] = new JButton[2];
     private int ButtonSize = 92;
     private int vueltas = 0;
+    private int pares[]  = new int[18];
     private int puntos = 0;
     private File Path = new File ("Imagenes_Memory_Game");
     private File[]  allFiles = Path.listFiles();
@@ -146,6 +147,12 @@ public class Juego_Memory extends JuegoGenerico {
             for (int j = 0; j < 3; j++){
                 buttonArray_fotos[i][j] = new JButton();
                 Icon_Boton[i][j] = imagenes.get(count);
+                if (count >= 9){
+                    pares[count] = count - 9;
+                }
+                else{
+                    pares[count] = count;
+                }
                 count++;
                 buttonArray_fotos[i][j].setBounds(i * ButtonSize, j * ButtonSize, ButtonSize, ButtonSize); 
                 PanelTablero.add(buttonArray_fotos[i][j]);
@@ -156,14 +163,18 @@ public class Juego_Memory extends JuegoGenerico {
     
     private void juego(int x, int y){
         ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
-        //System.out.println(vueltas);
+        //System.out.println(((buttonArray_fotos[x][y].getX() / 92) + (buttonArray_fotos[x][y].getY() / 92)));
+        //System.out.println(pares[((buttonArray_fotos[x][y].getX() / 92) + (buttonArray_fotos[x][y].getY() / 92))]);
+        
         if (vueltas != 2){
             buttonArray_fotos[x][y].setIcon(icon);
             ButtonUP[vueltas] = buttonArray_fotos[x][y];
             
         }
         else{
-            System.out.println(puntos);
+            //System.out.println(puntos);
+            
+            //System.out.println(ButtonUP[0].getIcon().equals(ButtonUP[1].getIcon()));
             if (ButtonUP[0].getIcon().equals(ButtonUP[1].getIcon())){
                 puntos++;
             }
@@ -177,6 +188,8 @@ public class Juego_Memory extends JuegoGenerico {
             vueltas = 0;
             
         }
+        System.out.println(ButtonUP[0]);
+        System.out.println(ButtonUP[1]);
         vueltas++;
         
     }
