@@ -62,6 +62,17 @@ public class Tablero extends javax.swing.JFrame {
     }
     
     
+    public Tablero(ArrayList<Jugador> Jugadores){
+        initComponents();
+        playerArray = Jugadores;
+        for (int i = 0; i < playerArray.size(); i++){
+            jPanel1.add(playerArray.get(i).getRefButton());
+            playerArray.get(i).refButton.setBounds(0, playerArray.size() * 20, 40, 20);
+        }
+        initBoard();
+        initRandomTiles();
+    }
+    
     public void initPlayer() {
         jPanel1.add(jugadorTablero.getRefButton());
         jugadorTablero.refButton.setBounds(0, playerArray.size() * 20, 40, 20);
