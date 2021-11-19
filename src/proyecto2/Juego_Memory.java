@@ -24,14 +24,16 @@ import javax.swing.*;
 public class Juego_Memory extends JuegoGenerico {
 
     private JButton buttonArray_fotos[][] = new JButton[6][3];
-    private int pares[] = new int[17];
+    private JButton ButtonUP[] = new JButton[2];
     private int ButtonSize = 92;
     private int vueltas = 0;
+    private int puntos = 0;
     private File Path = new File ("Imagenes_Memory_Game");
     private File[]  allFiles = Path.listFiles();
-    private Image[] Personaje = new Image[17];
+    private Image[] Personaje = new Image[18];
     private List<Image> imagenes;
     private Image[][] Icon_Boton = new Image[6][3];
+    private int count = 0;
     
     
     /**
@@ -39,7 +41,7 @@ public class Juego_Memory extends JuegoGenerico {
      * @throws java.io.IOException
      */
     public Juego_Memory() throws IOException {
-        for (int i = 0; i < 17; i++){
+        for (int i = 0; i < 18; i++){
             Personaje[i] = ImageIO.read(allFiles[i]);
         }
         imagenes = new ArrayList<> (Arrays.asList(Personaje));
@@ -47,9 +49,9 @@ public class Juego_Memory extends JuegoGenerico {
         initComponents();
         initTablero();
         
-        for (int i = 0; i < 17; i++){
-            System.out.println(pares[i]);
-        }
+//        for (int i = 0; i < 18; i++){
+//            System.out.println(pares[i]);
+//        }
         
     }
 
@@ -143,13 +145,8 @@ public class Juego_Memory extends JuegoGenerico {
         for (int i = 0; i < 6; i++){
             for (int j = 0; j < 3; j++){
                 buttonArray_fotos[i][j] = new JButton();
-                Icon_Boton[i][j] = imagenes.get(i+j);
-                if (i+j > 9){
-                    pares[i+j] = i+j - 9;
-                }
-                else{
-                    pares[i+j] = i+j;
-                }
+                Icon_Boton[i][j] = imagenes.get(count);
+                count++;
                 buttonArray_fotos[i][j].setBounds(i * ButtonSize, j * ButtonSize, ButtonSize, ButtonSize); 
                 PanelTablero.add(buttonArray_fotos[i][j]);
                 buttonArray_fotos[i][j].addActionListener(listener);
@@ -159,16 +156,37 @@ public class Juego_Memory extends JuegoGenerico {
     
     private void juego(int x, int y){
         ImageIcon icon = new ImageIcon(Icon_Boton[x][y]);
-        buttonArray_fotos[x][y].setIcon(icon);
+        //System.out.println(vueltas);
+        if (vueltas != 2){
+            buttonArray_fotos[x][y].setIcon(icon);
+            ButtonUP[vueltas] = buttonArray_fotos[x][y];
+            
+        }
+        else{
+            System.out.println(puntos);
+            if (ButtonUP[0].getIcon().equals(ButtonUP[1].getIcon())){
+                puntos++;
+            }
+            else{
+                ButtonUP[0].setIcon(null);
+                ButtonUP[0] = buttonArray_fotos[x][y];
+                ButtonUP[1].setIcon(null);
+                ButtonUP[1] = null;
+                buttonArray_fotos[x][y].setIcon(icon);
+            }
+            vueltas = 0;
+            
+        }
         vueltas++;
+        
     }
     ActionListener listener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             int x, y;
-            if (e.getSource() instanceof JButton) {  
-                x = ((JButton) e.getSource()).getX() / 92;
-                y = ((JButton) e.getSource()).getY() / 92;
+            if (e.getSource() instanceof JButton jButton) {  
+                x = jButton.getX() / 92;
+                y = jButton.getY() / 92;
                 juego(x, y);
             }
         }
