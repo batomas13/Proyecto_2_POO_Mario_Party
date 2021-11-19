@@ -292,7 +292,7 @@ public class Juego_Cards extends JuegoGenerico {
             System.out.println("SACA GANADOR");
             Arrays.sort(ArrayAux);
             GanadorIndex = GetWinner();
-            if(jugadores.get(GanadorIndex) == Prota){
+            if(jugadores.get(GanadorIndex) != Prota){
                 Prota.setEsGanador(true);
             }
             JOptionPane.showMessageDialog(this,"Gano " + jugadores.get(GanadorIndex).getNombre() , "Ganador", JOptionPane.INFORMATION_MESSAGE);

@@ -20,7 +20,7 @@ import javax.swing.JOptionPane;
  *
  * @author tcoto
  */
-public class Juego_gato extends JFrame {
+public class Juego_gato extends JuegoGenerico {
     private File path = new File("Imagenes_Gato");
     private File[] allFiles = path.listFiles();
     public static int DIMENSIONES = 3;
@@ -135,10 +135,11 @@ public class Juego_gato extends JFrame {
             switch(numeroJugador){
                 case 0 -> {
                     JOptionPane.showMessageDialog(null, "Ha ganado el jugador " + nombre2);
+                    Jugador1.setEsGanador(true);
                 }
                 case 1 -> {
                     JOptionPane.showMessageDialog(null, "Ha ganado el jugador " + nombre1);
-                    Jugador1.setEsGanador(true);
+                    
                 }
             }
             super.dispose();
@@ -216,6 +217,11 @@ public class Juego_gato extends JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
+
+    @Override
+    public void setEnemigo(String nombreEnemigo) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     
 

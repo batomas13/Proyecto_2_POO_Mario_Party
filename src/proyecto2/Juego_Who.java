@@ -30,6 +30,7 @@ public class Juego_Who extends JuegoGenerico {
     private JButton buttonArray[][] = new JButton[10][10];
     /**
      * Creates new form Juego_Who
+     * @param jugador
      * @throws java.io.IOException
      */
     public Juego_Who(Jugador jugador) throws IOException {
@@ -405,8 +406,12 @@ public class Juego_Who extends JuegoGenerico {
         if (win.equals(User_desition) && 4 <= Count_celdas && Count_celdas <= 8){
             JOptionPane.showMessageDialog(this,"Gano", "Ganador", JOptionPane.INFORMATION_MESSAGE);
             super.dispose();
-            Jugador.setEsGanador(true);
             return true;
+        }
+        else{
+            JOptionPane.showMessageDialog(this,"Perdio", "Perdio", JOptionPane.INFORMATION_MESSAGE);
+            super.dispose();
+            Jugador.setEsGanador(true);
         }
         return false;
     }

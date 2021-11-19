@@ -5,7 +5,6 @@
  */
 package proyecto2;
 
-import java.awt.Color;
 import java.awt.Point;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,6 +12,8 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 
@@ -35,10 +36,7 @@ public class Tablero extends javax.swing.JFrame {
     private List<String> arrayCasillas;
     
     private int turno = 1;
-    private Color colorArray[] = {Color.red, Color.yellow, Color.blue, Color.green, Color.pink, Color.white};
-    private ArrayList<Jugador> playerArray = new ArrayList<Jugador>();
-    private int jugadorTablero;
-    
+    private ArrayList<Jugador> playerArray = new ArrayList<Jugador>();    
     /**
      * Creates new form Tablero
      */
@@ -163,6 +161,7 @@ public class Tablero extends javax.swing.JFrame {
 
     private void btnDadosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDadosActionPerformed
         Jugador jugadorActual = playerArray.get(turno-1);
+        // Verifica si esta en la carcel y cuanto le falta
         if (jugadorActual.isCarcel() == false){
             jugadorActual.setTimeinjail();
             if (jugadorActual.getTimeinjail() == 2){
@@ -173,6 +172,16 @@ public class Tablero extends javax.swing.JFrame {
                 return;
             }
         }
+        // Si perdio repite
+        if (jugadorActual.isEsGanador()){
+            try {
+                moverFicha(jugadorActual.getDado());
+            } catch (IOException ex) {
+                Logger.getLogger(Tablero.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            return;
+        }
+        // Verifica el castigo de los dados
         if (jugadorActual.isCanMove() == false){
             jugadorActual.setCanMove(true);
             return;
@@ -190,18 +199,20 @@ public class Tablero extends javax.swing.JFrame {
             default -> {
                 // continue con la vida normal
                 if(jugadorActual.isCanMove() == true && jugadorActual.isCarcel() == false){
-                    moverFicha(valorDados);
+                    try {
+                        moverFicha(valorDados);
+                    } catch (IOException ex) {
+                        Logger.getLogger(Tablero.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     pintarTurno();
                 }
             }
         }
-        // castigo de 1 turno
-        // castigo de 2 turnos
         this.txfDados.setText(valorDados + "");
     }//GEN-LAST:event_btnDadosActionPerformed
 
     
-    private void moverFicha(int avance){
+    private void moverFicha(int avance) throws IOException{
         Jugador jugadorActual = playerArray.get(turno-1);
         jugadorActual.avanzarCasillaActual(avance);
         JButton botonFicha = playerArray.get(turno-1).getRefButton();
@@ -222,6 +233,10 @@ public class Tablero extends javax.swing.JFrame {
             this.dispose();
         }
         
+    }
+    
+    private void devolver(Jugador devuelto){
+        devuelto.refButton.setLocation(0, 0);
     }
     
     private void setNextTurno(){
@@ -249,19 +264,25 @@ public class Tablero extends javax.swing.JFrame {
         lblTurno.setText("Turno " + this.turno);
     }
     
-    private void activaCasilla(Jugador jugadorActivador) {
+    private void activaCasilla(Jugador jugadorActivador) throws IOException {
         System.out.println("Jugador: " + turno + ", casilla: " + jugadorActivador.getCasillaActual());
         System.out.println("Casilla: " + arrayCasillas.get(jugadorActivador.getCasillaActual() - 1));
         
         String tipoCasilla = arrayCasillas.get(jugadorActivador.getCasillaActual() - 1);
         
         JuegoGenerico nuevaVentanaJuego;
-        
+        int UsuarioRandom = new Random().nextInt(playerArray.size());
         int nuevoAvance;
         switch (tipoCasilla) {
-            case "Gato" -> // aqui seleccionar un contrincante aleatorio
-                
+            case "Gato" -> {try {
+                // aqui seleccionar un contrincante aleatorio
+                nuevaVentanaJuego = new Juego_gato(jugadorActivador, playerArray.get(UsuarioRandom));
+                nuevaVentanaJuego.setVisible(true);
+            } catch (IOException ex) {
+                Logger.getLogger(Tablero.class.getName()).log(Level.SEVERE, null, ex);
+            }
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
+            }
             // peticion de sv
             case "Tubo1" -> {
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
@@ -307,10 +328,18 @@ public class Tablero extends javax.swing.JFrame {
                 lanzarDados();
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
             }
-            case "FlorFuego" -> // lanzar a un jugador a la casilla 1
+            case "FlorFuego" ->{ // lanzar a un jugador a la casilla 1
+                String nomCliente = JOptionPane.showInputDialog("Introducir a quien quire devolver");
+                int jugadordevuelto = Integer.getInteger(nomCliente);
+                devolver(playerArray.get(jugadordevuelto));
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
-            case "FlorHielo" -> // Hace que un jugador pierda 2 turnos
+            }
+            case "FlorHielo" ->{ // Hace que un jugador pierda 2 turnos
+                String nomCliente = JOptionPane.showInputDialog("Introducir a quien quire devolver");
+                int jugadordevuelto = Integer.getInteger(nomCliente);
+                playerArray.get(jugadordevuelto).setCarcel(true);
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
+            }
             case "Cola" -> {
                 // Jugador escoge en rando +-3 de casillas para moverse
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
@@ -326,28 +355,31 @@ public class Tablero extends javax.swing.JFrame {
             case "Path" -> {
                 // juego de memory path
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
-                nuevaVentanaJuego = new Juego_Path();
+                nuevaVentanaJuego = new Juego_Path(jugadorActivador);
                 nuevaVentanaJuego.setVisible(true);
             }
-            case "Memory" -> // juego de card memory
+            case "Memory" ->{ // juego de card memory   
+                nuevaVentanaJuego = new Juego_Memory(jugadorActivador, playerArray.get(UsuarioRandom));
+                nuevaVentanaJuego.setVisible(true);
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
+            }
             case "Catch" -> {
                 // juego de catch the cat
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
-                nuevaVentanaJuego = new Juego_Catch();
+                nuevaVentanaJuego = new Juego_Catch(jugadorActivador);
                 nuevaVentanaJuego.setVisible(true);
             }
             case "Bomber" -> {
                 // juego de bombermario
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
-                nuevaVentanaJuego = new Juego_bombermario();
+                nuevaVentanaJuego = new Juego_bombermario(jugadorActivador);
                 nuevaVentanaJuego.setVisible(true);
             }
             case "Guess" -> {
                 // juego de guess who
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
                 try {
-                    nuevaVentanaJuego = new Juego_Who();
+                    nuevaVentanaJuego = new Juego_Who(jugadorActivador);
                     nuevaVentanaJuego.setVisible(true);
                 } catch (IOException e) {
                     System.out.println("Algo paso mal con el juego de guess who");
@@ -356,12 +388,15 @@ public class Tablero extends javax.swing.JFrame {
             case "Coins" -> {
                 // juego de collect the coins
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
-                nuevaVentanaJuego = new Juego_Coins();
+                nuevaVentanaJuego = new Juego_Coins(jugadorActivador);
                 nuevaVentanaJuego.setVisible(true);
             }
-            case "Cards" -> // juego de mario cards, TODOS los jugadores participan
+            case "Cards" ->{ // juego de mario cards, TODOS los jugadores participan
+                nuevaVentanaJuego = new Juego_Cards(playerArray, jugadorActivador);
+                nuevaVentanaJuego.setVisible(true);
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
             // pedirle al sv que abra un Juego_Cards a todos
+            }
             default -> // caso default, no debería caer aquí excepto por final que no hace nada más que ganar el juego
                 // o la casilla del inicio si se regresa
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);

@@ -263,6 +263,7 @@ public class Juego_bombermario extends JuegoGenerico {
         Cantidad_Bombas--;
         if (Cantidad_Bombas == 0){
             JOptionPane.showMessageDialog(this,"Perdio", "Perdio", JOptionPane.INFORMATION_MESSAGE);
+            Jugador.setEsGanador(true);
             super.dispose();
         }
         System.out.println(y + " " + x);
@@ -278,7 +279,6 @@ public class Juego_bombermario extends JuegoGenerico {
                         Count_ganador++;
                         if (Count_ganador == 4){
                             JOptionPane.showMessageDialog(this,"Gano", "Gano", JOptionPane.INFORMATION_MESSAGE);
-                            Jugador.setEsGanador(true);
                             super.dispose();
                         }
                     }
@@ -291,7 +291,6 @@ public class Juego_bombermario extends JuegoGenerico {
                     Count_ganador++;
                     if (Count_ganador == 4){
                         JOptionPane.showMessageDialog(this,"Gano", "Gano", JOptionPane.INFORMATION_MESSAGE);
-                        Jugador.setEsGanador(true);
                         super.dispose();
                     }
                 }
@@ -305,7 +304,6 @@ public class Juego_bombermario extends JuegoGenerico {
                         Count_ganador++;
                         if (Count_ganador == 4){
                             JOptionPane.showMessageDialog(this,"Gano", "Gano", JOptionPane.INFORMATION_MESSAGE);
-                            Jugador.setEsGanador(true);
                             super.dispose();
                         }
                     }
@@ -319,7 +317,6 @@ public class Juego_bombermario extends JuegoGenerico {
                         Count_ganador++;
                         if (Count_ganador == 4){
                             JOptionPane.showMessageDialog(this,"Gano", "Gano", JOptionPane.INFORMATION_MESSAGE);
-                            Jugador.setEsGanador(true);
                             super.dispose();
                         }
                     }
@@ -333,7 +330,6 @@ public class Juego_bombermario extends JuegoGenerico {
                         Count_ganador++;
                         if (Count_ganador == 4){
                             JOptionPane.showMessageDialog(this,"Gano", "Gano", JOptionPane.INFORMATION_MESSAGE);
-                            Jugador.setEsGanador(true);
                             super.dispose();
                         }
                     }
@@ -347,7 +343,6 @@ public class Juego_bombermario extends JuegoGenerico {
                         Count_ganador++;
                         if (Count_ganador == 4){
                             JOptionPane.showMessageDialog(this,"Gano", "Gano", JOptionPane.INFORMATION_MESSAGE);
-                            Jugador.setEsGanador(true);
                             super.dispose();
                         }
                     }
@@ -362,7 +357,6 @@ public class Juego_bombermario extends JuegoGenerico {
                     Count_ganador++;
                     if (Count_ganador == 4){
                         JOptionPane.showMessageDialog(this,"Gano", "Gano", JOptionPane.INFORMATION_MESSAGE);
-                        Jugador.setEsGanador(true);
                         super.dispose();
                     }
                 }
@@ -376,7 +370,6 @@ public class Juego_bombermario extends JuegoGenerico {
                     Count_ganador++;
                     if (Count_ganador == 4){
                         JOptionPane.showMessageDialog(this,"Gano", "Gano", JOptionPane.INFORMATION_MESSAGE);
-                        Jugador.setEsGanador(true);
                         super.dispose();
                     }
                 }
@@ -388,7 +381,6 @@ public class Juego_bombermario extends JuegoGenerico {
                     Count_ganador++;
                     if (Count_ganador == 4){
                         JOptionPane.showMessageDialog(this,"Gano", "Gano", JOptionPane.INFORMATION_MESSAGE);
-                        Jugador.setEsGanador(true);
                         super.dispose();
                     }
                 }
@@ -403,7 +395,6 @@ public class Juego_bombermario extends JuegoGenerico {
                         Count_ganador++;
                         if (Count_ganador == 4){
                             JOptionPane.showMessageDialog(this,"Gano", "Gano", JOptionPane.INFORMATION_MESSAGE);
-                            Jugador.setEsGanador(true);
                             super.dispose();
                         }
                     }

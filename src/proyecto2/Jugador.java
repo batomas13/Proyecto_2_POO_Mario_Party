@@ -5,7 +5,6 @@
  */
 package proyecto2;
 
-import java.net.Socket;
 import javax.swing.JButton;
 
 /**
@@ -18,7 +17,7 @@ public class Jugador {
     public JButton refButton;
     private int casillaActual = 1;
     private boolean activoTubo = false;
-    private boolean esGanador = false;
+    private boolean esPerdedor = false;
     private boolean Carcel = false;
     private boolean CanMove = true;
     private int Timeinjail = 0;
@@ -71,11 +70,11 @@ public class Jugador {
     }
 
     public boolean isEsGanador() {
-        return esGanador;
+        return esPerdedor;
     }
 
     public void setEsGanador(boolean esGanador) {
-        this.esGanador = esGanador;
+        this.esPerdedor = esGanador;
     }
     public boolean isCarcel() {
         return Carcel;

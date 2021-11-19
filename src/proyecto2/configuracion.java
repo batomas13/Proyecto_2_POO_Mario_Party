@@ -211,6 +211,7 @@ public class configuracion extends javax.swing.JFrame {
         }
         Tablero tablero = new Tablero(total);
         tablero.setVisible(true);
+        super.dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
     
@@ -221,41 +222,7 @@ public class configuracion extends javax.swing.JFrame {
             System.out.println("Estoyiniciando");
         }
     }
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(configuracion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(configuracion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(configuracion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(configuracion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new configuracion().setVisible(true);
-            }
-        });
-    }
-
+    
     public void initColores(){
         int count = 0;
         for (int i = 0; i < 6 ; i++){
@@ -271,7 +238,7 @@ public class configuracion extends javax.swing.JFrame {
     public void setearColor(int x){
         Cantidad_participantes.get(count).setBackground(Colores[x].getBackground());
         System.out.println("Le puse color");
-        jPanel1.remove(Colores[count]);
+        jPanel1.remove(Colores[x]);
         count++;
     }
     ActionListener listener = new ActionListener() {
