@@ -26,12 +26,13 @@ public class Juego_Who extends JuegoGenerico {
     private File[]  allFiles = Path.listFiles();
     private Image[] Personaje = new Image[16];
     public static final int BUTTON_SIZE = 50;
+    private Jugador Jugador;
     private JButton buttonArray[][] = new JButton[10][10];
     /**
      * Creates new form Juego_Who
      * @throws java.io.IOException
      */
-    public Juego_Who() throws IOException {
+    public Juego_Who(Jugador jugador) throws IOException {
         int caracter = (new Random()).nextInt(15);
         switch (caracter){
             case 0 -> win = "Toad";
@@ -53,7 +54,7 @@ public class Juego_Who extends JuegoGenerico {
             }
                 
         }
-        
+        this.Jugador = jugador;
         for (int i = 0; i < 15; i++){
             Personaje[i] = ImageIO.read(allFiles[i]);
             
@@ -404,6 +405,7 @@ public class Juego_Who extends JuegoGenerico {
         if (win.equals(User_desition) && 4 <= Count_celdas && Count_celdas <= 8){
             JOptionPane.showMessageDialog(this,"Gano", "Ganador", JOptionPane.INFORMATION_MESSAGE);
             super.dispose();
+            Jugador.setEsGanador(true);
             return true;
         }
         return false;

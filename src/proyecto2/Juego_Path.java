@@ -18,12 +18,14 @@ public class Juego_Path extends JuegoGenerico {
     private JButton buttonArray[][] = new JButton[6][3];
     private boolean camino[][] = new boolean[6][3];
     private int count = 0;
+    private Jugador Jugador;
     
     /**
      * Creates new form Memory_path
      */
-    public Juego_Path() {
+    public Juego_Path(Jugador Jugador) {
         initComponents();
+        this.Jugador = Jugador;
         initBoard();
         for (int i = 0; i < 6; i++){
             System.out.println(camino[i][0] + " " + camino[i][1] + " " + camino[i][2]);
@@ -87,10 +89,9 @@ public class Juego_Path extends JuegoGenerico {
     }
     
     public boolean point_and_win(int y, int x){
-        
         if (count <= 5 && camino[y][x] == true){
-            
             if (count == 5){
+                Jugador.setEsGanador(true);
                 JOptionPane.showMessageDialog(this,"Gano", "Ganador", JOptionPane.INFORMATION_MESSAGE);
                 super.dispose();
             }

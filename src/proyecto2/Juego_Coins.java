@@ -25,6 +25,7 @@ public class Juego_Coins extends JuegoGenerico {
     private int bad_count, good_count;
     */
     public static final int BUTTON_SIZE = 32;
+    private Jugador Jugador;
     private JButton buttonArray[][] = new JButton[25][25];
     public int tiempoRestante;
     public int puntaje = 0;
@@ -34,24 +35,16 @@ public class Juego_Coins extends JuegoGenerico {
     /**
      * Creates new form Juego_Coins
      */
-    public Juego_Coins() {
-        
+    public Juego_Coins(Jugador Jugador) {
+        this.Jugador = Jugador;
         // hace el tiempo restante de forma aleatoria
         int randTime = 1 + (int)(Math.random() * ((3 - 1) + 1));
-        switch (randTime) {
-            case 1:
-                tiempoRestante = 30;
-                break;
-            case 2:
-                tiempoRestante = 45;
-                break;
-            case 3:
-                tiempoRestante = 60;
-                break;
-            default:
-                tiempoRestante = 45;
-                break;
-        }
+        tiempoRestante = switch (randTime) {
+            case 1 -> 30;
+            case 2 -> 45;
+            case 3 -> 60;
+            default -> 45;
+        };
         
         initComponents();
         generateBoard();
@@ -155,41 +148,6 @@ public class Juego_Coins extends JuegoGenerico {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Juego_Coins.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Juego_Coins.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Juego_Coins.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Juego_Coins.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Juego_Coins().setVisible(true);
-            }
-        });
-    }
-    
     public void generateBoard() {
         int valorAleatorio;
         for (int i = 0; i < 25; i++) {
@@ -249,6 +207,7 @@ public class Juego_Coins extends JuegoGenerico {
                     ((Timer) e.getSource()).stop();
                     dispose();
                 } else {
+                    Jugador.setEsGanador(true);
                     JOptionPane.showMessageDialog(null, "Ganó el jeugo con " + puntaje + " puntos", "Ganador", 1);
                     ((Timer) e.getSource()).stop();
                     dispose();

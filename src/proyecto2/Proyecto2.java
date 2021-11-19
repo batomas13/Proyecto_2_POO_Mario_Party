@@ -5,6 +5,7 @@
 package proyecto2;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  *
@@ -26,7 +27,11 @@ public class Proyecto2 {
         //Juego_Memory Juego = new Juego_Memory();
         Jugador Jugador1 = new Jugador("HOLA", 0, null);
         Jugador Jugador2 = new Jugador("ADIOS", 0, null);
-        Juego_Memory Juego = new Juego_Memory(Jugador1, Jugador2);
+        //Juego_Memory Juego = new Juego_Memory(Jugador1, Jugador2);
+        ArrayList<Jugador> Jugadores = new ArrayList();
+        Jugadores.add(Jugador1);
+        Jugadores.add(Jugador2);
+        Juego_Cards Juego = new Juego_Cards(Jugadores, Jugador1);
         //Juego_gato Juego = new Juego_gato (Jugador1, Jugador2);
         Juego.setVisible(true);
     }

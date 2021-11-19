@@ -282,9 +282,12 @@ public class Juego_Memory extends JuegoGenerico {
 
     private void ganar (){
         if (punto2 > puntos){
-            jugador2.setEsGanador(true);
+            JOptionPane.showMessageDialog(this,"Gano" + jugador2.getNombre(), "Ganador", JOptionPane.INFORMATION_MESSAGE);
+            super.dispose();
         }
         else{
+            JOptionPane.showMessageDialog(this,"Gano" + jugador1.getNombre(), "Ganador", JOptionPane.INFORMATION_MESSAGE);
+            super.dispose();
             jugador1.setEsGanador(true);
         }
     }

@@ -21,13 +21,15 @@ public class Juego_bombermario extends JuegoGenerico {
     public  static int ButtonSize;
     private int Cantidad_Bombas = 7;
     private int[][] Tesoro;
+    private Jugador Jugador;
     private JButton[][] ArrayButton;
     private String Boomba;
     private String Direccion;
     /**
      * Creates new form Juego_boomberman
      */
-    public Juego_bombermario() {
+    public Juego_bombermario(Jugador jugador) {
+        Jugador = jugador;
         initComponents();
         initTablero();
     }
@@ -153,7 +155,7 @@ public class Juego_bombermario extends JuegoGenerico {
         int punto_ganador;
         
         switch (tablero){
-            case 0:
+            case 0 -> {
                 ArrayButton = new JButton[10][10];
                 Tesoro = new int[10][10];
                 ButtonSize = 54;
@@ -167,7 +169,7 @@ public class Juego_bombermario extends JuegoGenerico {
                     }
                 }
                 punto_ganador = new Random().nextInt(10);
-                 if (punto_ganador+1 < 10){
+                if (punto_ganador+1 < 10){
                     Tesoro[punto_ganador][punto_ganador] = 1;
                     Tesoro[punto_ganador + 1][punto_ganador] = 1;
                     Tesoro[punto_ganador][punto_ganador + 1] = 1;
@@ -185,8 +187,8 @@ public class Juego_bombermario extends JuegoGenerico {
                     }
                     System.out.println("--------------");
                 }
-                break;
-            case 1:
+            }
+            case 1 -> {
                 ArrayButton = new JButton[15][15];
                 Tesoro = new int[15][15];
                 ButtonSize = 36;
@@ -200,7 +202,7 @@ public class Juego_bombermario extends JuegoGenerico {
                     }
                 }
                 punto_ganador = new Random().nextInt(15);
-                 if (punto_ganador+1 < 15){
+                if (punto_ganador+1 < 15){
                     Tesoro[punto_ganador][punto_ganador] = 1;
                     Tesoro[punto_ganador + 1][punto_ganador] = 1;
                     Tesoro[punto_ganador][punto_ganador + 1] = 1;
@@ -218,8 +220,8 @@ public class Juego_bombermario extends JuegoGenerico {
                     }
                     System.out.println("--------------");
                 }
-                break;
-            case 2:
+            }
+            case 2 -> {
                 ArrayButton = new JButton[20][20];
                 Tesoro = new int[20][20];
                 ButtonSize = 27;
@@ -251,14 +253,13 @@ public class Juego_bombermario extends JuegoGenerico {
                     }
                     System.out.println("--------------");
                 }
-                break;
-            default:
-                break;
+            }
+            default -> {
+            }
         }
     }
     
     private void boom(int y, int x){
-        int celdas = new Random().nextInt(1);
         Cantidad_Bombas--;
         if (Cantidad_Bombas == 0){
             JOptionPane.showMessageDialog(this,"Perdio", "Perdio", JOptionPane.INFORMATION_MESSAGE);
@@ -267,7 +268,7 @@ public class Juego_bombermario extends JuegoGenerico {
         System.out.println(y + " " + x);
         System.out.println(Boomba);
         switch (Boomba){
-            case "Cruz":
+            case "Cruz" -> {
                 if (can_cut(x+1, y) == true){
                     if (Tesoro[y][x+1] != 1){
                         jPanel1.remove(ArrayButton[y][x+1]);
@@ -277,6 +278,7 @@ public class Juego_bombermario extends JuegoGenerico {
                         Count_ganador++;
                         if (Count_ganador == 4){
                             JOptionPane.showMessageDialog(this,"Gano", "Gano", JOptionPane.INFORMATION_MESSAGE);
+                            Jugador.setEsGanador(true);
                             super.dispose();
                         }
                     }
@@ -289,6 +291,7 @@ public class Juego_bombermario extends JuegoGenerico {
                     Count_ganador++;
                     if (Count_ganador == 4){
                         JOptionPane.showMessageDialog(this,"Gano", "Gano", JOptionPane.INFORMATION_MESSAGE);
+                        Jugador.setEsGanador(true);
                         super.dispose();
                     }
                 }
@@ -302,6 +305,7 @@ public class Juego_bombermario extends JuegoGenerico {
                         Count_ganador++;
                         if (Count_ganador == 4){
                             JOptionPane.showMessageDialog(this,"Gano", "Gano", JOptionPane.INFORMATION_MESSAGE);
+                            Jugador.setEsGanador(true);
                             super.dispose();
                         }
                     }
@@ -315,6 +319,7 @@ public class Juego_bombermario extends JuegoGenerico {
                         Count_ganador++;
                         if (Count_ganador == 4){
                             JOptionPane.showMessageDialog(this,"Gano", "Gano", JOptionPane.INFORMATION_MESSAGE);
+                            Jugador.setEsGanador(true);
                             super.dispose();
                         }
                     }
@@ -328,6 +333,7 @@ public class Juego_bombermario extends JuegoGenerico {
                         Count_ganador++;
                         if (Count_ganador == 4){
                             JOptionPane.showMessageDialog(this,"Gano", "Gano", JOptionPane.INFORMATION_MESSAGE);
+                            Jugador.setEsGanador(true);
                             super.dispose();
                         }
                     }
@@ -341,12 +347,13 @@ public class Juego_bombermario extends JuegoGenerico {
                         Count_ganador++;
                         if (Count_ganador == 4){
                             JOptionPane.showMessageDialog(this,"Gano", "Gano", JOptionPane.INFORMATION_MESSAGE);
+                            Jugador.setEsGanador(true);
                             super.dispose();
                         }
                     }
                 }
-                break;
-            case "Simples":
+            }
+            case "Simples" -> {
                 if (Tesoro[y][x] != 1){
                     jPanel1.remove(ArrayButton[y][x]);
                 }
@@ -355,12 +362,12 @@ public class Juego_bombermario extends JuegoGenerico {
                     Count_ganador++;
                     if (Count_ganador == 4){
                         JOptionPane.showMessageDialog(this,"Gano", "Gano", JOptionPane.INFORMATION_MESSAGE);
+                        Jugador.setEsGanador(true);
                         super.dispose();
                     }
                 }
-                
-                break;
-            case "Dobles":
+            }
+            case "Dobles" -> {
                 if (Tesoro[y][x] != 1){
                     jPanel1.remove(ArrayButton[y][x]);
                 }
@@ -369,6 +376,7 @@ public class Juego_bombermario extends JuegoGenerico {
                     Count_ganador++;
                     if (Count_ganador == 4){
                         JOptionPane.showMessageDialog(this,"Gano", "Gano", JOptionPane.INFORMATION_MESSAGE);
+                        Jugador.setEsGanador(true);
                         super.dispose();
                     }
                 }
@@ -380,28 +388,29 @@ public class Juego_bombermario extends JuegoGenerico {
                     Count_ganador++;
                     if (Count_ganador == 4){
                         JOptionPane.showMessageDialog(this,"Gano", "Gano", JOptionPane.INFORMATION_MESSAGE);
+                        Jugador.setEsGanador(true);
                         super.dispose();
                     }
                 }
-                break;
-            case "Linea":
+            }
+            case "Linea" -> {
                 for (int i = 0; i < 4; i++){
                     if (Tesoro[y-i][x] != 1){
-                    jPanel1.remove(ArrayButton[y-i][x]);
+                        jPanel1.remove(ArrayButton[y-i][x]);
                     }
                     else{
                         ArrayButton[y-i][x].setBackground(Color.red);
                         Count_ganador++;
                         if (Count_ganador == 4){
                             JOptionPane.showMessageDialog(this,"Gano", "Gano", JOptionPane.INFORMATION_MESSAGE);
+                            Jugador.setEsGanador(true);
                             super.dispose();
                         }
                     }
                 }
-                
-                break;
-            default:
-                break;
+            }
+            default -> {
+            }
         }
         jPanel1.repaint();
     }

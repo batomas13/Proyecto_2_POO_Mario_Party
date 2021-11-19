@@ -17,7 +17,7 @@ public class Juego_Catch extends JuegoGenerico {
 
     public static final int BUTTON_SIZE = 65;
     private JButton[][] ButtonArray = new JButton[11][11];
-    
+    private Jugador jugador;
     private JButton gato = new JButton("G");
     private int[] distancias = new int[]{0,0,0,0,0,0,0,0};
     private int filaGato = 5, columnaGato = 5;
@@ -25,7 +25,8 @@ public class Juego_Catch extends JuegoGenerico {
     /**
      * Creates new form Juego_Catch
      */
-    public Juego_Catch() {
+    public Juego_Catch(Jugador jugador) {
+        this.jugador = jugador;
         initComponents();
         this.setName("CATCH THE CAT!");
         generateBoard();
@@ -80,41 +81,6 @@ public class Juego_Catch extends JuegoGenerico {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Juego_Catch.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Juego_Catch.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Juego_Catch.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Juego_Catch.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Juego_Catch().setVisible(true);
-            }
-        });
-    }
-    
     public void generateBoard() {
         int valorAleatorio;
         for (int i = 0; i < 11; i++) {
@@ -438,9 +404,11 @@ public class Juego_Catch extends JuegoGenerico {
     public void saleJuego(boolean gano) {
         if (gano) {
             JOptionPane.showMessageDialog(null, "Aquí hay gato encerrado, ¡ganó!", "Ganador", 1);
+            
         } else {
             JOptionPane.showMessageDialog(null, "El gato salió ¡Perdió el juego!", "Perdedor", 0);
         }
+        jugador.setEsGanador(gano);
         dispose();
     }
     

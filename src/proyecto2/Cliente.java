@@ -7,7 +7,6 @@ package proyecto2;
 
 import java.io.*;
 import java.net.*;
-import javax.swing.JOptionPane;
 
 /**
  *
@@ -25,6 +24,7 @@ public class Cliente {
    
    /** Creates a new instance of Cliente
      * @param vent 
+     * @param jugador 
      * @throws IOException */
     public Cliente(JuegoGenerico vent, Jugador jugador) throws IOException {
        this.ventanaCliente = vent;

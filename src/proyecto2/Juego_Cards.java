@@ -5,10 +5,10 @@
  */
 package proyecto2;
 
-import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
-import javax.swing.JButton;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -17,23 +17,29 @@ import javax.swing.JButton;
 public class Juego_Cards extends JuegoGenerico {
 
     
-    public ArrayList<String> mazo = new ArrayList<String>();
-    public ArrayList<String> mano = new ArrayList<String>();
-    public int[] valorCarta = new int[2];
-    public ArrayList<Jugador> jugadores;
-    public int turnoActual = 1, numeroJugador = 0;
-    private Cliente cliente;
+    private ArrayList<String> mazo = new ArrayList<String>();
+    private ArrayList<String> mano = new ArrayList<String>();
+    private int[] valorCarta = new int[2];
+    private int[] manos;
+    private int[] ArrayAux;
+    private ArrayList<Jugador> jugadores;
+    private Jugador Prota;
+    private int turnoActual = 0;
     
     /**
      * Creates new form Juego_Cards
      */
-    public Juego_Cards(Jugador refJugador) {
+    public Juego_Cards(ArrayList<Jugador> refJugador, Jugador jugador) {
         initComponents();
         generaMazo();
         sacaMano(6);
         //separaValoresCarta(mano.get(0));
-        turnoActual = 1;
-        numeroJugador = 1;
+        manos = new int[refJugador.size()];
+        ArrayAux = new int[refJugador.size()];
+        jugadores = refJugador;
+        Prota = jugador;
+        turnoActual = refJugador.size() - refJugador.size();
+        numeroJugador = 0;
     }
 
     /**
@@ -160,92 +166,68 @@ public class Juego_Cards extends JuegoGenerico {
     private void BotonCarta5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCarta5ActionPerformed
         // TODO add your handling code here:
         System.out.println("Carta: " + mano.get(4));
-        if (numeroJugador == turnoActual) {
-            LabelCartaSeleccionada.setText("CARTA SELECCIONADA: " + mano.get(4));
-            
-        }
+        LabelCartaSeleccionada.setText("CARTA SELECCIONADA: " + mano.get(4));
+        separaValoresCarta(mano.get(4));
+         recibeCarta(4);
+        turnoActual++;
+        LabelTurno.setText("TURNO: JUGADOR" + turnoActual);
     }//GEN-LAST:event_BotonCarta5ActionPerformed
 
     private void BotonCarta1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCarta1ActionPerformed
         // TODO add your handling code here:
         System.out.println("Carta: " + mano.get(0));
         System.out.println("Numero de jugador: " + numeroJugador + ", Turno: " + turnoActual);
-        if (numeroJugador == turnoActual) {
-            LabelCartaSeleccionada.setText("CARTA SELECCIONADA: " + mano.get(0));
-        }
+        LabelCartaSeleccionada.setText("CARTA SELECCIONADA: " + mano.get(0));
+        separaValoresCarta(mano.get(0));
+        recibeCarta(0);
+        turnoActual++;
+        LabelTurno.setText("TURNO: JUGADOR" + turnoActual);
     }//GEN-LAST:event_BotonCarta1ActionPerformed
 
     private void BotonCarta2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCarta2ActionPerformed
         // TODO add your handling code here:
         System.out.println("Carta: " + mano.get(1));
         System.out.println("Numero de jugador: " + numeroJugador + ", Turno: " + turnoActual);
-        if (numeroJugador == turnoActual) {
-            LabelCartaSeleccionada.setText("CARTA SELECCIONADA: " + mano.get(1));
-        }
+        LabelCartaSeleccionada.setText("CARTA SELECCIONADA: " + mano.get(1));
+        separaValoresCarta(mano.get(1));
+        recibeCarta(1);
+        turnoActual++;
+        LabelTurno.setText("TURNO: JUGADOR" + turnoActual);
     }//GEN-LAST:event_BotonCarta2ActionPerformed
 
     private void BotonCarta3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCarta3ActionPerformed
         // TODO add your handling code here:
         System.out.println("Carta: " + mano.get(2));
         System.out.println("Numero de jugador: " + numeroJugador + ", Turno: " + turnoActual);
-        if (numeroJugador == turnoActual) {
-            LabelCartaSeleccionada.setText("CARTA SELECCIONADA: " + mano.get(2));
-        }
+        LabelCartaSeleccionada.setText("CARTA SELECCIONADA: " + mano.get(2));
+        separaValoresCarta(mano.get(2));
+        recibeCarta(2);
+        turnoActual++;
+        LabelTurno.setText("TURNO: JUGADOR" + turnoActual);
     }//GEN-LAST:event_BotonCarta3ActionPerformed
 
     private void BotonCarta4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCarta4ActionPerformed
         // TODO add your handling code here:
         System.out.println("Carta: " + mano.get(3));
         System.out.println("Numero de jugador: " + numeroJugador + ", Turno: " + turnoActual);
-        if (numeroJugador == turnoActual) {
-            LabelCartaSeleccionada.setText("CARTA SELECCIONADA: " + mano.get(3));
-        }
+        LabelCartaSeleccionada.setText("CARTA SELECCIONADA: " + mano.get(3));
+        separaValoresCarta(mano.get(3));
+        recibeCarta(3);
+        turnoActual++;
+        LabelTurno.setText("TURNO: JUGADOR" + turnoActual);
     }//GEN-LAST:event_BotonCarta4ActionPerformed
 
     private void BotonCarta6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BotonCarta6ActionPerformed
         // TODO add your handling code here:
         System.out.println("Carta: " + mano.get(5));
         System.out.println("Numero de jugador: " + numeroJugador + ", Turno: " + turnoActual);
-        if (numeroJugador == turnoActual) {
-            LabelCartaSeleccionada.setText("CARTA SELECCIONADA: " + mano.get(5));
-        }
+        LabelCartaSeleccionada.setText("CARTA SELECCIONADA: " + mano.get(5));
+        separaValoresCarta(mano.get(5));
+        recibeCarta(5);
+        turnoActual++;
+        LabelTurno.setText("TURNO: JUGADOR" + turnoActual);
     }//GEN-LAST:event_BotonCarta6ActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Juego_Cards.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Juego_Cards.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Juego_Cards.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Juego_Cards.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Juego_Cards(new Jugador("TOM", 2 , new JButton("TOM"))).setVisible(true);
-            }
-        });
-    }
-    
     public void generaMazo() {
         String cartaTemporal = "";
         
@@ -253,20 +235,12 @@ public class Juego_Cards extends JuegoGenerico {
             for (int j = 2; j < 15; j++) {
                 // prepara el valor del palo
                 switch(i) {
-                    // están puestas de tal manera que corazones, el palo mayor, tenga el indice mayor aqui tambien
-                    case 0:
-                        cartaTemporal = "Diamantes";
-                        break;
-                    case 1:
-                        cartaTemporal = "Espadas";
-                        break;
-                    case 2:
-                        cartaTemporal = "Tréboles";
-                        break;
-                    case 3:
-                        cartaTemporal = "Corazones";
-                        break;
+                    case 0 -> cartaTemporal = "Diamantes";
+                    case 1 -> cartaTemporal = "Espadas";
+                    case 2 -> cartaTemporal = "Tréboles";
+                    case 3 -> cartaTemporal = "Corazones";
                 }
+                // están puestas de tal manera que corazones, el palo mayor, tenga el indice mayor aqui tambien
                 // prepara el valor nominal
                 // concatene el valor del indice
                 if (j <= 10) {
@@ -297,70 +271,56 @@ public class Juego_Cards extends JuegoGenerico {
     }
     
     public void separaValoresCarta(String carta) {
+        int GanadorIndex;
         String[] valores = carta.split(",");
         switch (valores[0]) {
-            case "Diamantes":
-                valorCarta[0] = 0;
-                break;
-            case "Espadas":
-                valorCarta[0] = 1;
-                break;
-            case "Tréboles":
-                valorCarta[0] = 2;
-                break;
-            case "Corazones":
-                valorCarta[0] = 3;
-                break;
+            case "Diamantes" -> valorCarta[0] = 0;
+            case "Espadas" -> valorCarta[0] = 1;
+            case "Tréboles" -> valorCarta[0] = 2;
+            case "Corazones" -> valorCarta[0] = 3;
         }
         switch (valores[1]) {
-            case "J":
-                valorCarta[1] = 11;
-                break;
-            case "Q":
-                valorCarta[1] = 12;
-                break;
-            case "K":
-                valorCarta[1] = 13;
-                break;
-            case "A":
-                valorCarta[1] = 14;
-                break;
-            default:
-                valorCarta[1] = Integer.parseInt(valores[1]);
-                break;
+            case "J" -> valorCarta[1] = 11;
+            case "Q" -> valorCarta[1] = 12;
+            case "K" -> valorCarta[1] = 13;
+            case "A" -> valorCarta[1] = 14;
+            default -> valorCarta[1] = Integer.parseInt(valores[1]);
         }
-        /*
-        System.out.println("Imprimir valor de la carta: " + mano.get(0));
-        System.out.println("Valor del palo: " + valorCarta[0]);
-        System.out.println("Valor nominal: " + valorCarta[1]);
-        */
+        manos[turnoActual] = valorCarta[0] + valorCarta[1];
+        ArrayAux[turnoActual] = valorCarta[0] + valorCarta[1];
+        if (turnoActual == jugadores.size() - 1){
+            System.out.println("SACA GANADOR");
+            Arrays.sort(ArrayAux);
+            GanadorIndex = GetWinner();
+            if(jugadores.get(GanadorIndex) == Prota){
+                Prota.setEsGanador(true);
+            }
+            JOptionPane.showMessageDialog(this,"Gano " + jugadores.get(GanadorIndex).getNombre() , "Ganador", JOptionPane.INFORMATION_MESSAGE);
+            super.dispose();
+        }
     }
     
     // recibe la carta del thread y deshabilita para todos los clientes
     public void recibeCarta(int cartaIndex) {
-        System.out.println("Entró en recibeCarta");
         switch(cartaIndex) {
-            case 1:
-                BotonCarta1.setEnabled(false);
-                break;
-            case 2:
-                BotonCarta2.setEnabled(false);
-                break;
-            case 3:
-                BotonCarta3.setEnabled(false);
-                break;
-            case 4:
-                BotonCarta4.setEnabled(false);
-                break;
-            case 5:
-                BotonCarta5.setEnabled(false);
-                break;
-            case 6:
-                BotonCarta6.setEnabled(false);
-                break;
+            case 1 -> BotonCarta1.setEnabled(false);
+            case 2 -> BotonCarta2.setEnabled(false);
+            case 3 -> BotonCarta3.setEnabled(false);
+            case 4 -> BotonCarta4.setEnabled(false);
+            case 5 -> BotonCarta5.setEnabled(false);
+            case 6 -> BotonCarta6.setEnabled(false);
         }
     }
 
+    private int GetWinner(){
+        for (int i = 0; i < manos.length; i++){
+            if (ArrayAux[ArrayAux.length - 1] == manos[i]){
+                System.out.println(i);
+                
+            }
+        }
+        return 0;
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BotonCarta1;
     private javax.swing.JButton BotonCarta2;

@@ -5,10 +5,7 @@
  */
 package proyecto2;
 
-import java.io.IOException;
 import java.net.Socket;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JButton;
 
 /**
@@ -22,7 +19,8 @@ public class Jugador {
     private int casillaActual = 1;
     private boolean activoTubo = false;
     private boolean esGanador = false;
-    
+    private boolean Carcel = false;
+    private int primerTurno = 0;
     private Socket socket;
     private final int puerto = 8081;
 
@@ -79,7 +77,13 @@ public class Jugador {
     public void setEsGanador(boolean esGanador) {
         this.esGanador = esGanador;
     }
-    
+    public boolean isCarcel() {
+        return Carcel;
+    }
+
+    public void setCarcel(boolean Carcel) {
+        this.Carcel = Carcel;
+    }
     
     public void avanzarCasillaActual(int avance) {
         this.casillaActual += avance;

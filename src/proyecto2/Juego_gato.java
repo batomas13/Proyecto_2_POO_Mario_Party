@@ -135,7 +135,6 @@ public class Juego_gato extends JFrame {
             switch(numeroJugador){
                 case 0 -> {
                     JOptionPane.showMessageDialog(null, "Ha ganado el jugador " + nombre2);
-                    Jugador2.setEsGanador(true);
                 }
                 case 1 -> {
                     JOptionPane.showMessageDialog(null, "Ha ganado el jugador " + nombre1);
