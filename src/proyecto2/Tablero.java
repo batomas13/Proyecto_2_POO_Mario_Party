@@ -47,8 +47,9 @@ public class Tablero extends javax.swing.JFrame {
             jPanel1.add(playerArray.get(i).getRefButton());
             playerArray.get(i).refButton.setBounds(0, i * 20, 40, 20);
         }
-        initBoard();
         initRandomTiles();
+        initBoard();
+        
     } 
     
     public void initRandomTiles() {
@@ -73,6 +74,7 @@ public class Tablero extends javax.swing.JFrame {
                 buttonArray[i].setBounds(880-(i-14)* BUTTON_SIZE, 660 , BUTTON_SIZE, BUTTON_SIZE);
             else
                 buttonArray[i].setBounds(0, 660-(i-22)* BUTTON_SIZE, BUTTON_SIZE, BUTTON_SIZE);
+            buttonArray[i].setText(arrayCasillas.get(i));
         }
     }
 
@@ -341,7 +343,7 @@ public class Tablero extends javax.swing.JFrame {
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
             }
             case "FlorHielo" ->{ // Hace que un jugador pierda 2 turnos
-                String nomCliente = JOptionPane.showInputDialog("Introducir a quien quire devolver");
+                String nomCliente = JOptionPane.showInputDialog("Introducir a quien quire congelar");
                 int jugadordevuelto = Integer.getInteger(nomCliente);
                 playerArray.get(jugadordevuelto).setCarcel(true);
                 System.out.println("Activasión: jugador " + jugadorActivador.getNombre() + " activa casilla de " + tipoCasilla);
